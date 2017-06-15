@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title><![CDATA[开始使用Hexo]]></title>
+    <url>%2F2017%2F06%2F15%2FStart-Hexo%2F</url>
+    <content type="text"><![CDATA[在朋友的推荐下尝试了一些Hexo + Next，使用后感觉真的很简单，并且Next效果很棒，最终切换为Hexo + Next。 切换过程遇到了一些问题，做一个记录，分享出来。 安装安装过程遇到2个问题： 我是在Mac上使用刚刚发布的Node.js V8.0，结果在安装过程中发现依赖包fsevents包V1.1.1不支持Node.js V8，好在等了几天 V1.1.2解决了这个问题。然后按照官方文档进行安装。 我使用了npm 淘宝镜像（参考常用国内源汇总), 结果发现部分包按照失败，指定官方源解决：123npm i hexo-cli -g --registry=https://registry.npmjs.org/npm i --registry=https://registry.npmjs.org/ 404将404.html放在themes/next/source/404.html，注意，这个配置在本地调整不生效，deploy后生效。 CDN配置参考Next进价设定修改国内CDN，以提高网页访问速度。 SVG问题解决之前使用Jekyll写过一篇”用SVG实现一个半圆形仪表盘“的文章，其中显示SVG部分直接写&lt;svg&gt;标签就可以，更换之后发现svg无法显示。修改如下：12345&#123;% raw %&#125;&lt;svg&gt;...&lt;/svg&gt;&#123;% endraw %&#125; Reveal支持以前做了一些Keynote，并在Blog中进行展示，这个我还是希望能支持。没有找到很好的办法，只能修改Next源码。 首先，我的Markdown文件中的Front-matter中增加一个描述，key为iframe，值为Keynote地址。例如： 1iframe: "https://qiaolb.github.io/presentation/brief-history-time.html" 然后修改themes/next/layout/_macro/post.swig，在header最后增加如下内容：123&#123;% if page.iframe %&#125; &lt;iframe src="&#123;&#123;page.iframe&#125;&#125;"&gt;&lt;/iframe&gt;&#123;% endif %&#125; 这样就可以在header区域显示出Keynote。接下来调整样式，在themes/next/source/css/_custom/custom.styl，增加以下内容： 123456789.post-header iframe &#123; width: 100%; height: 450px; border: 0;&#125;@media (max-width: 767px) &#123; .post-header iframe &#123; height: 200px; &#125;&#125; 一切就绪，所有以前的内容都可以正常显示了。 Search我配置了Local Search，这个比较简单。首先需要安装模块： 12npm install hexo-generator-search --savenpm install hexo-generator-searchdb --save 然后打开主题设置文件（themes/next/_config.yml），打开Local Search功能：12local_search: enable: true 还有很多好玩的配置，以后慢慢研究。]]></content>
+  </entry>
+  <entry>
+    <title><![CDATA[时间简史]]></title>
+    <url>%2F2017%2F05%2F06%2Fbrief-histroy-time%2F</url>
+    <content type="text"><![CDATA[下滑这里查看更多内容 时间处理在开发中最常见的问题，应同事要求我做一个简单的汇总，方便学习。 之所以使用《时间简史》这个名字，一方面是和时间有关，更多的是希望像霍金一样能用最简单的方式来介绍概念，为开发人员进行科普。 Watch Slides →这个 Web Slides 开源在我的 Github 上，欢迎你帮助我完善这个展示文稿，你可以给我提 issue。如果它能帮助到你了，希望你还能不吝啬 star 一下这个项目 Catalog 第一 概念 第二 Java中的时间 第三 C/C++中的时间 第四 JavaScript中的时间 第五 数据库中的时间 ThanksReveal.js]]></content>
+      <tags>
+        <tag>基础</tag>
+        <tag>Time</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[常用国内源汇总]]></title>
+    <url>%2F2017%2F03%2F19%2Fchina-source%2F</url>
+    <content type="text"><![CDATA[在开发和实施中，经常需要调整各种源，以到达最快的速度，今天对我常用的源做一个汇总。 Node.js可以直接从阿里源下载 NPMNPM阿里的源： https://npm.taobao.org/可以按照网页中的描述按照cnpm，但我更喜欢直接使用npm，只是将源修改为阿里的方法如下： 1npm config set registry https://registry.npm.taobao.org phantomjsPhantomJS 是一个基于 WebKit 的服务器端 JavaScript API。在npm安装时经常会用到，但国外的源下载很慢，修改为国内的源的方法如下：增加环境变量： 1PHANTOMJS_CDNURL=http://npm.taobao.org/mirrors/phantomjs CentOS163源，使用方法参考： http://mirrors.163.com/.help/centos.html 下载对应版本repo文件, 放入/etc/yum.repos.d/(操作前请做好相应备份) CentOS7CentOS6CentOS5 运行以下命令生成缓存 12yum clean allyum makecache 另外，163源还提供了debian，Ubuntu等源镜像。 常用js库功能CDNbootcdn，相对比较全七牛云存储CNDJS 从官方CNDJS镜像：http://www.cdnjs.com/]]></content>
+      <tags>
+        <tag>NPM</tag>
+        <tag>Linux</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[用SVG实现一个半圆形仪表盘]]></title>
+    <url>%2F2017%2F03%2F11%2Fsvg-circle%2F</url>
+    <content type="text"><![CDATA[由于需要在网页中展示一个如下的效果： 项目开发采用的是React，使用 Ant Design 组件库，我发现Ant Design中有一个Progress很像，效果如下： Process使用的是rc_progress，实现过程很巧妙，首先通过两个圆，然后将要显示进度的圆变成虚线，通过调节虚线起始位置来实现进度的变化。我也类似的做了一个仪表盘，对Process做了一些调整。具体步骤如下： 首先画两个圆，一个为底图，一个为进度图。画法是分别左右画一个半圆。123const pathString = `M 50,50 m 0,$&#123;radius&#125; a $&#123;radius&#125;,$&#123;radius&#125; 0 1 1 0,-$&#123;2 * radius&#125; a $&#123;radius&#125;,$&#123;radius&#125; 0 1 1 0,$&#123;2 * radius&#125;`; 然后将底图的圆变成虚线，虚线中不显示的部分我开口的部分123456const len = Math.PI * 2 * radius;const trailPathStyle = &#123; strokeDasharray: `$&#123;len - openWidth&#125;px $&#123;len&#125;px`, strokeDashoffset: `$&#123;openWidth / 2&#125;px`, transition: 'stroke-dashoffset 0.3s ease 0s, stroke 0.3s ease',&#125;; 同样的方法，将进度圆也修改为虚线12345const strokePathStyle = &#123; strokeDasharray: `$&#123;percent / 100 * (len - openWidth)&#125;px $&#123;len&#125;px`, strokeDashoffset: `$&#123;openWidth / 2&#125;px`, transition: 'stroke-dashoffset 0.3s ease 0s, stroke 0.3s ease',&#125;; SVG部分代码如下： 12345678910111213141516171819202122232425&lt;svg className=&#123;`$&#123;prefixCls&#125;-circle $&#123;className&#125;`&#125; viewBox="0 0 100 100" style=&#123;style&#125; &#123;...restProps&#125;&gt; &lt;path className=&#123;`$&#123;prefixCls&#125;-circle-trail`&#125; d=&#123;pathString&#125; stroke=&#123;trailColor&#125; strokeWidth=&#123;trailWidth || strokeWidth&#125; fillOpacity="0" style=&#123;trailPathStyle&#125; /&gt; &lt;path className=&#123;`$&#123;prefixCls&#125;-circle-path`&#125; d=&#123;pathString&#125; strokeLinecap=&#123;strokeLinecap&#125; stroke=&#123;strokeColor&#125; strokeWidth=&#123;strokeWidth&#125; fillOpacity="0" ref=&#123;(path) =&gt; &#123; this.path = path; &#125;&#125; style=&#123;strokePathStyle&#125; /&gt;&lt;/svg&gt; 修改完成后效果如下： 这部分代码我已经提交了一个建议给Ant Design，希望他们能做的更好。 后记，相关的SVG知识&lt;path&gt; 标签：用来定义路径。 下面的命令可用于路径数据： M = moveto L = lineto H = horizontal lineto V = vertical lineto C = curveto S = smooth curveto Q = quadratic Belzier curve T = smooth quadratic Belzier curveto A = elliptical Arc Z = closepath 注释：以上所有命令均允许小写字母。大写表示绝对定位，小写表示相对定位。 stroke-dasharray 是用于设置虚线的属性。你可以使用它来设置每条划线长度以及划线之间空格的大小著作权归作者所有。 123456&lt;svg width="600px" height="300px"&gt; &lt;line x1="0" y1="20" x2="600" y2="20" stroke="#000" stroke-width="3" stroke-dasharray="10 2"/&gt; &lt;line x1="0" y1="40" x2="600" y2="40" stroke="#000" stroke-width="3" stroke-dasharray="5 10"/&gt; &lt;line x1="0" y1="60" x2="600" y2="60" stroke="#000" stroke-width="3" stroke-dasharray="1 1"/&gt; &lt;line x1="0" y1="80" x2="600" y2="80" stroke="#000" stroke-width="3" stroke-dasharray="10"/&gt;&lt;/svg&gt; 第一个值是划线的长度，第二个值是各个划线之间的空格大小。如果你只设置了一个值（如上面的最后一个示例），它会默认设置相同划线长度和划线空格。 stroke-dashoffset属性是设置虚线的偏移量。 1234567&lt;svg width="600px"&gt; &lt;line x1="0" y1="20" x2="600" y2="20" stroke="#000" stroke-width="3" stroke-dasharray="50 30"/&gt; &lt;line x1="0" y1="40" x2="600" y2="40" stroke="#000" stroke-width="3" stroke-dasharray="50 30" stroke-dashoffset="10"/&gt;&lt;/svg&gt; 第二条线设置stroke-dashoffset=10，线条偏移了10，效果如下：]]></content>
+      <tags>
+        <tag>JavaScript</tag>
+        <tag>React</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[React的Stateless Functional Components]]></title>
+    <url>%2F2017%2F02%2F19%2Freact-stateless%2F</url>
+    <content type="text"><![CDATA[最早在写React组件时，使用的以下方法：123456789var App = React.createClass(&#123; handleClick: function () &#123; ... &#125; render: function() &#123; return &lt;div onClick=&#123;handleClick&#125;&gt;Click me!&lt;/div&gt;; &#125;&#125;); 后来使用ES6的class，写法如下： 12345678class App extends React.Componnet &#123; handleClick() &#123; ... &#125; render() &#123; return &lt;div onClick=&#123;this.handleClick.bind(this)&#125;&gt;Click me!&lt;/div&gt; &#125;&#125; 今天看到另外一种写法：Stateless Functional Components，写法如下： 123456function App(props) &#123; function handleClick() &#123; ... &#125; return &lt;div onClick=&#123;handleClick&#125;&gt;Click me!&lt;/div&gt;&#125; Stateless Functional Components保持简洁和无状态。这是函数，不是 Object，没有 this 作用域，是 pure function。推荐尽量使用最后一种。似乎有回到了函数年代。]]></content>
+      <tags>
+        <tag>JavaScript</tag>
+        <tag>React</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[FindBugs中的过滤]]></title>
+    <url>%2F2017%2F01%2F25%2Ffindbugs-filter%2F</url>
+    <content type="text"><![CDATA[在开发项目中我们使用了findbugs进行代码检查，使用findbugs-maven-plugin进行maven配置，在一个项目中发现Findbugs检查有以下错误： 123Type MS_SHOULD_BE_FINALThis static field public but not final, and could be changed by malicious code or by accident from another package. The field could be made final to avoid this vulnerability. 这个类型的错误属于设计上不够严谨，但由于历史代码修改比较多，所以我们可以对这个错误告警进行过滤。具体方法如下： 增加一个过滤文件我这里命名为：findbugs-exclude.xml 12345&lt;FindBugsFilter&gt; &lt;Match&gt; &lt;Bug pattern="MS_SHOULD_BE_FINAL" /&gt; &lt;/Match&gt;&lt;/FindBugsFilter&gt; 修改pom.xml在findbugs-maven-plugin中增加配置： 12345678&lt;plugin&gt; &lt;groupId&gt;org.codehaus.mojo&lt;/groupId&gt; &lt;artifactId&gt;findbugs-maven-plugin&lt;/artifactId&gt; &lt;version&gt;3.0.4&lt;/version&gt; &lt;configuration&gt; &lt;excludeFilterFile&gt;findbugs-exclude.xml&lt;/excludeFilterFile&gt; &lt;/configuration&gt;&lt;/plugin&gt; 现在这个问题就不会再告警了。 不过，我们还是要严谨的对待FindBugs提醒我们的问题。]]></content>
+      <tags>
+        <tag>Java</tag>
+        <tag>FindBugs</tag>
+        <tag>Maven</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Welcome to Joe Blog]]></title>
+    <url>%2F2016%2F10%2F24%2Fhello-2016%2F</url>
+    <content type="text"><![CDATA[“Yeah It’s on. ” 我fork了 Hux 的 Blog，开通了自己在Github上的Blog。 因为比较喜欢Github，也觉得Markdown更加简单，两个正好是我想要的，一拍即合。 Go！]]></content>
+      <tags>
+        <tag>生活</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[引人的ECMAScript]]></title>
+    <url>%2F2016%2F10%2F20%2Fes2015-basic%2F</url>
+    <content type="text"><![CDATA[下滑这里查看更多内容 10月20日，我在公司内部的「威发大讲坛」进行了名为「引人的ECMAScript」分享，希望能对大家有帮助。 现在，我决定将它重新发到我的博客上。 Watch Slides → 这个 Web Slides 开源在我的 Github 上，欢迎你帮助我完善这个展示文稿，你可以给我提 issue。如果它能帮助到你了，希望你还能不吝啬 star 一下这个项目 Catalog 第一 ECMAScript 简介 第二 ECMAScript 2015新特性 第三 何时可以使用？ ThanksReveal.js]]></content>
+      <tags>
+        <tag>前端开发</tag>
+        <tag>JavaScript</tag>
+      </tags>
+  </entry>
+</search>
