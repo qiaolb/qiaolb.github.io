@@ -12,3 +12,6 @@ npm install
 ```
 hexo server
 ```
+
+#### 发布
+hexo deploy
