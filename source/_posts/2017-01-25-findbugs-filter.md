@@ -4,7 +4,6 @@ title:      "FindBugs中的过滤"
 subtitle:   "过滤不需要的检查"
 date:       2017-01-25 00:00:00
 author:     "Joe"
-header-img: "img/post-bg-2015.jpg"
 tags:
     - Java
     - FindBugs

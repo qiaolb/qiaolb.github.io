@@ -4,7 +4,6 @@ title:      "常用国内源汇总"
 subtitle:   "在开发和实施中，经常需要使用各种源"
 date:       2017-03-19 00:00:00
 author:     "Joe"
-header-img: "img/post-bg-2015.jpg"
 tags:
     - NPM
     - Linux

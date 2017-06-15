@@ -5,7 +5,6 @@ subtitle:   "程序中的时间处理"
 iframe:     "https://qiaolb.github.io/presentation/brief-history-time.html"
 date:       2017-05-06
 author:     "Joe"
-header-img: "img/post-bg-js-version.jpg"
 tags: 
     - 基础
     - Time

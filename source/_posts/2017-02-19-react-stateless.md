@@ -4,7 +4,6 @@ title:      "React的Stateless Functional Components"
 subtitle:   "React组件的3中定义方式"
 date:       2017-02-19 00:00:00
 author:     "Joe"
-header-img: "img/post-bg-2015.jpg"
 tags:
     - JavaScript
     - React

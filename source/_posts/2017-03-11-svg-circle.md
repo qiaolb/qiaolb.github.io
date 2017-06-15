@@ -4,7 +4,6 @@ title:      "用SVG实现一个半圆形仪表盘"
 subtitle:   "经常在网页中需要仪表盘显示，SVG无疑是一种更好的方式"
 date:       2017-03-11 00:00:00
 author:     "Joe"
-header-img: "img/post-bg-2015.jpg"
 tags:
     - JavaScript
     - React
