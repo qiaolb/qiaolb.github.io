@@ -3,6 +3,8 @@ layout: blog
 title: 开始使用Hexo
 date: 2017-06-15 19:11:21
 tags:
+    - Hexo
+    - Next
 ---
 
 在朋友的推荐下尝试了一些`Hexo` + `Next`，使用后感觉真的很简单，并且`Next`效果很棒，最终切换为`Hexo` + `Next`。
