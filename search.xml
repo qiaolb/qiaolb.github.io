@@ -4,6 +4,10 @@
     <title><![CDATA[开始使用Hexo]]></title>
     <url>%2F2017%2F06%2F15%2FStart-Hexo%2F</url>
     <content type="text"><![CDATA[在朋友的推荐下尝试了一些Hexo + Next，使用后感觉真的很简单，并且Next效果很棒，最终切换为Hexo + Next。 切换过程遇到了一些问题，做一个记录，分享出来。 安装安装过程遇到2个问题： 我是在Mac上使用刚刚发布的Node.js V8.0，结果在安装过程中发现依赖包fsevents包V1.1.1不支持Node.js V8，好在等了几天 V1.1.2解决了这个问题。然后按照官方文档进行安装。 我使用了npm 淘宝镜像（参考常用国内源汇总), 结果发现部分包按照失败，指定官方源解决：123npm i hexo-cli -g --registry=https://registry.npmjs.org/npm i --registry=https://registry.npmjs.org/ 404将404.html放在themes/next/source/404.html，注意，这个配置在本地调整不生效，deploy后生效。 CDN配置参考Next进价设定修改国内CDN，以提高网页访问速度。 SVG问题解决之前使用Jekyll写过一篇”用SVG实现一个半圆形仪表盘“的文章，其中显示SVG部分直接写&lt;svg&gt;标签就可以，更换之后发现svg无法显示。修改如下：12345&#123;% raw %&#125;&lt;svg&gt;...&lt;/svg&gt;&#123;% endraw %&#125; Reveal支持以前做了一些Keynote，并在Blog中进行展示，这个我还是希望能支持。没有找到很好的办法，只能修改Next源码。 首先，我的Markdown文件中的Front-matter中增加一个描述，key为iframe，值为Keynote地址。例如： 1iframe: "https://qiaolb.github.io/presentation/brief-history-time.html" 然后修改themes/next/layout/_macro/post.swig，在header最后增加如下内容：123&#123;% if page.iframe %&#125; &lt;iframe src="&#123;&#123;page.iframe&#125;&#125;"&gt;&lt;/iframe&gt;&#123;% endif %&#125; 这样就可以在header区域显示出Keynote。接下来调整样式，在themes/next/source/css/_custom/custom.styl，增加以下内容： 123456789.post-header iframe &#123; width: 100%; height: 450px; border: 0;&#125;@media (max-width: 767px) &#123; .post-header iframe &#123; height: 200px; &#125;&#125; 一切就绪，所有以前的内容都可以正常显示了。 Search我配置了Local Search，这个比较简单。首先需要安装模块： 12npm install hexo-generator-search --savenpm install hexo-generator-searchdb --save 然后打开主题设置文件（themes/next/_config.yml），打开Local Search功能：12local_search: enable: true 还有很多好玩的配置，以后慢慢研究。]]></content>
+      <tags>
+        <tag>Hexo</tag>
+        <tag>Next</tag>
+      </tags>
   </entry>
   <entry>
     <title><![CDATA[时间简史]]></title>
