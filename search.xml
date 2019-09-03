@@ -1,6 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[GitLab Pages在Kubernetes中进行Access Control]]></title>
+    <url>%2Fpages-in-k8s.html</url>
+    <content type="text"><![CDATA[最近在Kubernetes中部署了GitLab，GitLab使用HTTP，在Kubernetes通过Ingress进行HTTPS代理，对外使用HTTPS访问。当在部署GitLab Pages时，系统通过Access Contrel进行访问控制时，结果发现出现503错误。经过多次尝试，发现有两个解决方法：全部不使用HTTPS，使用HTTP。这个方法简单粗暴，但不安全。修改修改配置如下：1234567891011121314# external_url设置为https，如果设置http，在通过Ingress代理成https，大部分功能没有问题，但发现Web IDE打开是因为在HTTPS请求中使用了HTTP大致失败，未来有可能GitLab会修改这个问题。但目前只能如此。external_url 'https://gitlab.example.cn'# Pages的对外页面，这里使用HTTP，通过Ingress进行HTTPS代理pages_external_url "http://example.cn/"# 如果使用容器部署，inplace_chroot需要打开gitlab_pages['inplace_chroot'] = true# 接入控制开关gitlab_pages['access_control'] = true# auth_server是关键，缺省和external_url相同，因为external_url设置为https，导致pages无法通过证书验证，所有修改认证为http方式。gitlab_pages['auth_server'] = 'http://gitlab.rd.example.cn'终于，GitLab中Web IDE和Pages都可以完美工作了。备注： GitLab使用版本 V11~V12.2]]></content>
+      <tags>
+        <tag>k8s</tag>
+        <tag>gitlab</tag>
+        <tag>pages</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[Kubernetes中删除Calico]]></title>
     <url>%2Fremove-calico.html</url>
     <content type="text"><![CDATA[最近发现Kubernetes集群中，出现不稳定情况，怀疑是Calico导致，为了排除文件，打算将Calico更换为Flannel，本来以为很简单，结果还是遇到Calico无法删除干净的问题。所有将删除正确删除过程做一个记录。 顺便说一下，最终确定和Calico无关。环境：Kubernetes： V1.15Calico： V3.5删除步骤：删除K8s对象1kubectl delete -f calico.yaml检查所有节点上的网络，看看是否存在Tunl01ip addr show如果有Tunl0，将其删除1modprobe -r ipip移除Calico配置文件1ls /etc/cni/net.d/看看是否存在Calico相关的文件和目录，如：10-calico.conflist， calico-kubeconfig， calico-tls，如果有将其移除。这时候整个Calico移除成功。]]></content>
@@ -9,11 +19,6 @@
         <tag>network</tag>
         <tag>calico</tag>
       </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[Windows Onscreen Keyboard]]></title>
-    <url>%2FWindows-Onscreen-Keyboard.html</url>
-    <content type="text"></content>
   </entry>
   <entry>
     <title><![CDATA[开始使用Hexo]]></title>
