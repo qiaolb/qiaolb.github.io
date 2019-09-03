@@ -14,7 +14,7 @@ timezone: Asia/Shanghai
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
 url: https://qiaolb.github.io
 root: /
-permalink: :year/:month/:day/:title/
+permalink: :title.html
 permalink_defaults:
 
 # Directory
@@ -71,3 +71,42 @@ deploy:
   type: git
   repo: https://github.com/qiaolb/qiaolb.github.io
   branch: master
+
+
+#qiniu:
+#  offline: false
+#  sync: true
+#  bucket: bucket_name
+#  secret_file: secret_qiniu.json
+#  #access_key: AccessKey
+#  #secret_key: SecretKey
+#  dirPrefix: static
+#  urlPrefix: http://joeblog.qiniudn.com/static
+#  up_host: http://upload.qiniu.com
+#  local_dir: static
+#  update_exist: true
+#  image:
+#    folder: images
+#    extend:
+#  js:
+#    folder: js
+#  css:
+#    folder: css
+
+html_minifier:
+  enable: true
+  ignore_error: false
+  exclude:
+
+css_minifier:
+  enable: true
+  exclude:
+    - '*.min.css'
+
+js_minifier:
+  enable: true
+  mangle: true
+  output:
+  compress:
+  exclude:
+    - '*.min.js'

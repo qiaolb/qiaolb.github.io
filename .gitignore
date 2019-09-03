@@ -7,3 +7,4 @@ public/
 .deploy*/
 .idea/
 .deploy_git/
+secret_qiniu.json
