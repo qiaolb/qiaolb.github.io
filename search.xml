@@ -1,16 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title><![CDATA[GitLab Pages在Kubernetes中进行Access Control]]></title>
-    <url>%2Fpages-in-k8s.html</url>
-    <content type="text"><![CDATA[最近在Kubernetes中部署了GitLab，GitLab使用HTTP，在Kubernetes通过Ingress进行HTTPS代理，对外使用HTTPS访问。当在部署GitLab Pages时，系统通过Access Contrel进行访问控制时，结果发现出现503错误。经过多次尝试，发现有两个解决方法：全部不使用HTTPS，使用HTTP。这个方法简单粗暴，但不安全。修改修改配置如下：1234567891011121314# external_url设置为https，如果设置http，在通过Ingress代理成https，大部分功能没有问题，但发现Web IDE打开是因为在HTTPS请求中使用了HTTP大致失败，未来有可能GitLab会修改这个问题。但目前只能如此。external_url 'https://gitlab.example.cn'# Pages的对外页面，这里使用HTTP，通过Ingress进行HTTPS代理pages_external_url "http://example.cn/"# 如果使用容器部署，inplace_chroot需要打开gitlab_pages['inplace_chroot'] = true# 接入控制开关gitlab_pages['access_control'] = true# auth_server是关键，缺省和external_url相同，因为external_url设置为https，导致pages无法通过证书验证，所有修改认证为http方式。gitlab_pages['auth_server'] = 'http://gitlab.rd.example.cn'终于，GitLab中Web IDE和Pages都可以完美工作了。备注： GitLab使用版本 V11~V12.2]]></content>
-      <tags>
-        <tag>k8s</tag>
-        <tag>gitlab</tag>
-        <tag>pages</tag>
-      </tags>
-  </entry>
-  <entry>
     <title><![CDATA[升级Kubernetes到1.16]]></title>
     <url>%2Fupgrade-k8s1.16.html</url>
     <content type="text"><![CDATA[升级Kubernetes到1.16时发现2个问题：执行kubeadm upgrade plan 提示CoreDNS插件失败，解决办法：修改CoreDNS配置文件：script1kubectl edit -n kube-system configmaps coredns删除：proxy . /etc/resolv.conf然后执行就可以成功。升级后Node节点状态为Not Ready检查日志：script1journalctl -f -u kubelet.service结果：script12310月 16 11:46:21 k8s-master kubelet[11043]: E1016 11:46:21.515027 11043 kubelet.go:2187] Container runtime network not ready: NetworkReady=false reason:NetworkPluginNotReady message:docker: network plugin is not ready: cni config uninitialized10月 16 11:46:26 k8s-master kubelet[11043]: W1016 11:46:26.201162 11043 cni.go:202] Error validating CNI config &amp;&#123;cbr0 false [0xc0004a08a0 0xc0004a0940] [123 10 32 32 34 110 97 109 101 34 58 32 34 99 98 114 48 34 44 10 32 32 34 112 108 117 103 105 110 115 34 58 32 91 10 32 32 32 32 123 10 32 32 32 32 32 32 34 116 121 112 101 34 58 32 34 102 108 97 110 110 101 108 34 44 10 32 32 32 32 32 32 34 100 101 108 101 103 97 116 101 34 58 32 123 10 32 32 32 32 32 32 32 32 34 104 97 105 114 112 105 110 77 111 100 101 34 58 32 116 114 117 101 44 10 32 32 32 32 32 32 32 32 34 105 115 68 101 102 97 117 108 116 71 97 116 101 119 97 121 34 58 32 116 114 117 101 10 32 32 32 32 32 32 125 10 32 32 32 32 125 44 10 32 32 32 32 123 10 32 32 32 32 32 32 34 116 121 112 101 34 58 32 34 112 111 114 116 109 97 112 34 44 10 32 32 32 32 32 32 34 99 97 112 97 98 105 108 105 116 105 101 115 34 58 32 123 10 32 32 32 32 32 32 32 32 34 112 111 114 116 77 97 112 112 105 110 103 115 34 58 32 116 114 117 101 10 32 32 32 32 32 32 125 10 32 32 32 32 125 10 32 32 93 10 125 10]&#125;: [plugin flannel does not support config version ""]10月 16 11:46:26 k8s-master kubelet[11043]: W1016 11:46:26.201211 11043 cni.go:237] Unable to update cni config: no valid networks found in /etc/cni/net.d修改flannel配置：script1vi /etc/cni/net.d/10-flannel.conflist在&quot;name&quot;: &quot;cbr0&quot;前增加：script1"cniVersion": "0.3.1",稍等片刻node自动恢复。]]></content>
@@ -18,6 +8,16 @@
         <tag>k8s</tag>
         <tag>network</tag>
         <tag>flannel</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[GitLab Pages在Kubernetes中进行Access Control]]></title>
+    <url>%2Fpages-in-k8s.html</url>
+    <content type="text"><![CDATA[最近在Kubernetes中部署了GitLab，GitLab使用HTTP，在Kubernetes通过Ingress进行HTTPS代理，对外使用HTTPS访问。当在部署GitLab Pages时，系统通过Access Contrel进行访问控制时，结果发现出现503错误。经过多次尝试，发现有两个解决方法：全部不使用HTTPS，使用HTTP。这个方法简单粗暴，但不安全。修改修改配置如下：1234567891011121314# external_url设置为https，如果设置http，在通过Ingress代理成https，大部分功能没有问题，但发现Web IDE打开是因为在HTTPS请求中使用了HTTP大致失败，未来有可能GitLab会修改这个问题。但目前只能如此。external_url 'https://gitlab.example.cn'# Pages的对外页面，这里使用HTTP，通过Ingress进行HTTPS代理pages_external_url "http://example.cn/"# 如果使用容器部署，inplace_chroot需要打开gitlab_pages['inplace_chroot'] = true# 接入控制开关gitlab_pages['access_control'] = true# auth_server是关键，缺省和external_url相同，因为external_url设置为https，导致pages无法通过证书验证，所有修改认证为http方式。gitlab_pages['auth_server'] = 'http://gitlab.rd.example.cn'终于，GitLab中Web IDE和Pages都可以完美工作了。备注： GitLab使用版本 V11~V12.2]]></content>
+      <tags>
+        <tag>k8s</tag>
+        <tag>gitlab</tag>
+        <tag>pages</tag>
       </tags>
   </entry>
   <entry>
