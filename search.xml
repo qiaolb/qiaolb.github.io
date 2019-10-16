@@ -11,6 +11,16 @@
       </tags>
   </entry>
   <entry>
+    <title><![CDATA[升级Kubernetes到1.16]]></title>
+    <url>%2Fupgrade-k8s1.16.html</url>
+    <content type="text"><![CDATA[升级Kubernetes到1.16时发现2个问题：执行kubeadm upgrade plan 提示CoreDNS插件失败，解决办法：修改CoreDNS配置文件：script1kubectl edit -n kube-system configmaps coredns删除：proxy . /etc/resolv.conf然后执行就可以成功。升级后Node节点状态为Not Ready检查日志：script1journalctl -f -u kubelet.service结果：script12310月 16 11:46:21 k8s-master kubelet[11043]: E1016 11:46:21.515027 11043 kubelet.go:2187] Container runtime network not ready: NetworkReady=false reason:NetworkPluginNotReady message:docker: network plugin is not ready: cni config uninitialized10月 16 11:46:26 k8s-master kubelet[11043]: W1016 11:46:26.201162 11043 cni.go:202] Error validating CNI config &amp;&#123;cbr0 false [0xc0004a08a0 0xc0004a0940] [123 10 32 32 34 110 97 109 101 34 58 32 34 99 98 114 48 34 44 10 32 32 34 112 108 117 103 105 110 115 34 58 32 91 10 32 32 32 32 123 10 32 32 32 32 32 32 34 116 121 112 101 34 58 32 34 102 108 97 110 110 101 108 34 44 10 32 32 32 32 32 32 34 100 101 108 101 103 97 116 101 34 58 32 123 10 32 32 32 32 32 32 32 32 34 104 97 105 114 112 105 110 77 111 100 101 34 58 32 116 114 117 101 44 10 32 32 32 32 32 32 32 32 34 105 115 68 101 102 97 117 108 116 71 97 116 101 119 97 121 34 58 32 116 114 117 101 10 32 32 32 32 32 32 125 10 32 32 32 32 125 44 10 32 32 32 32 123 10 32 32 32 32 32 32 34 116 121 112 101 34 58 32 34 112 111 114 116 109 97 112 34 44 10 32 32 32 32 32 32 34 99 97 112 97 98 105 108 105 116 105 101 115 34 58 32 123 10 32 32 32 32 32 32 32 32 34 112 111 114 116 77 97 112 112 105 110 103 115 34 58 32 116 114 117 101 10 32 32 32 32 32 32 125 10 32 32 32 32 125 10 32 32 93 10 125 10]&#125;: [plugin flannel does not support config version ""]10月 16 11:46:26 k8s-master kubelet[11043]: W1016 11:46:26.201211 11043 cni.go:237] Unable to update cni config: no valid networks found in /etc/cni/net.d修改flannel配置：script1vi /etc/cni/net.d/10-flannel.conflist在&quot;name&quot;: &quot;cbr0&quot;前增加：script1"cniVersion": "0.3.1",稍等片刻node自动恢复。]]></content>
+      <tags>
+        <tag>k8s</tag>
+        <tag>network</tag>
+        <tag>flannel</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[Kubernetes中删除Calico]]></title>
     <url>%2Fremove-calico.html</url>
     <content type="text"><![CDATA[最近发现Kubernetes集群中，出现不稳定情况，怀疑是Calico导致，为了排除文件，打算将Calico更换为Flannel，本来以为很简单，结果还是遇到Calico无法删除干净的问题。所有将删除正确删除过程做一个记录。 顺便说一下，最终确定和Calico无关。环境：Kubernetes： V1.15Calico： V3.5删除步骤：删除K8s对象1kubectl delete -f calico.yaml检查所有节点上的网络，看看是否存在Tunl01ip addr show如果有Tunl0，将其删除1modprobe -r ipip移除Calico配置文件1ls /etc/cni/net.d/看看是否存在Calico相关的文件和目录，如：10-calico.conflist， calico-kubeconfig， calico-tls，如果有将其移除。这时候整个Calico移除成功。]]></content>
