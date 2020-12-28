@@ -76,3 +76,28 @@ Done renewing certificates. You must restart the kube-apiserver, kube-controller
 从提示来看这个命令已经不建议使用，未来会使用`kubeadm certs`，这次就先这样，下次可以试试这个命令。
 
 执行完成后，将`/etc/kubernetes/admin.conf`复制到`~/.kube/config`，就可以正常使用了。我没有重启`kube-apiserver, kube-controller-manager, kube-scheduler and etcd`前已经可以连接了，安全起见，还是重启一下。
+
+可以连接后，也可以通过`k8s`命令查看证书状态：
+
+```
+> kubeadm certs check-expiration
+[check-expiration] Reading configuration from the cluster...
+[check-expiration] FYI: You can look at this config file with 'kubectl -n kube-system get cm kubeadm-config -o yaml'
+
+CERTIFICATE                EXPIRES                  RESIDUAL TIME   CERTIFICATE AUTHORITY   EXTERNALLY MANAGED
+admin.conf                 Dec 28, 2021 00:06 UTC   364d                                    no      
+apiserver                  Dec 28, 2021 00:06 UTC   364d            ca                      no      
+apiserver-etcd-client      Dec 28, 2021 00:06 UTC   364d            etcd-ca                 no      
+apiserver-kubelet-client   Dec 28, 2021 00:06 UTC   364d            ca                      no      
+controller-manager.conf    Dec 28, 2021 00:06 UTC   364d                                    no      
+etcd-healthcheck-client    Dec 28, 2021 00:06 UTC   364d            etcd-ca                 no      
+etcd-peer                  Dec 28, 2021 00:06 UTC   364d            etcd-ca                 no      
+etcd-server                Dec 28, 2021 00:06 UTC   364d            etcd-ca                 no      
+front-proxy-client         Dec 28, 2021 00:06 UTC   364d            front-proxy-ca          no      
+scheduler.conf             Dec 28, 2021 00:06 UTC   364d                                    no      
+
+CERTIFICATE AUTHORITY   EXPIRES                  RESIDUAL TIME   EXTERNALLY MANAGED
+ca                      Dec 24, 2029 07:18 UTC   8y              no      
+etcd-ca                 Dec 24, 2029 07:18 UTC   8y              no      
+front-proxy-ca          Dec 24, 2029 07:18 UTC   8y              no      
+```
