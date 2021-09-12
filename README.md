@@ -14,6 +14,7 @@ hexo server
 ```
 
 #### 发布
+
 ```
 hexo generate
 hexo deploy
