@@ -102,10 +102,10 @@ theme: next
 
 # Deployment
 ## Docs: https://hexo.io/docs/one-command-deployment
-# deploy:
-#   type: git
-#   repo: https://github.com/qiaolb/qiaolb.github.io
-#   branch: master
+deploy:
+  type: git
+  repo: https://github.com/qiaolb/qiaolb.github.io
+  branch: gh-pages
 
 html_minifier:
   enable: true
