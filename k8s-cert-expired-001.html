@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.0.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/function%20()%20%7B%0A%20%20%20%20%20%20for%20(var%20_len2%20=%20arguments.length,%20args%20=%20new%20Array(_len2),%20_key2%20=%200;%20_key2%20%3C%20_len2;%20_key2++)%20%7B%0A%20%20%20%20%20%20%20%20args%5B_key2%5D%20=%20arguments%5B_key2%5D;%0A%20%20%20%20%20%20%7D%0A%0A%20%20%20%20%20%20return%20obj%5Bval%5D.apply(obj,%20args);%0A%20%20%20%20%7D">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.loli.net/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"qiaolb.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="今天在部署Kubernetes的Deployment时，删除Deployment，发现不会自动删除Replica Set和Pod，开始怀疑是某个工作node故障，重启或者迁移到其他node问题一样。后来重启了master节点，发现有2个master启动无法注册node。 我的环境中有3个master节点，检查容器，发现master01启动正常，master02和master03的etcd容器都无法">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Kubernetes证书过期(二)">
+<meta property="og:url" content="https://qiaolb.github.io/k8s-cert-expired-001.html">
+<meta property="og:site_name" content="This is JOE">
+<meta property="og:description" content="今天在部署Kubernetes的Deployment时，删除Deployment，发现不会自动删除Replica Set和Pod，开始怀疑是某个工作node故障，重启或者迁移到其他node问题一样。后来重启了master节点，发现有2个master启动无法注册node。 我的环境中有3个master节点，检查容器，发现master01启动正常，master02和master03的etcd容器都无法">
+<meta property="og:locale">
+<meta property="article:published_time" content="2022-01-15T00:00:00.000Z">
+<meta property="article:modified_time" content="2022-02-08T05:42:47.024Z">
+<meta property="article:author" content="Qiao Libo">
+<meta property="article:tag" content="k8s">
+<meta property="article:tag" content="cert">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://qiaolb.github.io/k8s-cert-expired-001.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-Hans'
+  };
+</script>
+
+  <title>Kubernetes证书过期(二) | This is JOE</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?5e9cccd25fa530ec8126bd05056818ae";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">This is JOE</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Hello World！</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="https://qiaolb.github.io/k8s-cert-expired-001.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Qiao Libo">
+      <meta itemprop="description" content="生活不只是代码，还有诗和远方！">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="This is JOE">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Kubernetes证书过期(二)
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2022-01-15 08:00:00" itemprop="dateCreated datePublished" datetime="2022-01-15T08:00:00+08:00">2022-01-15</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>今天在部署<code>Kubernetes</code>的<code>Deployment</code>时，删除<code>Deployment</code>，发现不会自动删除<code>Replica Set</code>和<code>Pod</code>，开始怀疑是某个工作<code>node</code>故障，重启或者迁移到其他<code>node</code>问题一样。后来重启了<code>master</code>节点，发现有2个<code>master</code>启动无法注册<code>node</code>。</p>
+<p>我的环境中有3个<code>master</code>节点，检查容器，发现<code>master01</code>启动正常，<code>master02</code>和<code>master03</code>的<code>etcd</code>容器都无法启动，查看日志发现提示如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Jan 14 22:29:29 master02.k8s kubelet[1998]: E0114 22:29:29.187573    1998 kubelet.go:2291] &quot;Error getting node&quot; err=&quot;node \&quot;master02.k8s\&quot; not found&quot;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>在<code>master01</code>上查看<code>etcd</code>的日志发现：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">2022-01-14 15:57:13.963722 I | embed: rejected connection from &quot;192.168.203.4:45008&quot; (error &quot;tls: failed to verify client&#x27;s certificate: x509: certificate has expired or is not yet valid&quot;, ServerName &quot;&quot;)</span><br></pre></td></tr></table></figure>
+
+<p>明确是证书过期导致的，根据<a href="/k8s-cert-expired.html">上次过期的经</a>验检查如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"># kubeadm certs renew</span><br><span class="line">missing subcommand; &quot;renew&quot; is not meant to be run on its own</span><br><span class="line">To see the stack trace of this error execute with --v=5 or higher</span><br><span class="line">[root@master02 kubernetes]# kubeadm certs check-expiration</span><br><span class="line">[check-expiration] Reading configuration from the cluster...</span><br><span class="line">[check-expiration] FYI: You can look at this config file with &#x27;kubectl -n kube-system get cm kubeadm-config -o yaml&#x27;</span><br><span class="line">[check-expiration] Error reading configuration from the Cluster. Falling back to default configuration</span><br><span class="line"></span><br><span class="line">CERTIFICATE                EXPIRES                  RESIDUAL TIME   CERTIFICATE AUTHORITY   EXTERNALLY MANAGED</span><br><span class="line">admin.conf                 Sep 10, 2022 00:10 UTC   238d                                    no      </span><br><span class="line">apiserver                  Sep 10, 2022 00:20 UTC   238d            ca                      no      </span><br><span class="line">apiserver-etcd-client      Sep 10, 2022 00:20 UTC   238d            etcd-ca                 no      </span><br><span class="line">apiserver-kubelet-client   Sep 10, 2022 00:20 UTC   238d            ca                      no      </span><br><span class="line">controller-manager.conf    Sep 10, 2022 00:09 UTC   238d                                    no      </span><br><span class="line">etcd-healthcheck-client    Dec 22, 2021 23:53 UTC   &lt;invalid&gt;       etcd-ca                 no      </span><br><span class="line">etcd-peer                  Dec 22, 2021 23:53 UTC   &lt;invalid&gt;       etcd-ca                 no      </span><br><span class="line">etcd-server                Dec 22, 2021 23:53 UTC   &lt;invalid&gt;       etcd-ca                 no      </span><br><span class="line">front-proxy-client         Sep 10, 2022 00:20 UTC   238d            front-proxy-ca          no      </span><br><span class="line">scheduler.conf             Sep 10, 2022 00:09 UTC   238d                                    no      </span><br><span class="line"></span><br><span class="line">CERTIFICATE AUTHORITY   EXPIRES                  RESIDUAL TIME   EXTERNALLY MANAGED</span><br><span class="line">ca                      Dec 24, 2029 07:18 UTC   7y              no      </span><br><span class="line">etcd-ca                 Dec 24, 2029 07:18 UTC   7y              no      </span><br><span class="line">front-proxy-ca          Dec 24, 2029 07:18 UTC   7y              no      </span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>可以看出<code>etcd</code>的证书的确过期，<code>renew</code>证书：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># kubeadm certs renew healthcheck-client</span><br><span class="line"># kubeadm certs renew etcd-peer</span><br><span class="line"># kubeadm certs renew etcd-server</span><br></pre></td></tr></table></figure>
+
+<p>重新检查确定新的证书已经生效，重启容器和<code>kubelet</code>，检查发现问题件已经解决。</p>
+<p>产生这个问题的原因是，<code>master01</code>已经自动更新了证书，保证容器环境正常使用，但其他<code>master</code>节点的证书没有自动更新，需要手工处理一下，估计为了版本会解决这个问题。</p>
+
+    </div>
+
+    
+    
+    
+        <div class="reward-container">
+  <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    Donate
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay.png" alt="Qiao Libo Alipay">
+        <p>Alipay</p>
+      </div>
+
+  </div>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/k8s/" rel="tag"># k8s</a>
+              <a href="/tags/cert/" rel="tag"># cert</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/azure-aad-sync-error.html" rel="prev" title="删除AD用户重建后AAD Connect同步错误">
+      <i class="fa fa-chevron-left"></i> 删除AD用户重建后AAD Connect同步错误
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/azure-bicep.html" rel="next" title="Azure Bicep开发环境搭建">
+      Azure Bicep开发环境搭建 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Qiao Libo"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">Qiao Libo</p>
+  <div class="site-description" itemprop="description">生活不只是代码，还有诗和远方！</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">21</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">35</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/qiaolb" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;qiaolb" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="http://weibo.com/qiaolibo" title="Weibo → http:&#x2F;&#x2F;weibo.com&#x2F;qiaolibo" rel="noopener" target="_blank"><i class="fa fa-fw fa-weibo"></i>Weibo</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/qiaolibo" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;qiaolibo" rel="noopener" target="_blank"><i class="fa fa-fw fa-twitter"></i>Twitter</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2016 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Qiao Libo</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,1049 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.0.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/function%20()%20%7B%0A%20%20%20%20%20%20for%20(var%20_len2%20=%20arguments.length,%20args%20=%20new%20Array(_len2),%20_key2%20=%200;%20_key2%20%3C%20_len2;%20_key2++)%20%7B%0A%20%20%20%20%20%20%20%20args%5B_key2%5D%20=%20arguments%5B_key2%5D;%0A%20%20%20%20%20%20%7D%0A%0A%20%20%20%20%20%20return%20obj%5Bval%5D.apply(obj,%20args);%0A%20%20%20%20%7D">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.loli.net/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"qiaolb.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="生活不只是代码，还有诗和远方！">
+<meta property="og:type" content="website">
+<meta property="og:title" content="This is JOE">
+<meta property="og:url" content="https://qiaolb.github.io/page/2/index.html">
+<meta property="og:site_name" content="This is JOE">
+<meta property="og:description" content="生活不只是代码，还有诗和远方！">
+<meta property="og:locale">
+<meta property="article:author" content="Qiao Libo">
+<meta property="article:tag" content="技术, JavaScript, Web, 程序">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://qiaolb.github.io/page/2/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : true,
+    isPost : false,
+    lang   : 'zh-Hans'
+  };
+</script>
+
+  <title>This is JOE</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?5e9cccd25fa530ec8126bd05056818ae";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">This is JOE</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Hello World！</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content index posts-expand">
+            
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="https://qiaolb.github.io/upgrade-k8s1.16.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Qiao Libo">
+      <meta itemprop="description" content="生活不只是代码，还有诗和远方！">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="This is JOE">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/upgrade-k8s1.16.html" class="post-title-link" itemprop="url">升级Kubernetes到1.16</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-10-16 10:00:00" itemprop="dateCreated datePublished" datetime="2019-10-16T10:00:00+08:00">2019-10-16</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>升级<code>Kubernetes</code>到<code>1.16</code>时发现2个问题：</p>
+<ol>
+<li><p>执行<code>kubeadm upgrade plan</code> 提示<code>CoreDNS</code>插件失败，解决办法：<br>修改<code>CoreDNS</code>配置文件：</p>
+<figure class="highlight shell"><figcaption><span>script</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl edit -n kube-system configmaps coredns</span><br></pre></td></tr></table></figure>
+<p>删除：<code>proxy . /etc/resolv.conf</code><br>然后执行就可以成功。</p>
+</li>
+<li><p>升级后<code>Node</code>节点状态为<code>Not Ready</code><br>检查日志： </p>
+<figure class="highlight shell"><figcaption><span>script</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">journalctl -f -u kubelet.service</span><br></pre></td></tr></table></figure>
+<p>结果：</p>
+<figure class="highlight shell"><figcaption><span>script</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">10月 16 11:46:21 k8s-master kubelet[11043]: E1016 11:46:21.515027   11043 kubelet.go:2187] Container runtime network not ready: NetworkReady=false reason:NetworkPluginNotReady message:docker: network plugin is not ready: cni config uninitialized</span><br><span class="line">10月 16 11:46:26 k8s-master kubelet[11043]: W1016 11:46:26.201162   11043 cni.go:202] Error validating CNI config &amp;&#123;cbr0  false [0xc0004a08a0 0xc0004a0940] [123 10 32 32 34 110 97 109 101 34 58 32 34 99 98 114 48 34 44 10 32 32 34 112 108 117 103 105 110 115 34 58 32 91 10 32 32 32 32 123 10 32 32 32 32 32 32 34 116 121 112 101 34 58 32 34 102 108 97 110 110 101 108 34 44 10 32 32 32 32 32 32 34 100 101 108 101 103 97 116 101 34 58 32 123 10 32 32 32 32 32 32 32 32 34 104 97 105 114 112 105 110 77 111 100 101 34 58 32 116 114 117 101 44 10 32 32 32 32 32 32 32 32 34 105 115 68 101 102 97 117 108 116 71 97 116 101 119 97 121 34 58 32 116 114 117 101 10 32 32 32 32 32 32 125 10 32 32 32 32 125 44 10 32 32 32 32 123 10 32 32 32 32 32 32 34 116 121 112 101 34 58 32 34 112 111 114 116 109 97 112 34 44 10 32 32 32 32 32 32 34 99 97 112 97 98 105 108 105 116 105 101 115 34 58 32 123 10 32 32 32 32 32 32 32 32 34 112 111 114 116 77 97 112 112 105 110 103 115 34 58 32 116 114 117 101 10 32 32 32 32 32 32 125 10 32 32 32 32 125 10 32 32 93 10 125 10]&#125;: [plugin flannel does not support config version &quot;&quot;]</span><br><span class="line">10月 16 11:46:26 k8s-master kubelet[11043]: W1016 11:46:26.201211   11043 cni.go:237] Unable to update cni config: no valid networks found in /etc/cni/net.d</span><br></pre></td></tr></table></figure>
+<p>修改<code>flannel</code>配置：</p>
+<figure class="highlight shell"><figcaption><span>script</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi /etc/cni/net.d/10-flannel.conflist</span><br></pre></td></tr></table></figure>
+<p>在<code>&quot;name&quot;: &quot;cbr0&quot;</code>前增加：</p>
+<figure class="highlight shell"><figcaption><span>script</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&quot;cniVersion&quot;: &quot;0.3.1&quot;,</span><br></pre></td></tr></table></figure>
+<p>稍等片刻<code>node</code>自动恢复。</p>
+</li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="https://qiaolb.github.io/pages-in-k8s.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Qiao Libo">
+      <meta itemprop="description" content="生活不只是代码，还有诗和远方！">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="This is JOE">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/pages-in-k8s.html" class="post-title-link" itemprop="url">GitLab Pages在Kubernetes中进行Access Control</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-09-03 11:00:00" itemprop="dateCreated datePublished" datetime="2019-09-03T11:00:00+08:00">2019-09-03</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>最近在<code>Kubernetes</code>中部署了<code>GitLab</code>，<code>GitLab</code>使用<code>HTTP</code>，在<code>Kubernetes</code>通过<code>Ingress</code>进行<code>HTTPS</code>代理，对外使用<code>HTTPS</code>访问。</p>
+<p>当在部署<code>GitLab Pages</code>时，系统通过<code>Access Contrel</code>进行访问控制时，结果发现出现<code>503</code>错误。经过多次尝试，发现有两个解决方法：</p>
+<ol>
+<li>全部不使用<code>HTTPS</code>，使用<code>HTTP</code>。这个方法简单粗暴，但不安全。</li>
+<li>修改修改配置如下：</li>
+</ol>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># external_url设置为https，如果设置http，在通过Ingress代理成https，大部分功能没有问题，但发现Web IDE打开是因为在HTTPS请求中使用了HTTP大致失败，未来有可能GitLab会修改这个问题。但目前只能如此。</span></span><br><span class="line">external_url <span class="string">&#x27;https://gitlab.example.cn&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Pages的对外页面，这里使用HTTP，通过Ingress进行HTTPS代理</span></span><br><span class="line">pages_external_url <span class="string">&quot;http://example.cn/&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 如果使用容器部署，inplace_chroot需要打开</span></span><br><span class="line">gitlab_pages[<span class="string">&#x27;inplace_chroot&#x27;</span>] = <span class="literal">true</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 接入控制开关</span></span><br><span class="line">gitlab_pages[<span class="string">&#x27;access_control&#x27;</span>] = <span class="literal">true</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># auth_server是关键，缺省和external_url相同，因为external_url设置为https，导致pages无法通过证书验证，所有修改认证为http方式。</span></span><br><span class="line">gitlab_pages[<span class="string">&#x27;auth_server&#x27;</span>] = <span class="string">&#x27;http://gitlab.rd.example.cn&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<p>终于，<code>GitLab</code>中<code>Web IDE</code>和<code>Pages</code>都可以完美工作了。</p>
+<p>备注： <code>GitLab</code>使用版本 <code>V11</code>~`V12.2`</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="https://qiaolb.github.io/remove-calico.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Qiao Libo">
+      <meta itemprop="description" content="生活不只是代码，还有诗和远方！">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="This is JOE">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/remove-calico.html" class="post-title-link" itemprop="url">Kubernetes中删除Calico</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-09-03 10:00:00" itemprop="dateCreated datePublished" datetime="2019-09-03T10:00:00+08:00">2019-09-03</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>最近发现<code>Kubernetes</code>集群中，出现不稳定情况，怀疑是<code>Calico</code>导致，为了排除文件，打算将<code>Calico</code>更换为<code>Flannel</code>，本来以为很简单，结果还是遇到<code>Calico</code>无法删除干净的问题。所有将删除正确删除过程做一个记录。 顺便说一下，最终确定和<code>Calico</code>无关。</p>
+<p>环境：<br><code>Kubernetes： V1.15</code><br><code>Calico： V3.5</code></p>
+<p>删除步骤：</p>
+<ol>
+<li>删除<code>K8s</code>对象<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl delete -f calico.yaml</span><br></pre></td></tr></table></figure></li>
+<li>检查所有节点上的网络，看看是否存在<code>Tunl0</code><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ip addr show</span><br></pre></td></tr></table></figure></li>
+<li>如果有<code>Tunl0</code>，将其删除<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">modprobe -r ipip</span><br></pre></td></tr></table></figure></li>
+<li>移除<code>Calico</code>配置文件<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ls /etc/cni/net.d/</span><br></pre></td></tr></table></figure>
+看看是否存在<code>Calico</code>相关的文件和目录，如：<code>10-calico.conflist</code>，  <code>calico-kubeconfig</code>，  <code>calico-tls</code>，如果有将其移除。</li>
+</ol>
+<p>这时候整个<code>Calico</code>移除成功。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="https://qiaolb.github.io/Start-Hexo.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Qiao Libo">
+      <meta itemprop="description" content="生活不只是代码，还有诗和远方！">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="This is JOE">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/Start-Hexo.html" class="post-title-link" itemprop="url">开始使用Hexo</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2017-06-15 19:11:21" itemprop="dateCreated datePublished" datetime="2017-06-15T19:11:21+08:00">2017-06-15</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>在朋友的推荐下尝试了一些<code>Hexo</code> + <code>Next</code>，使用后感觉真的很简单，并且<code>Next</code>效果很棒，最终切换为<code>Hexo</code> + <code>Next</code>。</p>
+<p>切换过程遇到了一些问题，做一个记录，分享出来。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/Start-Hexo.html#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="https://qiaolb.github.io/brief-histroy-time.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Qiao Libo">
+      <meta itemprop="description" content="生活不只是代码，还有诗和远方！">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="This is JOE">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/brief-histroy-time.html" class="post-title-link" itemprop="url">时间简史</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2017-05-06 00:00:00" itemprop="dateCreated datePublished" datetime="2017-05-06T00:00:00+08:00">2017-05-06</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>下滑这里查看更多内容</p>
+</blockquote>
+<p>时间处理在开发中最常见的问题，应同事要求我做一个简单的汇总，方便学习。</p>
+<p>之所以使用《时间简史》这个名字，一方面是和时间有关，更多的是希望像霍金一样能用最简单的方式来介绍概念，为开发人员进行科普。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/brief-histroy-time.html#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="https://qiaolb.github.io/china-source.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Qiao Libo">
+      <meta itemprop="description" content="生活不只是代码，还有诗和远方！">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="This is JOE">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/china-source.html" class="post-title-link" itemprop="url">常用国内源汇总</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2017-03-19 00:00:00" itemprop="dateCreated datePublished" datetime="2017-03-19T00:00:00+08:00">2017-03-19</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>在开发和实施中，经常需要调整各种源，以到达最快的速度，今天对我常用的源做一个汇总。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/china-source.html#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="https://qiaolb.github.io/svg-circle.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Qiao Libo">
+      <meta itemprop="description" content="生活不只是代码，还有诗和远方！">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="This is JOE">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/svg-circle.html" class="post-title-link" itemprop="url">用SVG实现一个半圆形仪表盘</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2017-03-11 00:00:00" itemprop="dateCreated datePublished" datetime="2017-03-11T00:00:00+08:00">2017-03-11</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>由于需要在网页中展示一个如下的效果：<br><img src="/images/svg-circle/circle_dashboard.png" alt="仪表盘"></p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/svg-circle.html#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="https://qiaolb.github.io/react-stateless.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Qiao Libo">
+      <meta itemprop="description" content="生活不只是代码，还有诗和远方！">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="This is JOE">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/react-stateless.html" class="post-title-link" itemprop="url">React的Stateless Functional Components</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2017-02-19 00:00:00" itemprop="dateCreated datePublished" datetime="2017-02-19T00:00:00+08:00">2017-02-19</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>最早在写React组件时，使用的以下方法：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> <span class="title class_">App</span> = <span class="title class_">React</span>.<span class="title function_">createClass</span>(&#123;</span><br><span class="line">  <span class="attr">handleClick</span>: <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">    ...</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="attr">render</span>: <span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="language-xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">onClick</span>=<span class="string">&#123;handleClick&#125;</span>&gt;</span>Click me!<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/react-stateless.html#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="https://qiaolb.github.io/findbugs-filter.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Qiao Libo">
+      <meta itemprop="description" content="生活不只是代码，还有诗和远方！">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="This is JOE">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/findbugs-filter.html" class="post-title-link" itemprop="url">FindBugs中的过滤</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2017-01-25 00:00:00" itemprop="dateCreated datePublished" datetime="2017-01-25T00:00:00+08:00">2017-01-25</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>在开发项目中我们使用了findbugs进行代码检查，使用findbugs-maven-plugin进行maven配置，在一个项目中发现Findbugs检查有以下错误：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Type MS_SHOULD_BE_FINAL</span><br><span class="line"></span><br><span class="line">This static field public but not final, and could be changed by malicious code or by accident from another package. The field could be made final to avoid this vulnerability.</span><br></pre></td></tr></table></figure>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/findbugs-filter.html#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="https://qiaolb.github.io/hello-2016.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Qiao Libo">
+      <meta itemprop="description" content="生活不只是代码，还有诗和远方！">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="This is JOE">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/hello-2016.html" class="post-title-link" itemprop="url">Welcome to Joe Blog</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2016-10-24 12:00:00" itemprop="dateCreated datePublished" datetime="2016-10-24T12:00:00+08:00">2016-10-24</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>“Yeah It’s on. ”</p>
+</blockquote>
+<p>我fork了 Hux 的 Blog，开通了自己在Github上的Blog。</p>
+<p>因为比较喜欢Github，也觉得Markdown更加简单，两个正好是我想要的，一拍即合。</p>
+<p>Go！</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+  </nav>
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Qiao Libo"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">Qiao Libo</p>
+  <div class="site-description" itemprop="description">生活不只是代码，还有诗和远方！</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">21</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">35</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/qiaolb" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;qiaolb" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="http://weibo.com/qiaolibo" title="Weibo → http:&#x2F;&#x2F;weibo.com&#x2F;qiaolibo" rel="noopener" target="_blank"><i class="fa fa-fw fa-weibo"></i>Weibo</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/qiaolibo" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;qiaolibo" rel="noopener" target="_blank"><i class="fa fa-fw fa-twitter"></i>Twitter</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2016 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Qiao Libo</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

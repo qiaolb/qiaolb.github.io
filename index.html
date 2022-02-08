@@ -1,0 +1,1139 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.0.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/function%20()%20%7B%0A%20%20%20%20%20%20for%20(var%20_len2%20=%20arguments.length,%20args%20=%20new%20Array(_len2),%20_key2%20=%200;%20_key2%20%3C%20_len2;%20_key2++)%20%7B%0A%20%20%20%20%20%20%20%20args%5B_key2%5D%20=%20arguments%5B_key2%5D;%0A%20%20%20%20%20%20%7D%0A%0A%20%20%20%20%20%20return%20obj%5Bval%5D.apply(obj,%20args);%0A%20%20%20%20%7D">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.loli.net/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"qiaolb.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="生活不只是代码，还有诗和远方！">
+<meta property="og:type" content="website">
+<meta property="og:title" content="This is JOE">
+<meta property="og:url" content="https://qiaolb.github.io/index.html">
+<meta property="og:site_name" content="This is JOE">
+<meta property="og:description" content="生活不只是代码，还有诗和远方！">
+<meta property="og:locale">
+<meta property="article:author" content="Qiao Libo">
+<meta property="article:tag" content="技术, JavaScript, Web, 程序">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://qiaolb.github.io/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : true,
+    isPost : false,
+    lang   : 'zh-Hans'
+  };
+</script>
+
+  <title>This is JOE</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?5e9cccd25fa530ec8126bd05056818ae";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">This is JOE</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Hello World！</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content index posts-expand">
+            
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="https://qiaolb.github.io/azure-bicep.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Qiao Libo">
+      <meta itemprop="description" content="生活不只是代码，还有诗和远方！">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="This is JOE">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/azure-bicep.html" class="post-title-link" itemprop="url">Azure Bicep开发环境搭建</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2022-02-08 08:00:00" itemprop="dateCreated datePublished" datetime="2022-02-08T08:00:00+08:00">2022-02-08</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>最近在<code>MacOS</code>搭建<code>Bicep</code>环境，发现<code>VS Code</code>始终无法成功识别<code>Bicep</code>，<code>Bicep</code>插件在启动时依赖<code>.net</code>环境，虽然手动安装了<code>.net</code>环境，但依然无法启动。</p>
+<p>参考：</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/dotnet/vscode-dotnet-runtime/blob/main/Documentation/troubleshooting-runtime.md#install-script-timeouts">https://github.com/dotnet/vscode-dotnet-runtime/blob/main/Documentation/troubleshooting-runtime.md#install-script-timeouts</a> </p>
+<p><a target="_blank" rel="noopener" href="https://www.azuredeveloper.cn/article/azure-tutorial-auzre-bicep-introduction">https://www.azuredeveloper.cn/article/azure-tutorial-auzre-bicep-introduction</a> </p>
+<p>修改设置，增加以下内容：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&quot;dotnetAcquisitionExtension.existingDotnetPath&quot;: [</span><br><span class="line">    &#123;&quot;extensionId&quot;: &quot;ms-azuretools.vscode-bicep&quot;, &quot;path&quot;: &quot;/usr/local/share/dotnet/dotnet&quot;&#125;,</span><br><span class="line">    &#123;&quot;extensionId&quot;: &quot;msazurermtools.azurerm-vscode-tools&quot;, &quot;path&quot;: &quot;/usr/local/share/dotnet/dotnet&quot;&#125;</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+
+<p>这样就可以正常使用了。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="https://qiaolb.github.io/k8s-cert-expired-001.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Qiao Libo">
+      <meta itemprop="description" content="生活不只是代码，还有诗和远方！">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="This is JOE">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/k8s-cert-expired-001.html" class="post-title-link" itemprop="url">Kubernetes证书过期(二)</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2022-01-15 08:00:00" itemprop="dateCreated datePublished" datetime="2022-01-15T08:00:00+08:00">2022-01-15</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>今天在部署<code>Kubernetes</code>的<code>Deployment</code>时，删除<code>Deployment</code>，发现不会自动删除<code>Replica Set</code>和<code>Pod</code>，开始怀疑是某个工作<code>node</code>故障，重启或者迁移到其他<code>node</code>问题一样。后来重启了<code>master</code>节点，发现有2个<code>master</code>启动无法注册<code>node</code>。</p>
+<p>我的环境中有3个<code>master</code>节点，检查容器，发现<code>master01</code>启动正常，<code>master02</code>和<code>master03</code>的<code>etcd</code>容器都无法启动，查看日志发现提示如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Jan 14 22:29:29 master02.k8s kubelet[1998]: E0114 22:29:29.187573    1998 kubelet.go:2291] &quot;Error getting node&quot; err=&quot;node \&quot;master02.k8s\&quot; not found&quot;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>在<code>master01</code>上查看<code>etcd</code>的日志发现：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">2022-01-14 15:57:13.963722 I | embed: rejected connection from &quot;192.168.203.4:45008&quot; (error &quot;tls: failed to verify client&#x27;s certificate: x509: certificate has expired or is not yet valid&quot;, ServerName &quot;&quot;)</span><br></pre></td></tr></table></figure>
+
+<p>明确是证书过期导致的，根据<a href="/k8s-cert-expired.html">上次过期的经</a>验检查如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"># kubeadm certs renew</span><br><span class="line">missing subcommand; &quot;renew&quot; is not meant to be run on its own</span><br><span class="line">To see the stack trace of this error execute with --v=5 or higher</span><br><span class="line">[root@master02 kubernetes]# kubeadm certs check-expiration</span><br><span class="line">[check-expiration] Reading configuration from the cluster...</span><br><span class="line">[check-expiration] FYI: You can look at this config file with &#x27;kubectl -n kube-system get cm kubeadm-config -o yaml&#x27;</span><br><span class="line">[check-expiration] Error reading configuration from the Cluster. Falling back to default configuration</span><br><span class="line"></span><br><span class="line">CERTIFICATE                EXPIRES                  RESIDUAL TIME   CERTIFICATE AUTHORITY   EXTERNALLY MANAGED</span><br><span class="line">admin.conf                 Sep 10, 2022 00:10 UTC   238d                                    no      </span><br><span class="line">apiserver                  Sep 10, 2022 00:20 UTC   238d            ca                      no      </span><br><span class="line">apiserver-etcd-client      Sep 10, 2022 00:20 UTC   238d            etcd-ca                 no      </span><br><span class="line">apiserver-kubelet-client   Sep 10, 2022 00:20 UTC   238d            ca                      no      </span><br><span class="line">controller-manager.conf    Sep 10, 2022 00:09 UTC   238d                                    no      </span><br><span class="line">etcd-healthcheck-client    Dec 22, 2021 23:53 UTC   &lt;invalid&gt;       etcd-ca                 no      </span><br><span class="line">etcd-peer                  Dec 22, 2021 23:53 UTC   &lt;invalid&gt;       etcd-ca                 no      </span><br><span class="line">etcd-server                Dec 22, 2021 23:53 UTC   &lt;invalid&gt;       etcd-ca                 no      </span><br><span class="line">front-proxy-client         Sep 10, 2022 00:20 UTC   238d            front-proxy-ca          no      </span><br><span class="line">scheduler.conf             Sep 10, 2022 00:09 UTC   238d                                    no      </span><br><span class="line"></span><br><span class="line">CERTIFICATE AUTHORITY   EXPIRES                  RESIDUAL TIME   EXTERNALLY MANAGED</span><br><span class="line">ca                      Dec 24, 2029 07:18 UTC   7y              no      </span><br><span class="line">etcd-ca                 Dec 24, 2029 07:18 UTC   7y              no      </span><br><span class="line">front-proxy-ca          Dec 24, 2029 07:18 UTC   7y              no      </span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>可以看出<code>etcd</code>的证书的确过期，<code>renew</code>证书：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># kubeadm certs renew healthcheck-client</span><br><span class="line"># kubeadm certs renew etcd-peer</span><br><span class="line"># kubeadm certs renew etcd-server</span><br></pre></td></tr></table></figure>
+
+<p>重新检查确定新的证书已经生效，重启容器和<code>kubelet</code>，检查发现问题件已经解决。</p>
+<p>产生这个问题的原因是，<code>master01</code>已经自动更新了证书，保证容器环境正常使用，但其他<code>master</code>节点的证书没有自动更新，需要手工处理一下，估计为了版本会解决这个问题。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="https://qiaolb.github.io/azure-aad-sync-error.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Qiao Libo">
+      <meta itemprop="description" content="生活不只是代码，还有诗和远方！">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="This is JOE">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/azure-aad-sync-error.html" class="post-title-link" itemprop="url">删除AD用户重建后AAD Connect同步错误</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-11-19 08:00:00" itemprop="dateCreated datePublished" datetime="2021-11-19T08:00:00+08:00">2021-11-19</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="问题背景"><a href="#问题背景" class="headerlink" title="问题背景"></a>问题背景</h1><p>我们订阅了<code>Micorsoft 365</code>，并通过<code>Azure AD Connect</code>将本地的<code>AD</code>的用户同步到<code>Azure AD</code>中。一次误操作将一个用户从<code>AD</code>删除，在同步为执行前，立刻重新创建了正用户。导致该用户无法同步了。</p>
+<h1 id="问题原因分析"><a href="#问题原因分析" class="headerlink" title="问题原因分析"></a>问题原因分析</h1><p><code>Azure AD</code>中的用户通过<code>Azure AD Connect</code>同步后，会将<code>AD</code>中用户的属性<code>sourceAnchor</code>标记到<code>Azure AD Connect</code>的属性<code>immutableId</code>，用来标识两方的用户。 </p>
+<p><code>sourceAnchor</code>有很多中选择，可以参考： <a target="_blank" rel="noopener" href="https://docs.microsoft.com/zh-cn/azure/active-directory/hybrid/plan-connect-design-concepts">Azure AD Connect：设计概念</a></p>
+<p>在目前的版本中，系统将<code>ConsistencyGuid</code>作为<code>sourceAnchor</code>属性，老版本默认使用<code>ObjectGuid</code>。</p>
+<p>而<code>ConsistencyGuid</code>一般是和<code>ObjectGuid</code>相同，当重新创建一个用户时，<code>ObjectGuid</code>就会发生改变，最终导致在同步时，<code>AD</code>中的<code>ConsistencyGuid</code>和<code>Azure AD</code>的<code>immutableId</code>不同，但用户有相同的<code>UPN</code>（<code>userPrincipalName</code>），导致同步冲突。</p>
+<p>如果删除<code>Azure AD</code>的中用户，当然可以简单解决，但也会导致该用户的邮件等全部丢失。</p>
+<h1 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h1><p>了解了问题的原因，我们就容易解决。思路是将<code>AD</code>中的<code>ConsistencyGuid</code>和<code>Azure AD</code>的<code>immutableId</code>进行统一。</p>
+<ol>
+<li><p>查询<code>Azure AD</code>的<code>immutableId</code></p>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">PS C:\&gt;  Get-MsolUser -UserPrincipalName user1@abc.com | Select-Object UserprincipalName,ImmutableID</span><br><span class="line"></span><br><span class="line">UserPrincipalName         ImmutableId</span><br><span class="line">-----------------         -----------</span><br><span class="line">user1@abc.com             K0fuEdJZe0ulRQq3+WlZTA==</span><br></pre></td></tr></table></figure>
+
+<p> 可以看到该用户的<code>immutableId</code>值为<code>K0fuEdJZe0ulRQq3+WlZTA==</code></p>
+</li>
+<li><p>转换<code>immutableId</code>的值<br><code>immutableId</code>的值为<code>Base64</code>编码的十六进制，需要进行转换，可以用 <a target="_blank" rel="noopener" href="https://the-x.cn/base64/">在线工具</a> 进行处理，输出结果需要选择十六进制。</p>
+<p>通过转换我们得到的值类似： <code>2B 47 EE 11 D2 59 7B 4B  A5 45 0A B7 F9 69 59 4C</code></p>
+</li>
+<li><p>修改<code>AD</code>中的<code>ConsistencyGuid</code><br>登录<code>AD</code>服务器，打开<code>ADSI编辑器</code>，找到该用户，点开属性，找到属性<code>ms-DS-ConsistencyGuid</code>修改值为上步转换的值。</p>
+</li>
+<li><p>同步<br>可以等待同步，也可以手工同步。同步后确定结果是否正确。</p>
+</li>
+</ol>
+<h1 id="后续补充"><a href="#后续补充" class="headerlink" title="后续补充"></a>后续补充</h1><p>在本次问题解决中，也尝试过，去修改<code>Azure AD</code>的<code>immutableId</code>，感觉这个更合理一些。但在修改过程中遇到2个问题：</p>
+<ol>
+<li>如果<code>Azure AD</code>中用户的状态是同步状态，这个值是无法修改的，必须等这个用户变成非同步用户或者关闭同步</li>
+<li>我从测试中修改过<code>Azure AD</code>的<code>immutableId</code>，然后通过手工同步发现依旧有错，后续没有再测试。理论上这个方法应该可以</li>
+</ol>
+<p>记录一下两个命令：</p>
+<ul>
+<li><p>修改<code>Azure AD</code>的<code>immutableId</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Get-MsolUser -UserPrincipalName user1@abc.com | Set-MsolUser -ImmutableId L0b1Dn3oIkGiFLPW9fhY+Q==</span><br></pre></td></tr></table></figure></li>
+<li><p>关闭同步</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Set-MsolDirSyncEnabled -EnableDirSync $false</span><br></pre></td></tr></table></figure>
+
+<p><em><strong>注意：</strong></em> 官方文档说明修改后如果要重新打开需要等待<code>72</code>小时。</p>
+</li>
+</ul>
+<p>另外，网上找到有人说可以将<code>Azure AD Connect</code>卸载后，重新安装来解决，其思路也是通过重新对应<code>AD</code>和<code>Azure AD</code>的用户，但这个方法我试过，问题没有解决。</p>
+<p>最后，本次误操作的最好解决办法是，打开<code>AD</code>的回收站功能，具体在<code>AD</code>的管理中心进行修改，这样就可以完全避免这种问题了。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="https://qiaolb.github.io/azure-nuget-https.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Qiao Libo">
+      <meta itemprop="description" content="生活不只是代码，还有诗和远方！">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="This is JOE">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/azure-nuget-https.html" class="post-title-link" itemprop="url">PowerShell安装MSOnline模块错误</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-11-17 08:00:00" itemprop="dateCreated datePublished" datetime="2021-11-17T08:00:00+08:00">2021-11-17</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>在<code>Windows Server 2016</code>上安装<code>MSOnline</code>模块时提示错误，具体错误如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">PS C:\&gt; Install-Module MSOnline</span><br><span class="line">需要使用 NuGet 提供程序来继续操作</span><br><span class="line">PowerShellGet 需要使用 NuGet 提供程序“2.8.5.201”或更高版本来与基于 NuGet 的存储库交互。必须在“C:\Program</span><br><span class="line">Files\PackageManagement\ProviderAssemblies”或“C:\Users\administrator.WAFERSYSTEMS1\AppData\Local\PackageManagement\ProviderAssemblies”中提供 NuGet 提供程序。也可以通过运行</span><br><span class="line">&#x27;Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Force&#x27; 安装 NuGet 提供程序。是否要让 PowerShellGet 立即安装并导入 NuGet 提供程序?</span><br><span class="line">[Y] 是(Y)  [N] 否(N)  [S] 暂停(S)  [?] 帮助 (默认值为“Y”): y</span><br><span class="line">警告: 无法从 URI“https://go.microsoft.com/fwlink/?LinkID=627338&amp;clcid=0x409”下载到“”。</span><br><span class="line">警告: 无法下载可用提供程序列表。请检查 Internet 连接。</span><br><span class="line">PackageManagement\Install-PackageProvider : 找不到提供程序“NuGet”的指定搜索条件的匹配项。程序包提供程序要求 &quot;PackageManagement&quot; 和 &quot;Provider&quot; 标记。请检查指定的程序包是否具有标记。</span><br><span class="line">所在位置 C:\Program Files\WindowsPowerShell\Modules\PowerShellGet\1.0.0.1\PSModule.psm1:7405 字符: 21</span><br><span class="line">+ ...     $null = PackageManagement\Install-PackageProvider -Name $script:N ...</span><br><span class="line">+                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span><br><span class="line">    + CategoryInfo          : InvalidArgument: (Microsoft.Power...PackageProvider:InstallPackageProvider) [Install-PackageProvider]，Exception</span><br><span class="line">    + FullyQualifiedErrorId : NoMatchFoundForProvider,Microsoft.PowerShell.PackageManagement.Cmdlets.InstallPackageProvider</span><br><span class="line"></span><br><span class="line">PackageManagement\Import-PackageProvider : 未找到与指定搜索条件和提供程序名称“NuGet”匹配的项目。请尝试运行 &#x27;Get-PackageProvider -ListAvailable&#x27; 以查看系统中是否存在该提供程序。</span><br><span class="line">所在位置 C:\Program Files\WindowsPowerShell\Modules\PowerShellGet\1.0.0.1\PSModule.psm1:7411 字符: 21</span><br><span class="line">+ ...     $null = PackageManagement\Import-PackageProvider -Name $script:Nu ...</span><br><span class="line">+                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span><br><span class="line">    + CategoryInfo          : InvalidData: (NuGet:String) [Import-PackageProvider]，Exception</span><br><span class="line">    + FullyQualifiedErrorId : NoMatchFoundForCriteria,Microsoft.PowerShell.PackageManagement.Cmdlets.ImportPackageProvider</span><br><span class="line"></span><br><span class="line">警告: 无法从 URI“https://go.microsoft.com/fwlink/?LinkID=627338&amp;clcid=0x409”下载到“”。</span><br><span class="line">警告: 无法下载可用提供程序列表。请检查 Internet 连接。</span><br><span class="line">PackageManagement\Get-PackageProvider : 找不到程序包提供程序“NuGet”。可能尚未导入该提供程序。请尝试使用 &#x27;Get-PackageProvider -ListAvailable&#x27;。</span><br><span class="line">所在位置 C:\Program Files\WindowsPowerShell\Modules\PowerShellGet\1.0.0.1\PSModule.psm1:7415 字符: 30</span><br><span class="line">+ ... tProvider = PackageManagement\Get-PackageProvider -Name $script:NuGet ...</span><br><span class="line">+                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span><br><span class="line">    + CategoryInfo          : ObjectNotFound: (Microsoft.Power...PackageProvider:GetPackageProvider) [Get-PackageProvider], Exception</span><br><span class="line">    + FullyQualifiedErrorId : UnknownProviderFromActivatedList,Microsoft.PowerShell.PackageManagement.Cmdlets.GetPackageProvider</span><br><span class="line"></span><br><span class="line">Install-Module : 需要使用 NuGet 提供程序来与基于 NuGet 的存储库交互。请确保已安装 NuGet 提供程序“2.8.5.201”或更高版本。</span><br><span class="line">所在位置 行:1 字符: 1</span><br><span class="line">+ Install-Module msonline</span><br><span class="line">+ ~~~~~~~~~~~~~~~~~~~~~~~</span><br><span class="line">    + CategoryInfo          : InvalidOperation: (:) [Install-Module]，InvalidOperationException</span><br><span class="line">    + FullyQualifiedErrorId : CouldNotInstallNuGetProvider,Install-Module</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<p>从提示来看，是由于<code>NuGet</code>安装时错误，经过查询，发现使用由于<code>PowerShell</code>默认没有使用<code>TLS1.2</code>导致，强制指定一下，然后很执行就可以了。指定方法：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="https://qiaolb.github.io/k8s-upgrade1.21.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Qiao Libo">
+      <meta itemprop="description" content="生活不只是代码，还有诗和远方！">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="This is JOE">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/k8s-upgrade1.21.html" class="post-title-link" itemprop="url">Kubernetes升级1.21问题汇总</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-09-10 08:00:00" itemprop="dateCreated datePublished" datetime="2021-09-10T08:00:00+08:00">2021-09-10</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>将<code>Kubernetes</code>从<code>1.20</code>升级到<code>1.21</code>时，遇到了两个问题。</p>
+<h3 id="Core-DNS-image下载失败"><a href="#Core-DNS-image下载失败" class="headerlink" title="Core DNS image下载失败"></a><code>Core DNS</code> <code>image</code>下载失败</h3><p>通过以下命令进行<code>image</code>下载：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&gt; kubeadm config images pull --image-repository registry.aliyuncs.com/google_containers     </span><br><span class="line">I0910 08:00:20.155181   16619 version.go:254] remote version is much newer: v1.22.1; falling back to: stable-1.21</span><br><span class="line">[config/images] Pulled registry.aliyuncs.com/google_containers/kube-apiserver:v1.21.4</span><br><span class="line">[config/images] Pulled registry.aliyuncs.com/google_containers/kube-controller-manager:v1.21.4</span><br><span class="line">[config/images] Pulled registry.aliyuncs.com/google_containers/kube-scheduler:v1.21.4</span><br><span class="line">[config/images] Pulled registry.aliyuncs.com/google_containers/kube-proxy:v1.21.4</span><br><span class="line">[config/images] Pulled registry.aliyuncs.com/google_containers/pause:3.4.1</span><br><span class="line">[config/images] Pulled registry.aliyuncs.com/google_containers/etcd:3.4.13-0</span><br><span class="line">failed to pull image &quot;registry.aliyuncs.com/google_containers/coredns:v1.8.0&quot;: output: Error response from daemon: manifest for registry.aliyuncs.com/google_containers/coredns:v1.8.0 not found: manifest unknown: manifest unknown</span><br><span class="line">, error: exit status 1</span><br><span class="line">To see the stack trace of this error execute with --v=5 or higher</span><br></pre></td></tr></table></figure>
+
+<p><code>registry.aliyuncs.com/google_containers/coredns:v1.8.0</code>一直下载不成功，经过检查发现，该镜像的<code>tag</code>为<code>1.8.0</code>不是<code>v1.8.0</code>，我们直接手工下载，重新设置tag即可：</p>
+<p>对于<code>docker</code>运行时方法如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker pull registry.aliyuncs.com/google_containers/coredns:1.8.0</span><br><span class="line">docker tag registry.aliyuncs.com/google_containers/coredns:1.8.0 registry.aliyuncs.com/google_containers/coredns:v1.8.0</span><br></pre></td></tr></table></figure>
+
+<p><code>containerd</code>方法如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">crictl pull registry.aliyuncs.com/google_containers/coredns:1.8.0</span><br><span class="line">ctr -n k8s.io i tag registry.aliyuncs.com/google_containers/coredns:1.8.0 registry.aliyuncs.com/google_containers/coredns:v1.8.0</span><br></pre></td></tr></table></figure>
+
+<p>然后在正常升级就可以了。</p>
+<h3 id="Failed-to-start-ContainerManager异常"><a href="#Failed-to-start-ContainerManager异常" class="headerlink" title="Failed to start ContainerManager异常"></a><code>Failed to start ContainerManager</code>异常</h3><p>升级完成后，发现工作节点上，<code>kubelet</code>启动异常，如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Failed to start ContainerManager failed to initialise top level QOS containers</span><br></pre></td></tr></table></figure>
+
+<p>解决办法：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">systemctl stop kubepods-burstable.slice</span><br><span class="line">systemctl restart kubelet</span><br></pre></td></tr></table></figure>
+
+<p>注意，这样会导致部署在该节点的所有<code>Pod</code>重启，重启后就正常了。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="https://qiaolb.github.io/vcsa-passwor-expired.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Qiao Libo">
+      <meta itemprop="description" content="生活不只是代码，还有诗和远方！">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="This is JOE">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/vcsa-passwor-expired.html" class="post-title-link" itemprop="url">vCenter升级过程中因密码过期导致的问题处理</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-02-19 19:00:00" itemprop="dateCreated datePublished" datetime="2021-02-19T19:00:00+08:00">2021-02-19</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>今天在升级<code>vCenter</code> <code>7.0</code>时，升级检查时提示错误，错误日志显示如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">2021-02-19T06:12:41.374Z - debug: initiateFileTransferFromGuest error: ServerFaultCode: Failed to authenticate with the guest operating system using the supplied credentials.</span><br><span class="line">2021-02-19T06:12:41.374Z - debug: Failed to get fileTransferInfo:ServerFaultCode: Failed to authenticate with the guest operating system using the supplied credentials.</span><br><span class="line">2021-02-19T06:12:41.374Z - debug: Failed to get url of file in guest vm:ServerFaultCode: Failed to authenticate with the guest operating system using the supplied credentials.</span><br></pre></td></tr></table></figure>
+
+<p>经过检查发现是<code>vCenter</code>的<code>root</code>密码过期导致，<code>ssh</code>登录<code>vCenter</code>，进入<code>shell</code>，执行：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">root@vcsa [ ~ ]# chage -l root</span><br><span class="line">You are required to change your password immediately (root enforced)</span><br><span class="line">chage: PAM: Authentication token is no longer valid; new one required</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>说明<code>root</code>的密码过期，修改密码即可：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">root@vcsa [ ~ ]# passwd</span><br><span class="line">New password: </span><br><span class="line">Retype new password: </span><br><span class="line">passwd: password updated successfully</span><br></pre></td></tr></table></figure>
+
+<p>然后重新执行升级程序检查，通过。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="https://qiaolb.github.io/k8s-cert-expired.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Qiao Libo">
+      <meta itemprop="description" content="生活不只是代码，还有诗和远方！">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="This is JOE">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/k8s-cert-expired.html" class="post-title-link" itemprop="url">Kubernetes证书过期</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-12-28 08:00:00" itemprop="dateCreated datePublished" datetime="2020-12-28T08:00:00+08:00">2020-12-28</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>今天访问<code>Kubernetes</code>时得到如下错误：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; kubectl get node     </span><br><span class="line">error: You must be logged in to the server (Unauthorized)</span><br></pre></td></tr></table></figure>
+
+<p>昨天还正常今天无法访问，怀疑是证书到期了，可以直接看看<code>master</code>上的证书文件，文件位于<code>/etc/kubernetes/pki</code>中，执行命令：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">&gt; for item in `find /etc/kubernetes/pki -maxdepth 2 -name &quot;*.crt&quot;`;do openssl x509 -in $item -text -noout| grep Not;echo ======================$item===============;done</span><br><span class="line"></span><br><span class="line">            Not Before: Dec 27 07:18:44 2019 GMT</span><br><span class="line">            Not After : Dec 24 07:18:44 2029 GMT</span><br><span class="line">======================/etc/kubernetes/pki/ca.crt===============</span><br><span class="line">            Not Before: Dec 27 07:18:44 2019 GMT</span><br><span class="line">            Not After : Dec 22 23:43:16 2021 GMT</span><br><span class="line">======================/etc/kubernetes/pki/apiserver.crt===============</span><br><span class="line">            Not Before: Dec 27 07:18:44 2019 GMT</span><br><span class="line">            Not After : Dec 22 23:43:17 2021 GMT</span><br><span class="line">======================/etc/kubernetes/pki/apiserver-kubelet-client.crt===============</span><br><span class="line">            Not Before: Dec 27 07:18:45 2019 GMT</span><br><span class="line">            Not After : Dec 24 07:18:45 2029 GMT</span><br><span class="line">======================/etc/kubernetes/pki/front-proxy-ca.crt===============</span><br><span class="line">            Not Before: Dec 27 07:18:45 2019 GMT</span><br><span class="line">            Not After : Dec 22 23:43:17 2021 GMT</span><br><span class="line">======================/etc/kubernetes/pki/front-proxy-client.crt===============</span><br><span class="line">            Not Before: Dec 27 07:18:45 2019 GMT</span><br><span class="line">            Not After : Dec 24 07:18:45 2029 GMT</span><br><span class="line">======================/etc/kubernetes/pki/etcd/ca.crt===============</span><br><span class="line">            Not Before: Dec 27 07:18:45 2019 GMT</span><br><span class="line">            Not After : Dec 22 23:42:44 2021 GMT</span><br><span class="line">======================/etc/kubernetes/pki/etcd/server.crt===============</span><br><span class="line">            Not Before: Dec 27 07:18:45 2019 GMT</span><br><span class="line">            Not After : Dec 22 23:42:44 2021 GMT</span><br><span class="line">======================/etc/kubernetes/pki/etcd/peer.crt===============</span><br><span class="line">            Not Before: Dec 27 07:18:45 2019 GMT</span><br><span class="line">            Not After : Dec 22 23:42:45 2021 GMT</span><br><span class="line">======================/etc/kubernetes/pki/etcd/healthcheck-client.crt===============</span><br><span class="line">            Not Before: Dec 27 07:18:45 2019 GMT</span><br><span class="line">            Not After : Dec 22 23:43:17 2021 GMT</span><br><span class="line">======================/etc/kubernetes/pki/apiserver-etcd-client.crt===============</span><br></pre></td></tr></table></figure>
+
+<p>查看后发现的确到期，那么我们<code>renew</code>证书即可：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&gt; kubeadm alpha certs renew all</span><br><span class="line">Command &quot;all&quot; is deprecated, please use the same command under &quot;kubeadm certs&quot;</span><br><span class="line">[renew] Reading configuration from the cluster...</span><br><span class="line">[renew] FYI: You can look at this config file with &#x27;kubectl -n kube-system get cm kubeadm-config -o yaml&#x27;</span><br><span class="line"></span><br><span class="line">certificate embedded in the kubeconfig file for the admin to use and for kubeadm itself renewed</span><br><span class="line">certificate for serving the Kubernetes API renewed</span><br><span class="line">certificate the apiserver uses to access etcd renewed</span><br><span class="line">certificate for the API server to connect to kubelet renewed</span><br><span class="line">certificate embedded in the kubeconfig file for the controller manager to use renewed</span><br><span class="line">certificate for liveness probes to healthcheck etcd renewed</span><br><span class="line">certificate for etcd nodes to communicate with each other renewed</span><br><span class="line">certificate for serving etcd renewed</span><br><span class="line">certificate for the front proxy client renewed</span><br><span class="line">certificate embedded in the kubeconfig file for the scheduler manager to use renewed</span><br><span class="line"></span><br><span class="line">Done renewing certificates. You must restart the kube-apiserver, kube-controller-manager, kube-scheduler and etcd, so that they can use the new certificates.</span><br></pre></td></tr></table></figure>
+
+<p>从提示来看这个命令已经不建议使用，未来会使用<code>kubeadm certs</code>，这次就先这样，下次可以试试这个命令。</p>
+<p>执行完成后，将<code>/etc/kubernetes/admin.conf</code>复制到<code>~/.kube/config</code>，就可以正常使用了。我没有重启<code>kube-apiserver, kube-controller-manager, kube-scheduler and etcd</code>前已经可以连接了，安全起见，还是重启一下。</p>
+<p>可以连接后，也可以通过<code>k8s</code>命令查看证书状态：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">&gt; kubeadm certs check-expiration</span><br><span class="line">[check-expiration] Reading configuration from the cluster...</span><br><span class="line">[check-expiration] FYI: You can look at this config file with &#x27;kubectl -n kube-system get cm kubeadm-config -o yaml&#x27;</span><br><span class="line"></span><br><span class="line">CERTIFICATE                EXPIRES                  RESIDUAL TIME   CERTIFICATE AUTHORITY   EXTERNALLY MANAGED</span><br><span class="line">admin.conf                 Dec 28, 2021 00:06 UTC   364d                                    no      </span><br><span class="line">apiserver                  Dec 28, 2021 00:06 UTC   364d            ca                      no      </span><br><span class="line">apiserver-etcd-client      Dec 28, 2021 00:06 UTC   364d            etcd-ca                 no      </span><br><span class="line">apiserver-kubelet-client   Dec 28, 2021 00:06 UTC   364d            ca                      no      </span><br><span class="line">controller-manager.conf    Dec 28, 2021 00:06 UTC   364d                                    no      </span><br><span class="line">etcd-healthcheck-client    Dec 28, 2021 00:06 UTC   364d            etcd-ca                 no      </span><br><span class="line">etcd-peer                  Dec 28, 2021 00:06 UTC   364d            etcd-ca                 no      </span><br><span class="line">etcd-server                Dec 28, 2021 00:06 UTC   364d            etcd-ca                 no      </span><br><span class="line">front-proxy-client         Dec 28, 2021 00:06 UTC   364d            front-proxy-ca          no      </span><br><span class="line">scheduler.conf             Dec 28, 2021 00:06 UTC   364d                                    no      </span><br><span class="line"></span><br><span class="line">CERTIFICATE AUTHORITY   EXPIRES                  RESIDUAL TIME   EXTERNALLY MANAGED</span><br><span class="line">ca                      Dec 24, 2029 07:18 UTC   8y              no      </span><br><span class="line">etcd-ca                 Dec 24, 2029 07:18 UTC   8y              no      </span><br><span class="line">front-proxy-ca          Dec 24, 2029 07:18 UTC   8y              no      </span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="https://qiaolb.github.io/nfs-k8sv1.20.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Qiao Libo">
+      <meta itemprop="description" content="生活不只是代码，还有诗和远方！">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="This is JOE">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/nfs-k8sv1.20.html" class="post-title-link" itemprop="url">升级Kubernetes V1.20后，pvc无法创建问题解决</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-12-23 10:00:00" itemprop="dateCreated datePublished" datetime="2020-12-23T10:00:00+08:00">2020-12-23</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>今天升级<code>Kubernetes</code>到<code>1.20</code>，发现<code>PVC</code>创建时一直处于<code>pending</code>状态，经过检查发现，<code>nfs-client-provisioner</code>日志有如下错误：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">provision &quot;test/test-sql&quot; class &quot;nfs-storage&quot;: unexpected error getting claim reference: selfLink was empty, can&#x27;t make reference</span><br></pre></td></tr></table></figure>
+
+<p>经过查找发现这个是<code>V1.10</code>之后的配置修改，具体参考： <a target="_blank" rel="noopener" href="https://github.com/kubernetes/enhancements/issues/1164">https://github.com/kubernetes/enhancements/issues/1164</a></p>
+<p>找到原因，直接修改<code>/etc/kubernetes/manifests/kube-apiserver.yaml</code>，增加参数：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">- --feature-gates=RemoveSelfLink=false</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="https://qiaolb.github.io/containerd-k8s.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Qiao Libo">
+      <meta itemprop="description" content="生活不只是代码，还有诗和远方！">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="This is JOE">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/containerd-k8s.html" class="post-title-link" itemprop="url">Kubernetes加入containerd运行时节点</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-12-22 10:00:00" itemprop="dateCreated datePublished" datetime="2020-12-22T10:00:00+08:00">2020-12-22</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p><code>Kubernetes</code>到<code>1.20</code>开始不建议使用<code>docker</code>作为运行时，作为容器运行时，其实还有其他一些：</p>
+<ul>
+<li>containerd</li>
+<li>CRI-O</li>
+</ul>
+<p>经过对比，我选择了<code>containerd</code>进行验证。这次我并没有升级整体<code>Kubernetes</code>集群，只是打算增加一个使用<code>containerd</code>的容器运行时的节点。</p>
+<h2 id="安装containerd"><a href="#安装containerd" class="headerlink" title="安装containerd"></a>安装<code>containerd</code></h2><p>我使用<code>CentOS 7</code>，首先需要设置内核参数，这个和之前<code>Docker</code>一样：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">cat &lt;&lt;EOF | sudo tee /etc/modules-load.d/containerd.conf</span><br><span class="line">overlay</span><br><span class="line">br_netfilter</span><br><span class="line">EOF</span><br><span class="line"></span><br><span class="line">sudo modprobe overlay</span><br><span class="line">sudo modprobe br_netfilter</span><br><span class="line"></span><br><span class="line"># 设置必需的 sysctl 参数，这些参数在重新启动后仍然存在。</span><br><span class="line">cat &lt;&lt;EOF | sudo tee /etc/sysctl.d/99-kubernetes-cri.conf</span><br><span class="line">net.bridge.bridge-nf-call-iptables  = 1</span><br><span class="line">net.ipv4.ip_forward                 = 1</span><br><span class="line">net.bridge.bridge-nf-call-ip6tables = 1</span><br><span class="line">EOF</span><br><span class="line"></span><br><span class="line"># Apply sysctl params without reboot</span><br><span class="line">sudo sysctl --system</span><br></pre></td></tr></table></figure>
+
+<p>然后开始安装，<code>containerd</code>使用<code>yum</code>源和<code>docker-ce</code>相同：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># 安装 containerd</span><br><span class="line">## 设置仓库</span><br><span class="line">### 安装所需包</span><br><span class="line">sudo yum install -y yum-utils device-mapper-persistent-data lvm2</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">### 新增 Docker 仓库</span><br><span class="line">sudo yum-config-manager \</span><br><span class="line">    --add-repo \</span><br><span class="line">    https://download.docker.com/linux/centos/docker-ce.repo</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">## 安装 containerd</span><br><span class="line">sudo yum update -y &amp;&amp; sudo yum install -y containerd.io</span><br></pre></td></tr></table></figure>
+
+<h2 id="配置containerd"><a href="#配置containerd" class="headerlink" title="配置containerd"></a>配置<code>containerd</code></h2><p>首先获得缺省配置：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># 配置 containerd</span><br><span class="line">sudo mkdir -p /etc/containerd</span><br><span class="line">sudo containerd config default &gt; /etc/containerd/config.toml</span><br></pre></td></tr></table></figure>
+
+<p>因为国内无法访问部分<code>image</code>源，同事<code>docker hub</code>比较慢，修改使用国内镜像：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">vi /etc/containerd/config.toml</span><br><span class="line"></span><br><span class="line"># 修改一下内容：</span><br><span class="line">...</span><br><span class="line">sandbox_image = &quot;registry.aliyuncs.com/google_containers/pause:3.2&quot;</span><br><span class="line">...</span><br><span class="line">    [plugins.&quot;io.containerd.grpc.v1.cri&quot;.registry]</span><br><span class="line">      [plugins.&quot;io.containerd.grpc.v1.cri&quot;.registry.mirrors]</span><br><span class="line">        [plugins.&quot;io.containerd.grpc.v1.cri&quot;.registry.mirrors.&quot;docker.io&quot;]</span><br><span class="line">          endpoint = [&quot;https://docker.mirrors.ustc.edu.cn&quot;]</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 重启 containerd</span><br><span class="line">sudo systemctl restart containerd</span><br></pre></td></tr></table></figure>
+
+<h2 id="加入k8s集群"><a href="#加入k8s集群" class="headerlink" title="加入k8s集群"></a>加入k8s集群</h2><p>首先安装<code>k8s</code>，包括<code>kubeadm</code>、<code>kubelet</code>、<code>kubectl</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install -y kubeadm kubelet kubectl</span><br></pre></td></tr></table></figure>
+
+<p>然后加入到集群：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubeadm join master.k8s:8443 --token xxx     --discovery-token-ca-cert-hash sha256:xxxxxxx</span><br></pre></td></tr></table></figure>
+
+<p>现在已经使用<code>containerd</code>允许时的节点已经加入到集群，部署容器测试可以正常使用。</p>
+<h2 id="containerd管理"><a href="#containerd管理" class="headerlink" title="containerd管理"></a>containerd管理</h2><p>使用<code>containerd</code>已经不能使用熟悉的<code>docker</code>命令进行容器的管理了，<code>containerd</code>提供了2个工具可以使用:</p>
+<ul>
+<li>ctr</li>
+<li>crictl</li>
+</ul>
+<h3 id="ctr"><a href="#ctr" class="headerlink" title="ctr"></a>ctr</h3><p><code>ctr</code>是一个简单的命令工具，使用并不复杂，但需要注意：</p>
+<ul>
+<li><code>ctr</code>不会使用配置文件<code>/etc/containerd/config.toml</code>，也就是说配置的<code>mirror</code>并不能使用</li>
+<li><code>images</code>也有命名空间，<code>k8s</code>会使用一个名为<code>k8s.io</code>的命名空间</li>
+<li><code>ctr</code>的参数有顺序，如<code>ctr -n=k8s.io images list</code>正确，而<code>ctr images list -n=k8s.io</code>则不正确</li>
+</ul>
+<p>希望未来<code>ctr</code>会更完善一些。</p>
+<h3 id="crictl"><a href="#crictl" class="headerlink" title="crictl"></a>crictl</h3><p><code>crictl</code>使用和<code>docker</code>命令类似，比较方便。使用前需要增加配置文件：<code>/etc/crictl.yaml</code>。内容如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">runtime-endpoint: unix:///run/containerd/containerd.sock</span><br><span class="line">image-endpoint: unix:///run/containerd/containerd.sock</span><br><span class="line">timeout: 10</span><br><span class="line">debug: false</span><br></pre></td></tr></table></figure>
+
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="https://qiaolb.github.io/upgrade-k8s1.18.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Qiao Libo">
+      <meta itemprop="description" content="生活不只是代码，还有诗和远方！">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="This is JOE">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/upgrade-k8s1.18.html" class="post-title-link" itemprop="url">Kubernetes V1.18 ipvs故障</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-04-27 10:00:00" itemprop="dateCreated datePublished" datetime="2020-04-27T10:00:00+08:00">2020-04-27</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>升级<code>Kubernetes</code>到<code>1.18</code>时发现1个严重的问题：</p>
+<p>首先是发现部分<code>Services</code>无法访问，经过各种检查最终发现当<code>Pod</code>重启后，就无法访问。</p>
+<p>搭建一个测试的<code>Deployment</code>和<code>Service</code>，进行问题排查：<code>Deployment</code>如下：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">apps/v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Deployment</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">hostnames</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">selector:</span></span><br><span class="line">    <span class="attr">matchLabels:</span></span><br><span class="line">      <span class="attr">app:</span> <span class="string">hostnames</span></span><br><span class="line">  <span class="attr">replicas:</span> <span class="number">1</span></span><br><span class="line">  <span class="attr">template:</span></span><br><span class="line">    <span class="attr">metadata:</span></span><br><span class="line">      <span class="attr">labels:</span></span><br><span class="line">        <span class="attr">app:</span> <span class="string">hostnames</span></span><br><span class="line">    <span class="attr">spec:</span></span><br><span class="line">      <span class="attr">containers:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">hostnames</span></span><br><span class="line">        <span class="attr">image:</span> <span class="string">mirrorgooglecontainers/serve_hostname</span></span><br><span class="line">        <span class="attr">ports:</span></span><br><span class="line">        <span class="bullet">-</span> <span class="attr">containerPort:</span> <span class="number">9376</span></span><br><span class="line">          <span class="attr">protocol:</span> <span class="string">TCP</span></span><br></pre></td></tr></table></figure>
+
+<p><code>Service</code>如下：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Service</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">hostnames</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">selector:</span></span><br><span class="line">    <span class="attr">app:</span> <span class="string">hostnames</span></span><br><span class="line">  <span class="attr">ports:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">default</span></span><br><span class="line">    <span class="attr">protocol:</span> <span class="string">TCP</span></span><br><span class="line">    <span class="attr">port:</span> <span class="number">80</span></span><br><span class="line">    <span class="attr">targetPort:</span> <span class="number">9376</span></span><br></pre></td></tr></table></figure>
+
+<p>再启动一个<code>curl</code>进行测试：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl run curl --image=radial/busyboxplus:curl -it</span><br></pre></td></tr></table></figure>
+
+<p>正确情况如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[ root@curl-69c656fd45-ztblt:/ ]$ curl hostnames</span><br><span class="line">hostnames-dd4cc9dd9-5k42b</span><br></pre></td></tr></table></figure>
+
+<p>可以通过<code>Service</code>正常访问到<code>Pod</code>。</p>
+<p>现在删除掉<code>hostnames</code>的<code>Pod</code>，等到<code>Pod</code>运行正常时，再次执行：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[ root@curl-69c656fd45-ztblt:/ ]$ curl hostnames</span><br><span class="line">connect to hostnames failed: No route to host</span><br></pre></td></tr></table></figure>
+
+<p>通过检查确定DNS没有问题，通过<code>Pod</code>的<code>IP</code>，可以正常访问，通过<code>Service</code>的<code>IP</code>就无法访问了。也就是说，升级<code>Kubernetes</code> <code>V1.18</code>(我的版本是<code>V1.18.2</code>)，就会导致<code>Pod</code>重新启动后，<code>Service</code>无法访问。</p>
+<p>那么现在重点是<code>Proxy</code>的检查，我使用的是模式是<code>ipvs</code>，检查<code>ipvs</code>列表。<br>在<code>master</code>或其他节点上执行:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[root@node01 ~]<span class="comment"># ipvsadm -L |grep -A 5 10.103.122.243</span></span><br><span class="line">TCP  10.103.122.243:http rr</span><br><span class="line">  -&gt; 10.244.10.237:9376           Masq    1      0          0         </span><br><span class="line">TCP  10.103.123.173:webcache rr</span><br><span class="line">  -&gt; 10.244.9.26:webcache         Masq    1      0          0         </span><br><span class="line">TCP  10.103.143.242:6379 rr</span><br><span class="line">  -&gt; 10.244.9.229:6379            Masq    1      0          0</span><br></pre></td></tr></table></figure>
+
+<p><code>10.103.122.243</code>为<code>Service</code>的<code>IP</code>， 而转发地址<code>10.244.10.237:9376</code>是老的<code>Pod</code>的地址，不是新<code>Pod</code>的地址，这样肯定无法访问。再次验证一下这个原因，将转发修改正确:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@node01 ~]<span class="comment"># ipvsadm -D -t 10.103.122.243:http </span></span><br><span class="line"></span><br><span class="line">[root@node01 ~]<span class="comment"># ipvsadm -a -t 10.103.122.243:http -r 10.244.10.238:9376 -m</span></span><br></pre></td></tr></table></figure>
+<p>第一句是删除老的转发，第二句是新增正确的转发。其中<code>10.244.10.238</code>是新的<code>Pod</code>的的地址</p>
+<p>进入<code>curl</code>容器执行：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[ root@curl-69c656fd45-ztblt:/ ]$ curl hostnames</span><br><span class="line">hostnames-dd4cc9dd9-5k42b</span><br></pre></td></tr></table></figure>
+
+<p>看到结果已经正常。这个确定了导致这个问题的原因是<code>ipvs</code>规则没有更新。经过确定，需要升级<code>Liunx</code>的内核到<code>V4</code>以上。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+
+  
+  <nav class="pagination">
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+  </nav>
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Qiao Libo"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">Qiao Libo</p>
+  <div class="site-description" itemprop="description">生活不只是代码，还有诗和远方！</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">21</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">35</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/qiaolb" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;qiaolb" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="http://weibo.com/qiaolibo" title="Weibo → http:&#x2F;&#x2F;weibo.com&#x2F;qiaolibo" rel="noopener" target="_blank"><i class="fa fa-fw fa-weibo"></i>Weibo</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/qiaolibo" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;qiaolibo" rel="noopener" target="_blank"><i class="fa fa-fw fa-twitter"></i>Twitter</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2016 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Qiao Libo</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

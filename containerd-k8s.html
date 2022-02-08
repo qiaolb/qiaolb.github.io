@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.0.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/function%20()%20%7B%0A%20%20%20%20%20%20for%20(var%20_len2%20=%20arguments.length,%20args%20=%20new%20Array(_len2),%20_key2%20=%200;%20_key2%20%3C%20_len2;%20_key2++)%20%7B%0A%20%20%20%20%20%20%20%20args%5B_key2%5D%20=%20arguments%5B_key2%5D;%0A%20%20%20%20%20%20%7D%0A%0A%20%20%20%20%20%20return%20obj%5Bval%5D.apply(obj,%20args);%0A%20%20%20%20%7D">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.loli.net/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"qiaolb.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="Kubernetes到1.20开始不建议使用docker作为运行时，作为容器运行时，其实还有其他一些：  containerd CRI-O  经过对比，我选择了containerd进行验证。这次我并没有升级整体Kubernetes集群，只是打算增加一个使用containerd的容器运行时的节点。 安装containerd我使用CentOS 7，首先需要设置内核参数，这个和之前Docker一样： 1">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Kubernetes加入containerd运行时节点">
+<meta property="og:url" content="https://qiaolb.github.io/containerd-k8s.html">
+<meta property="og:site_name" content="This is JOE">
+<meta property="og:description" content="Kubernetes到1.20开始不建议使用docker作为运行时，作为容器运行时，其实还有其他一些：  containerd CRI-O  经过对比，我选择了containerd进行验证。这次我并没有升级整体Kubernetes集群，只是打算增加一个使用containerd的容器运行时的节点。 安装containerd我使用CentOS 7，首先需要设置内核参数，这个和之前Docker一样： 1">
+<meta property="og:locale">
+<meta property="article:published_time" content="2020-12-22T02:00:00.000Z">
+<meta property="article:modified_time" content="2022-02-08T05:42:47.022Z">
+<meta property="article:author" content="Qiao Libo">
+<meta property="article:tag" content="k8s">
+<meta property="article:tag" content="containerd">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://qiaolb.github.io/containerd-k8s.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-Hans'
+  };
+</script>
+
+  <title>Kubernetes加入containerd运行时节点 | This is JOE</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?5e9cccd25fa530ec8126bd05056818ae";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">This is JOE</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Hello World！</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="https://qiaolb.github.io/containerd-k8s.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Qiao Libo">
+      <meta itemprop="description" content="生活不只是代码，还有诗和远方！">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="This is JOE">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Kubernetes加入containerd运行时节点
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-12-22 10:00:00" itemprop="dateCreated datePublished" datetime="2020-12-22T10:00:00+08:00">2020-12-22</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p><code>Kubernetes</code>到<code>1.20</code>开始不建议使用<code>docker</code>作为运行时，作为容器运行时，其实还有其他一些：</p>
+<ul>
+<li>containerd</li>
+<li>CRI-O</li>
+</ul>
+<p>经过对比，我选择了<code>containerd</code>进行验证。这次我并没有升级整体<code>Kubernetes</code>集群，只是打算增加一个使用<code>containerd</code>的容器运行时的节点。</p>
+<h2 id="安装containerd"><a href="#安装containerd" class="headerlink" title="安装containerd"></a>安装<code>containerd</code></h2><p>我使用<code>CentOS 7</code>，首先需要设置内核参数，这个和之前<code>Docker</code>一样：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">cat &lt;&lt;EOF | sudo tee /etc/modules-load.d/containerd.conf</span><br><span class="line">overlay</span><br><span class="line">br_netfilter</span><br><span class="line">EOF</span><br><span class="line"></span><br><span class="line">sudo modprobe overlay</span><br><span class="line">sudo modprobe br_netfilter</span><br><span class="line"></span><br><span class="line"># 设置必需的 sysctl 参数，这些参数在重新启动后仍然存在。</span><br><span class="line">cat &lt;&lt;EOF | sudo tee /etc/sysctl.d/99-kubernetes-cri.conf</span><br><span class="line">net.bridge.bridge-nf-call-iptables  = 1</span><br><span class="line">net.ipv4.ip_forward                 = 1</span><br><span class="line">net.bridge.bridge-nf-call-ip6tables = 1</span><br><span class="line">EOF</span><br><span class="line"></span><br><span class="line"># Apply sysctl params without reboot</span><br><span class="line">sudo sysctl --system</span><br></pre></td></tr></table></figure>
+
+<p>然后开始安装，<code>containerd</code>使用<code>yum</code>源和<code>docker-ce</code>相同：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># 安装 containerd</span><br><span class="line">## 设置仓库</span><br><span class="line">### 安装所需包</span><br><span class="line">sudo yum install -y yum-utils device-mapper-persistent-data lvm2</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">### 新增 Docker 仓库</span><br><span class="line">sudo yum-config-manager \</span><br><span class="line">    --add-repo \</span><br><span class="line">    https://download.docker.com/linux/centos/docker-ce.repo</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">## 安装 containerd</span><br><span class="line">sudo yum update -y &amp;&amp; sudo yum install -y containerd.io</span><br></pre></td></tr></table></figure>
+
+<h2 id="配置containerd"><a href="#配置containerd" class="headerlink" title="配置containerd"></a>配置<code>containerd</code></h2><p>首先获得缺省配置：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># 配置 containerd</span><br><span class="line">sudo mkdir -p /etc/containerd</span><br><span class="line">sudo containerd config default &gt; /etc/containerd/config.toml</span><br></pre></td></tr></table></figure>
+
+<p>因为国内无法访问部分<code>image</code>源，同事<code>docker hub</code>比较慢，修改使用国内镜像：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">vi /etc/containerd/config.toml</span><br><span class="line"></span><br><span class="line"># 修改一下内容：</span><br><span class="line">...</span><br><span class="line">sandbox_image = &quot;registry.aliyuncs.com/google_containers/pause:3.2&quot;</span><br><span class="line">...</span><br><span class="line">    [plugins.&quot;io.containerd.grpc.v1.cri&quot;.registry]</span><br><span class="line">      [plugins.&quot;io.containerd.grpc.v1.cri&quot;.registry.mirrors]</span><br><span class="line">        [plugins.&quot;io.containerd.grpc.v1.cri&quot;.registry.mirrors.&quot;docker.io&quot;]</span><br><span class="line">          endpoint = [&quot;https://docker.mirrors.ustc.edu.cn&quot;]</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 重启 containerd</span><br><span class="line">sudo systemctl restart containerd</span><br></pre></td></tr></table></figure>
+
+<h2 id="加入k8s集群"><a href="#加入k8s集群" class="headerlink" title="加入k8s集群"></a>加入k8s集群</h2><p>首先安装<code>k8s</code>，包括<code>kubeadm</code>、<code>kubelet</code>、<code>kubectl</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install -y kubeadm kubelet kubectl</span><br></pre></td></tr></table></figure>
+
+<p>然后加入到集群：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubeadm join master.k8s:8443 --token xxx     --discovery-token-ca-cert-hash sha256:xxxxxxx</span><br></pre></td></tr></table></figure>
+
+<p>现在已经使用<code>containerd</code>允许时的节点已经加入到集群，部署容器测试可以正常使用。</p>
+<h2 id="containerd管理"><a href="#containerd管理" class="headerlink" title="containerd管理"></a>containerd管理</h2><p>使用<code>containerd</code>已经不能使用熟悉的<code>docker</code>命令进行容器的管理了，<code>containerd</code>提供了2个工具可以使用:</p>
+<ul>
+<li>ctr</li>
+<li>crictl</li>
+</ul>
+<h3 id="ctr"><a href="#ctr" class="headerlink" title="ctr"></a>ctr</h3><p><code>ctr</code>是一个简单的命令工具，使用并不复杂，但需要注意：</p>
+<ul>
+<li><code>ctr</code>不会使用配置文件<code>/etc/containerd/config.toml</code>，也就是说配置的<code>mirror</code>并不能使用</li>
+<li><code>images</code>也有命名空间，<code>k8s</code>会使用一个名为<code>k8s.io</code>的命名空间</li>
+<li><code>ctr</code>的参数有顺序，如<code>ctr -n=k8s.io images list</code>正确，而<code>ctr images list -n=k8s.io</code>则不正确</li>
+</ul>
+<p>希望未来<code>ctr</code>会更完善一些。</p>
+<h3 id="crictl"><a href="#crictl" class="headerlink" title="crictl"></a>crictl</h3><p><code>crictl</code>使用和<code>docker</code>命令类似，比较方便。使用前需要增加配置文件：<code>/etc/crictl.yaml</code>。内容如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">runtime-endpoint: unix:///run/containerd/containerd.sock</span><br><span class="line">image-endpoint: unix:///run/containerd/containerd.sock</span><br><span class="line">timeout: 10</span><br><span class="line">debug: false</span><br></pre></td></tr></table></figure>
+
+
+
+    </div>
+
+    
+    
+    
+        <div class="reward-container">
+  <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    Donate
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay.png" alt="Qiao Libo Alipay">
+        <p>Alipay</p>
+      </div>
+
+  </div>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/k8s/" rel="tag"># k8s</a>
+              <a href="/tags/containerd/" rel="tag"># containerd</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/upgrade-k8s1.18.html" rel="prev" title="Kubernetes V1.18 ipvs故障">
+      <i class="fa fa-chevron-left"></i> Kubernetes V1.18 ipvs故障
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/nfs-k8sv1.20.html" rel="next" title="升级Kubernetes V1.20后，pvc无法创建问题解决">
+      升级Kubernetes V1.20后，pvc无法创建问题解决 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85containerd"><span class="nav-number">1.</span> <span class="nav-text">安装containerd</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%85%8D%E7%BD%AEcontainerd"><span class="nav-number">2.</span> <span class="nav-text">配置containerd</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8A%A0%E5%85%A5k8s%E9%9B%86%E7%BE%A4"><span class="nav-number">3.</span> <span class="nav-text">加入k8s集群</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#containerd%E7%AE%A1%E7%90%86"><span class="nav-number">4.</span> <span class="nav-text">containerd管理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#ctr"><span class="nav-number">4.1.</span> <span class="nav-text">ctr</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#crictl"><span class="nav-number">4.2.</span> <span class="nav-text">crictl</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Qiao Libo"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">Qiao Libo</p>
+  <div class="site-description" itemprop="description">生活不只是代码，还有诗和远方！</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">21</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">35</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/qiaolb" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;qiaolb" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="http://weibo.com/qiaolibo" title="Weibo → http:&#x2F;&#x2F;weibo.com&#x2F;qiaolibo" rel="noopener" target="_blank"><i class="fa fa-fw fa-weibo"></i>Weibo</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/qiaolibo" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;qiaolibo" rel="noopener" target="_blank"><i class="fa fa-fw fa-twitter"></i>Twitter</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2016 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Qiao Libo</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

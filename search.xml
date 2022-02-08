@@ -1,0 +1,646 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title>引人的ECMAScript</title>
+    <url>/es2015-basic.html</url>
+    <content><![CDATA[<blockquote>
+<p>下滑这里查看更多内容</p>
+</blockquote>
+<p>10月20日，我在公司内部的「威发大讲坛」进行了名为「引人的ECMAScript」分享，希望能对大家有帮助。</p>
+<p>现在，我决定将它重新发到我的博客上。</p>
+<span id="more"></span>
+
+<h3 id="Watch-Slides-→"><a href="#Watch-Slides-→" class="headerlink" title="Watch Slides →"></a><a href="https://qiaolb.github.io/presentation/es2015-basic.html">Watch Slides →</a></h3><!--img src="http://huangxuan.me/js-module-7day/attach/qrcode.png" width="350" height="350"/>
+
+<small class="img-hint">你也可以通过扫描二维码在手机上观看</small-->
+
+
+<p>这个 Web Slides 开源在<a href="https://github.com/qiaolb/presentation">我的 Github 上</a>，欢迎你帮助我完善这个展示文稿，你可以给我提 issue。如果它能帮助到你了，希望你还能不吝啬 star 一下这个项目</p>
+<h3 id="Catalog"><a href="#Catalog" class="headerlink" title="Catalog"></a>Catalog</h3><ul>
+<li>第一 ECMAScript 简介</li>
+<li>第二 ECMAScript 2015新特性</li>
+<li>第三 何时可以使用？</li>
+</ul>
+<h3 id="Thanks"><a href="#Thanks" class="headerlink" title="Thanks"></a>Thanks</h3><p><a href="http://lab.hakim.se/reveal-js">Reveal.js</a></p>
+]]></content>
+      <tags>
+        <tag>前端开发</tag>
+        <tag>JavaScript</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Welcome to Joe Blog</title>
+    <url>/hello-2016.html</url>
+    <content><![CDATA[<blockquote>
+<p>“Yeah It’s on. ”</p>
+</blockquote>
+<p>我fork了 Hux 的 Blog，开通了自己在Github上的Blog。</p>
+<p>因为比较喜欢Github，也觉得Markdown更加简单，两个正好是我想要的，一拍即合。</p>
+<p>Go！</p>
+]]></content>
+      <tags>
+        <tag>生活</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>FindBugs中的过滤</title>
+    <url>/findbugs-filter.html</url>
+    <content><![CDATA[<p>在开发项目中我们使用了findbugs进行代码检查，使用findbugs-maven-plugin进行maven配置，在一个项目中发现Findbugs检查有以下错误：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Type MS_SHOULD_BE_FINAL</span><br><span class="line"></span><br><span class="line">This static field public but not final, and could be changed by malicious code or by accident from another package. The field could be made final to avoid this vulnerability.</span><br></pre></td></tr></table></figure>
+
+<span id="more"></span>
+
+<p>这个类型的错误属于设计上不够严谨，但由于历史代码修改比较多，所以我们可以对这个错误告警进行过滤。<br>具体方法如下：</p>
+<h3 id="增加一个过滤文件"><a href="#增加一个过滤文件" class="headerlink" title="增加一个过滤文件"></a>增加一个过滤文件</h3><p>我这里命名为：findbugs-exclude.xml</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">FindBugsFilter</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">Match</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">Bug</span> <span class="attr">pattern</span>=<span class="string">&quot;MS_SHOULD_BE_FINAL&quot;</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">Match</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">FindBugsFilter</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="修改pom-xml"><a href="#修改pom-xml" class="headerlink" title="修改pom.xml"></a>修改pom.xml</h3><p>在findbugs-maven-plugin中增加配置：</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.codehaus.mojo<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>findbugs-maven-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>3.0.4<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">         <span class="tag">&lt;<span class="name">excludeFilterFile</span>&gt;</span>findbugs-exclude.xml<span class="tag">&lt;/<span class="name">excludeFilterFile</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>现在这个问题就不会再告警了。</p>
+<p>不过，我们还是要严谨的对待FindBugs提醒我们的问题。</p>
+]]></content>
+      <tags>
+        <tag>Java</tag>
+        <tag>FindBugs</tag>
+        <tag>Maven</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>React的Stateless Functional Components</title>
+    <url>/react-stateless.html</url>
+    <content><![CDATA[<p>最早在写React组件时，使用的以下方法：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> <span class="title class_">App</span> = <span class="title class_">React</span>.<span class="title function_">createClass</span>(&#123;</span><br><span class="line">  <span class="attr">handleClick</span>: <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">    ...</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="attr">render</span>: <span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="language-xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">onClick</span>=<span class="string">&#123;handleClick&#125;</span>&gt;</span>Click me!<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<span id="more"></span>
+
+<p>后来使用ES6的class，写法如下：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">App</span> <span class="keyword">extends</span> <span class="title class_ inherited__">React.Componnet</span> &#123;</span><br><span class="line">  <span class="title function_">handleClick</span>(<span class="params"></span>) &#123;</span><br><span class="line">    ...</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="title function_">render</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="language-xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">onClick</span>=<span class="string">&#123;this.handleClick.bind(this)&#125;</span>&gt;</span>Click me!<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>今天看到另外一种写法：Stateless Functional Components，写法如下：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">App</span>(<span class="params">props</span>) &#123;</span><br><span class="line">  <span class="keyword">function</span> <span class="title function_">handleClick</span>(<span class="params"></span>) &#123;</span><br><span class="line">    ...</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="language-xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">onClick</span>=<span class="string">&#123;handleClick&#125;</span>&gt;</span>Click me!<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Stateless Functional Components<strong>保持简洁和无状态</strong>。这是<strong>函数</strong>，不是 Object，没有 this 作用域，是 pure function。推荐尽量使用最后一种。似乎有回到了函数年代。</p>
+]]></content>
+      <tags>
+        <tag>JavaScript</tag>
+        <tag>React</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>用SVG实现一个半圆形仪表盘</title>
+    <url>/svg-circle.html</url>
+    <content><![CDATA[<p>由于需要在网页中展示一个如下的效果：<br><img src="/images/svg-circle/circle_dashboard.png" alt="仪表盘"></p>
+<span id="more"></span>
+
+<p>项目开发采用的是React，使用 <a href="https://ant.design/">Ant Design</a> 组件库，我发现Ant Design中有一个Progress很像，效果如下：</p>
+
+<div style="width: 132px; height: 132px; font-size: 27.12px;">
+<svg class="ant-progress-circle " viewBox="0 0 100 100">
+    <path class="ant-progress-circle-trail" d="M 50,50 m 0,-47
+     a 47,47 0 1 1 0,94
+     a 47,47 0 1 1 0,-94" stroke="#f3f3f3" stroke-width="6" fill-opacity="0"></path>
+    <path class="ant-progress-circle-path" d="M 50,50 m 0,-47
+     a 47,47 0 1 1 0,94
+     a 47,47 0 1 1 0,-94" stroke-linecap="round" stroke="#108ee9" stroke-width="6" fill-opacity="0"
+          style="stroke-dasharray: 295.31px, 295.31px; stroke-dashoffset: 73.8274px; transition: stroke-dashoffset 0.3s ease 0s, stroke 0.3s ease;">
+    </path>
+</svg>
+</div>
+
+
+
+<p>Process使用的是rc_progress，实现过程很巧妙，首先通过两个圆，然后将要显示进度的圆变成虚线，通过调节虚线起始位置来实现进度的变化。我也类似的做了一个仪表盘，对Process做了一些调整。<br>具体步骤如下：</p>
+<h6 id="首先画两个圆，一个为底图，一个为进度图。画法是分别左右画一个半圆。"><a href="#首先画两个圆，一个为底图，一个为进度图。画法是分别左右画一个半圆。" class="headerlink" title="首先画两个圆，一个为底图，一个为进度图。画法是分别左右画一个半圆。"></a>首先画两个圆，一个为底图，一个为进度图。画法是分别左右画一个半圆。</h6><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> pathString = <span class="string">`M 50,50 m 0,<span class="subst">$&#123;radius&#125;</span></span></span><br><span class="line"><span class="string">  a <span class="subst">$&#123;radius&#125;</span>,<span class="subst">$&#123;radius&#125;</span> 0 1 1 0,-<span class="subst">$&#123;<span class="number">2</span> * radius&#125;</span></span></span><br><span class="line"><span class="string">  a <span class="subst">$&#123;radius&#125;</span>,<span class="subst">$&#123;radius&#125;</span> 0 1 1 0,<span class="subst">$&#123;<span class="number">2</span> * radius&#125;</span>`</span>;</span><br></pre></td></tr></table></figure>
+
+<h6 id="然后将底图的圆变成虚线，虚线中不显示的部分我开口的部分"><a href="#然后将底图的圆变成虚线，虚线中不显示的部分我开口的部分" class="headerlink" title="然后将底图的圆变成虚线，虚线中不显示的部分我开口的部分"></a>然后将底图的圆变成虚线，虚线中不显示的部分我开口的部分</h6><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> len = <span class="title class_">Math</span>.<span class="property">PI</span> * <span class="number">2</span> * radius;</span><br><span class="line"><span class="keyword">const</span> trailPathStyle = &#123;</span><br><span class="line">  <span class="attr">strokeDasharray</span>: <span class="string">`<span class="subst">$&#123;len - openWidth&#125;</span>px <span class="subst">$&#123;len&#125;</span>px`</span>,</span><br><span class="line">  <span class="attr">strokeDashoffset</span>: <span class="string">`<span class="subst">$&#123;openWidth / <span class="number">2</span>&#125;</span>px`</span>,</span><br><span class="line">  <span class="attr">transition</span>: <span class="string">&#x27;stroke-dashoffset 0.3s ease 0s, stroke 0.3s ease&#x27;</span>,</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h6 id="同样的方法，将进度圆也修改为虚线"><a href="#同样的方法，将进度圆也修改为虚线" class="headerlink" title="同样的方法，将进度圆也修改为虚线"></a>同样的方法，将进度圆也修改为虚线</h6><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> strokePathStyle = &#123;</span><br><span class="line">  <span class="attr">strokeDasharray</span>: <span class="string">`<span class="subst">$&#123;percent / <span class="number">100</span> * (len - openWidth)&#125;</span>px <span class="subst">$&#123;len&#125;</span>px`</span>,</span><br><span class="line">  <span class="attr">strokeDashoffset</span>: <span class="string">`<span class="subst">$&#123;openWidth / <span class="number">2</span>&#125;</span>px`</span>,</span><br><span class="line">  <span class="attr">transition</span>: <span class="string">&#x27;stroke-dashoffset 0.3s ease 0s, stroke 0.3s ease&#x27;</span>,</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>SVG部分代码如下：</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">svg</span></span></span><br><span class="line"><span class="tag">  <span class="attr">className</span>=<span class="string">&#123;</span>`$&#123;<span class="attr">prefixCls</span>&#125;<span class="attr">-circle</span> $&#123;<span class="attr">className</span>&#125;`&#125;</span></span><br><span class="line"><span class="tag">  <span class="attr">viewBox</span>=<span class="string">&quot;0 0 100 100&quot;</span></span></span><br><span class="line"><span class="tag">  <span class="attr">style</span>=<span class="string">&#123;style&#125;</span></span></span><br><span class="line"><span class="tag">  &#123;<span class="attr">...restProps</span>&#125;</span></span><br><span class="line"><span class="tag">&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">path</span></span></span><br><span class="line"><span class="tag">    <span class="attr">className</span>=<span class="string">&#123;</span>`$&#123;<span class="attr">prefixCls</span>&#125;<span class="attr">-circle-trail</span>`&#125;</span></span><br><span class="line"><span class="tag">    <span class="attr">d</span>=<span class="string">&#123;pathString&#125;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">stroke</span>=<span class="string">&#123;trailColor&#125;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">strokeWidth</span>=<span class="string">&#123;trailWidth</span> || <span class="attr">strokeWidth</span>&#125;</span></span><br><span class="line"><span class="tag">    <span class="attr">fillOpacity</span>=<span class="string">&quot;0&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">style</span>=<span class="string">&#123;trailPathStyle&#125;</span></span></span><br><span class="line"><span class="tag">  /&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">path</span></span></span><br><span class="line"><span class="tag">    <span class="attr">className</span>=<span class="string">&#123;</span>`$&#123;<span class="attr">prefixCls</span>&#125;<span class="attr">-circle-path</span>`&#125;</span></span><br><span class="line"><span class="tag">    <span class="attr">d</span>=<span class="string">&#123;pathString&#125;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">strokeLinecap</span>=<span class="string">&#123;strokeLinecap&#125;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">stroke</span>=<span class="string">&#123;strokeColor&#125;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">strokeWidth</span>=<span class="string">&#123;strokeWidth&#125;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">fillOpacity</span>=<span class="string">&quot;0&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">ref</span>=<span class="string">&#123;(path)</span> =&gt;</span> &#123; this.path = path; &#125;&#125;</span><br><span class="line">    style=&#123;strokePathStyle&#125;</span><br><span class="line">  /&gt;</span><br><span class="line"><span class="tag">&lt;/<span class="name">svg</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h6 id="修改完成后效果如下："><a href="#修改完成后效果如下：" class="headerlink" title="修改完成后效果如下："></a>修改完成后效果如下：</h6>
+<div style="width: 132px; height: 132px; font-size: 27.12px;">
+<svg class="ant-progress-circle " viewBox="0 0 100 100">
+<path class="ant-progress-circle-trail" 
+d="M 50,50 m 0,47 a 47,47 0 1 1 0,-94
+     a 47,47 0 1 1 0,94" 
+     stroke="#f3f3f3" stroke-width="6" fill-opacity="0"
+     style="stroke-dasharray: 205.31px, 295.31px;
+      stroke-dashoffset: -45px;
+      transition: stroke-dashoffset 0.3s ease 0s, stroke 0.3s ease;">     	
+     </path>
+     <path class="ant-progress-circle-path" 
+     d="M 50,50 m 0,47 a 47,47 0 1 1 0,-94
+     a 47,47 0 1 1 0,94"
+     stroke-linecap="round" 
+     stroke="#108ee9" stroke-width="6" 
+     fill-opacity="0" 
+     style="stroke-dasharray: 75.31px, 295.31px;
+      stroke-dashoffset: -45px;
+      transition: stroke-dashoffset 0.3s ease 0s, stroke 0.3s ease;">     	
+     </path>
+     </svg>
+</div>
+
+
+
+<p>这部分代码我已经提交了一个<a href="https://github.com/ant-design/ant-design/issues/5225">建议</a>给<a href="https://ant.design/">Ant Design</a>，希望他们能做的更好。</p>
+<h4 id="后记，相关的SVG知识"><a href="#后记，相关的SVG知识" class="headerlink" title="后记，相关的SVG知识"></a>后记，相关的SVG知识</h4><p><code>&lt;path&gt;</code> 标签：用来定义路径。</p>
+<p>下面的命令可用于路径数据：</p>
+<ul>
+<li>M = moveto</li>
+<li>L = lineto</li>
+<li>H = horizontal lineto</li>
+<li>V = vertical lineto</li>
+<li>C = curveto</li>
+<li>S = smooth curveto</li>
+<li>Q = quadratic Belzier curve</li>
+<li>T = smooth quadratic Belzier curveto</li>
+<li>A = elliptical Arc</li>
+<li>Z = closepath</li>
+</ul>
+<p>注释：以上所有命令均允许小写字母。大写表示绝对定位，小写表示相对定位。</p>
+<p><code>stroke-dasharray</code> 是用于设置虚线的属性。你可以使用它来设置每条划线长度以及划线之间空格的大小著作权归作者所有。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">&lt;svg width=<span class="string">&quot;600px&quot;</span> height=<span class="string">&quot;300px&quot;</span>&gt;</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;<span class="name">line</span> <span class="attr">x1</span>=<span class="string">&quot;0&quot;</span> <span class="attr">y1</span>=<span class="string">&quot;20&quot;</span> <span class="attr">x2</span>=<span class="string">&quot;600&quot;</span> <span class="attr">y2</span>=<span class="string">&quot;20&quot;</span> <span class="attr">stroke</span>=<span class="string">&quot;#000&quot;</span> <span class="attr">stroke-width</span>=<span class="string">&quot;3&quot;</span> <span class="attr">stroke-dasharray</span>=<span class="string">&quot;10 2&quot;</span>/&gt;</span></span></span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;<span class="name">line</span> <span class="attr">x1</span>=<span class="string">&quot;0&quot;</span> <span class="attr">y1</span>=<span class="string">&quot;40&quot;</span> <span class="attr">x2</span>=<span class="string">&quot;600&quot;</span> <span class="attr">y2</span>=<span class="string">&quot;40&quot;</span> <span class="attr">stroke</span>=<span class="string">&quot;#000&quot;</span> <span class="attr">stroke-width</span>=<span class="string">&quot;3&quot;</span> <span class="attr">stroke-dasharray</span>=<span class="string">&quot;5 10&quot;</span>/&gt;</span></span></span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;<span class="name">line</span> <span class="attr">x1</span>=<span class="string">&quot;0&quot;</span> <span class="attr">y1</span>=<span class="string">&quot;60&quot;</span> <span class="attr">x2</span>=<span class="string">&quot;600&quot;</span> <span class="attr">y2</span>=<span class="string">&quot;60&quot;</span> <span class="attr">stroke</span>=<span class="string">&quot;#000&quot;</span> <span class="attr">stroke-width</span>=<span class="string">&quot;3&quot;</span> <span class="attr">stroke-dasharray</span>=<span class="string">&quot;1 1&quot;</span>/&gt;</span></span></span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;<span class="name">line</span> <span class="attr">x1</span>=<span class="string">&quot;0&quot;</span> <span class="attr">y1</span>=<span class="string">&quot;80&quot;</span> <span class="attr">x2</span>=<span class="string">&quot;600&quot;</span> <span class="attr">y2</span>=<span class="string">&quot;80&quot;</span> <span class="attr">stroke</span>=<span class="string">&quot;#000&quot;</span> <span class="attr">stroke-width</span>=<span class="string">&quot;3&quot;</span> <span class="attr">stroke-dasharray</span>=<span class="string">&quot;10&quot;</span>/&gt;</span></span></span><br><span class="line">&lt;/svg&gt;</span><br></pre></td></tr></table></figure>
+
+<p>第一个值是划线的长度，第二个值是各个划线之间的空格大小。如果你只设置了一个值（如上面的最后一个示例），它会默认设置相同划线长度和划线空格。</p>
+
+<svg width="600px">
+    <line x1="0" y1="20" x2="600" y2="20" stroke="#000" stroke-width="3" stroke-dasharray="10 2"/>
+    <line x1="0" y1="40" x2="600" y2="40" stroke="#000" stroke-width="3" stroke-dasharray="5 10"/>
+    <line x1="0" y1="60" x2="600" y2="60" stroke="#000" stroke-width="3" stroke-dasharray="1 1"/>
+    <line x1="0" y1="80" x2="600" y2="80" stroke="#000" stroke-width="3" stroke-dasharray="10"/>
+</svg>
+
+
+<p><code>stroke-dashoffset</code>属性是设置虚线的偏移量。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">&lt;svg width=<span class="string">&quot;600px&quot;</span>&gt;</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;<span class="name">line</span> <span class="attr">x1</span>=<span class="string">&quot;0&quot;</span> <span class="attr">y1</span>=<span class="string">&quot;20&quot;</span> <span class="attr">x2</span>=<span class="string">&quot;600&quot;</span> <span class="attr">y2</span>=<span class="string">&quot;20&quot;</span> <span class="attr">stroke</span>=<span class="string">&quot;#000&quot;</span> <span class="attr">stroke-width</span>=<span class="string">&quot;3&quot;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">          <span class="attr">stroke-dasharray</span>=<span class="string">&quot;50 30&quot;</span>/&gt;</span></span></span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;<span class="name">line</span> <span class="attr">x1</span>=<span class="string">&quot;0&quot;</span> <span class="attr">y1</span>=<span class="string">&quot;40&quot;</span> <span class="attr">x2</span>=<span class="string">&quot;600&quot;</span> <span class="attr">y2</span>=<span class="string">&quot;40&quot;</span> <span class="attr">stroke</span>=<span class="string">&quot;#000&quot;</span> <span class="attr">stroke-width</span>=<span class="string">&quot;3&quot;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">          <span class="attr">stroke-dasharray</span>=<span class="string">&quot;50 30&quot;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">          <span class="attr">stroke-dashoffset</span>=<span class="string">&quot;10&quot;</span>/&gt;</span></span></span><br><span class="line">&lt;/svg&gt;</span><br></pre></td></tr></table></figure>
+
+<p>第二条线设置<code>stroke-dashoffset=10</code>，线条偏移了10，效果如下：</p>
+
+<svg width="600px">
+    <line x1="0" y1="20" x2="600" y2="20" stroke="#000" stroke-width="3"
+          stroke-dasharray="50 30"/>
+    <line x1="0" y1="40" x2="600" y2="40" stroke="#000" stroke-width="3"
+          stroke-dasharray="50 30"
+          stroke-dashoffset="10"/>
+</svg>
+
+]]></content>
+      <tags>
+        <tag>JavaScript</tag>
+        <tag>React</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>常用国内源汇总</title>
+    <url>/china-source.html</url>
+    <content><![CDATA[<p>在开发和实施中，经常需要调整各种源，以到达最快的速度，今天对我常用的源做一个汇总。</p>
+<span id="more"></span>
+
+<h3 id="Node-js"><a href="#Node-js" class="headerlink" title="Node.js"></a>Node.js</h3><p>可以直接从<a href="http://npm.taobao.org/mirrors/node">阿里源</a>下载</p>
+<h3 id="NPM"><a href="#NPM" class="headerlink" title="NPM"></a>NPM</h3><p>NPM阿里的源： <a href="https://npm.taobao.org/">https://npm.taobao.org/</a><br>可以按照网页中的描述按照<code>cnpm</code>，但我更喜欢直接使用<code>npm</code>，只是将源修改为阿里的方法如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">npm config set registry https://registry.npm.taobao.org</span><br></pre></td></tr></table></figure>
+
+<h3 id="phantomjs"><a href="#phantomjs" class="headerlink" title="phantomjs"></a>phantomjs</h3><p><code>PhantomJS</code> 是一个基于 <code>WebKit</code> 的服务器端 JavaScript API。在npm安装时经常会用到，但国外的源下载很慢，修改为国内的源的方法如下：<br>增加环境变量：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">PHANTOMJS_CDNURL=http://npm.taobao.org/mirrors/phantomjs</span><br></pre></td></tr></table></figure>
+
+<h3 id="CentOS"><a href="#CentOS" class="headerlink" title="CentOS"></a>CentOS</h3><p>163源，使用方法参考： <a href="http://mirrors.163.com/.help/centos.html">http://mirrors.163.com/.help/centos.html</a></p>
+<p>下载对应版本repo文件, 放入/etc/yum.repos.d/(操作前请做好相应备份)</p>
+<p><a href="http://mirrors.163.com/.help/CentOS7-Base-163.repo">CentOS7</a><br><a href="http://mirrors.163.com/.help/CentOS6-Base-163.repo">CentOS6</a><br><a href="http://mirrors.163.com/.help/CentOS5-Base-163.repo">CentOS5</a></p>
+<p>运行以下命令生成缓存</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">yum clean all</span><br><span class="line">yum makecache</span><br></pre></td></tr></table></figure>
+
+<p>另外，<a href="http://mirrors.163.com/">163源</a>还提供了<code>debian</code>，<code>Ubuntu</code>等源镜像。</p>
+<h3 id="常用js库功能CDN"><a href="#常用js库功能CDN" class="headerlink" title="常用js库功能CDN"></a>常用js库功能CDN</h3><p><a href="http://www.bootcdn.cn/">bootcdn</a>，相对比较全<br><a href="https://www.staticfile.org/">七牛云存储</a><br><a href="http://www.cdnjs.cn/">CNDJS</a> 从官方CNDJS镜像：<a href="http://www.cdnjs.com/">http://www.cdnjs.com/</a></p>
+]]></content>
+      <tags>
+        <tag>NPM</tag>
+        <tag>Linux</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>时间简史</title>
+    <url>/brief-histroy-time.html</url>
+    <content><![CDATA[<blockquote>
+<p>下滑这里查看更多内容</p>
+</blockquote>
+<p>时间处理在开发中最常见的问题，应同事要求我做一个简单的汇总，方便学习。</p>
+<p>之所以使用《时间简史》这个名字，一方面是和时间有关，更多的是希望像霍金一样能用最简单的方式来介绍概念，为开发人员进行科普。</p>
+<span id="more"></span>
+
+<h3 id="Watch-Slides-→"><a href="#Watch-Slides-→" class="headerlink" title="Watch Slides →"></a><a href="https://qiaolb.github.io/presentation/brief-history-time.html">Watch Slides →</a></h3><p>这个 Web Slides 开源在<a href="https://github.com/qiaolb/presentation">我的 Github 上</a>，欢迎你帮助我完善这个展示文稿，你可以给我提 issue。如果它能帮助到你了，希望你还能不吝啬 star 一下这个项目</p>
+<h3 id="Catalog"><a href="#Catalog" class="headerlink" title="Catalog"></a>Catalog</h3><ul>
+<li>第一 概念</li>
+<li>第二 Java中的时间</li>
+<li>第三 C/C++中的时间</li>
+<li>第四 JavaScript中的时间</li>
+<li>第五 数据库中的时间</li>
+</ul>
+<h3 id="Thanks"><a href="#Thanks" class="headerlink" title="Thanks"></a>Thanks</h3><p><a href="http://lab.hakim.se/reveal-js">Reveal.js</a></p>
+]]></content>
+      <tags>
+        <tag>基础</tag>
+        <tag>Time</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>开始使用Hexo</title>
+    <url>/Start-Hexo.html</url>
+    <content><![CDATA[<p>在朋友的推荐下尝试了一些<code>Hexo</code> + <code>Next</code>，使用后感觉真的很简单，并且<code>Next</code>效果很棒，最终切换为<code>Hexo</code> + <code>Next</code>。</p>
+<p>切换过程遇到了一些问题，做一个记录，分享出来。</p>
+<span id="more"></span>
+
+<h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><p>安装过程遇到2个问题：</p>
+<ol>
+<li>我是在<code>Mac</code>上使用刚刚发布的<code>Node.js V8.0</code>，结果在安装过程中发现依赖包<code>fsevents</code>包V1.1.1不支持<code>Node.js V8</code>，好在等了几天 V1.1.2解决了这个问题。然后按照<a href="https://hexo.io/zh-cn/docs">官方文档</a>进行安装。</li>
+<li>我使用了npm 淘宝镜像（参考<a href="/2017/03/19/china-source">常用国内源汇总</a>), 结果发现部分包按照失败，指定官方源解决：<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">npm i hexo-cli -g --registry=https://registry.npmjs.org/</span><br><span class="line"></span><br><span class="line">npm i --registry=https://registry.npmjs.org/</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h1 id="404"><a href="#404" class="headerlink" title="404"></a>404</h1><p>将404.html放在<code>themes/next/source/404.html</code>，注意，这个配置在本地调整不生效，<code>deploy</code>后生效。</p>
+<h1 id="CDN配置"><a href="#CDN配置" class="headerlink" title="CDN配置"></a>CDN配置</h1><p>参考<a href="http://theme-next.iissnan.com/advanced-settings.html">Next进价设定</a>修改国内CDN，以提高网页访问速度。</p>
+<h1 id="SVG问题解决"><a href="#SVG问题解决" class="headerlink" title="SVG问题解决"></a>SVG问题解决</h1><p>之前使用<code>Jekyll</code>写过一篇”<a href="/2017/03/11/svg-circle">用SVG实现一个半圆形仪表盘</a>“的文章，其中显示SVG部分直接写<code>&lt;svg&gt;</code>标签就可以，更换之后发现svg无法显示。修改如下：</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line">&#123;% raw %&#125;</span><br><span class="line"><span class="tag">&lt;<span class="name">svg</span>&gt;</span></span><br><span class="line">...</span><br><span class="line"><span class="tag">&lt;/<span class="name">svg</span>&gt;</span></span><br><span class="line">&#123;% endraw %&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="Reveal支持"><a href="#Reveal支持" class="headerlink" title="Reveal支持"></a>Reveal支持</h1><p>以前做了一些<code>Keynote</code>，并在<code>Blog</code>中进行展示，这个我还是希望能支持。没有找到很好的办法，只能修改<code>Next</code>源码。</p>
+<p>首先，我的<code>Markdown</code>文件中的<code>Front-matter</code>中增加一个描述，<code>key</code>为<code>iframe</code>，值为<code>Keynote</code>地址。<br>例如：</p>
+<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">iframe:     &quot;https://qiaolb.github.io/presentation/brief-history-time.html&quot;</span><br></pre></td></tr></table></figure>
+
+<p>然后修改<code>themes/next/layout/_macro/post.swig</code>，在<code>header</code>最后增加如下内容：</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line">&#123;% if page.iframe %&#125;</span><br><span class="line">  <span class="tag">&lt;<span class="name">iframe</span> <span class="attr">src</span>=<span class="string">&quot;&#123;&#123;page.iframe&#125;&#125;&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">iframe</span>&gt;</span></span><br><span class="line">&#123;% endif %&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这样就可以在header区域显示出<code>Keynote</code>。接下来调整样式，在<code>themes/next/source/css/_custom/custom.styl</code>，增加以下内容：</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.post-header</span> <span class="selector-tag">iframe</span> &#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">100%</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">450px</span>;</span><br><span class="line">  <span class="attribute">border</span>: <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@media</span> (<span class="attribute">max-width</span>: <span class="number">767px</span>) &#123;</span><br><span class="line">  <span class="selector-class">.post-header</span> <span class="selector-tag">iframe</span> &#123; <span class="attribute">height</span>: <span class="number">200px</span>; &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>一切就绪，所有以前的内容都可以正常显示了。</p>
+<h1 id="Search"><a href="#Search" class="headerlink" title="Search"></a>Search</h1><p>我配置了<code>Local Search</code>，这个比较简单。首先需要安装模块：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">npm install hexo-generator-search --save</span><br><span class="line">npm install hexo-generator-searchdb --save</span><br></pre></td></tr></table></figure>
+
+<p>然后打开<code>主题设置文件</code>（<code>themes/next/_config.yml</code>），打开<code>Local Search</code>功能：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">local_search:</span><br><span class="line">  enable: true</span><br></pre></td></tr></table></figure>
+
+
+
+<p>还有很多好玩的配置，以后慢慢研究。</p>
+]]></content>
+      <tags>
+        <tag>Hexo</tag>
+        <tag>Next</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Kubernetes中删除Calico</title>
+    <url>/remove-calico.html</url>
+    <content><![CDATA[<p>最近发现<code>Kubernetes</code>集群中，出现不稳定情况，怀疑是<code>Calico</code>导致，为了排除文件，打算将<code>Calico</code>更换为<code>Flannel</code>，本来以为很简单，结果还是遇到<code>Calico</code>无法删除干净的问题。所有将删除正确删除过程做一个记录。 顺便说一下，最终确定和<code>Calico</code>无关。</p>
+<p>环境：<br><code>Kubernetes： V1.15</code><br><code>Calico： V3.5</code></p>
+<p>删除步骤：</p>
+<ol>
+<li>删除<code>K8s</code>对象<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">kubectl delete -f calico.yaml</span><br></pre></td></tr></table></figure></li>
+<li>检查所有节点上的网络，看看是否存在<code>Tunl0</code><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">ip addr show</span><br></pre></td></tr></table></figure></li>
+<li>如果有<code>Tunl0</code>，将其删除<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">modprobe -r ipip</span><br></pre></td></tr></table></figure></li>
+<li>移除<code>Calico</code>配置文件<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">ls /etc/cni/net.d/</span><br></pre></td></tr></table></figure>
+看看是否存在<code>Calico</code>相关的文件和目录，如：<code>10-calico.conflist</code>，  <code>calico-kubeconfig</code>，  <code>calico-tls</code>，如果有将其移除。</li>
+</ol>
+<p>这时候整个<code>Calico</code>移除成功。</p>
+]]></content>
+      <tags>
+        <tag>k8s</tag>
+        <tag>network</tag>
+        <tag>calico</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>升级Kubernetes到1.16</title>
+    <url>/upgrade-k8s1.16.html</url>
+    <content><![CDATA[<p>升级<code>Kubernetes</code>到<code>1.16</code>时发现2个问题：</p>
+<ol>
+<li><p>执行<code>kubeadm upgrade plan</code> 提示<code>CoreDNS</code>插件失败，解决办法：<br>修改<code>CoreDNS</code>配置文件：</p>
+<figure class="highlight shell"><figcaption><span>script</span></figcaption><table><tr><td class="code"><pre><span class="line">kubectl edit -n kube-system configmaps coredns</span><br></pre></td></tr></table></figure>
+<p>删除：<code>proxy . /etc/resolv.conf</code><br>然后执行就可以成功。</p>
+</li>
+<li><p>升级后<code>Node</code>节点状态为<code>Not Ready</code><br>检查日志： </p>
+<figure class="highlight shell"><figcaption><span>script</span></figcaption><table><tr><td class="code"><pre><span class="line">journalctl -f -u kubelet.service</span><br></pre></td></tr></table></figure>
+<p>结果：</p>
+<figure class="highlight shell"><figcaption><span>script</span></figcaption><table><tr><td class="code"><pre><span class="line">10月 16 11:46:21 k8s-master kubelet[11043]: E1016 11:46:21.515027   11043 kubelet.go:2187] Container runtime network not ready: NetworkReady=false reason:NetworkPluginNotReady message:docker: network plugin is not ready: cni config uninitialized</span><br><span class="line">10月 16 11:46:26 k8s-master kubelet[11043]: W1016 11:46:26.201162   11043 cni.go:202] Error validating CNI config &amp;&#123;cbr0  false [0xc0004a08a0 0xc0004a0940] [123 10 32 32 34 110 97 109 101 34 58 32 34 99 98 114 48 34 44 10 32 32 34 112 108 117 103 105 110 115 34 58 32 91 10 32 32 32 32 123 10 32 32 32 32 32 32 34 116 121 112 101 34 58 32 34 102 108 97 110 110 101 108 34 44 10 32 32 32 32 32 32 34 100 101 108 101 103 97 116 101 34 58 32 123 10 32 32 32 32 32 32 32 32 34 104 97 105 114 112 105 110 77 111 100 101 34 58 32 116 114 117 101 44 10 32 32 32 32 32 32 32 32 34 105 115 68 101 102 97 117 108 116 71 97 116 101 119 97 121 34 58 32 116 114 117 101 10 32 32 32 32 32 32 125 10 32 32 32 32 125 44 10 32 32 32 32 123 10 32 32 32 32 32 32 34 116 121 112 101 34 58 32 34 112 111 114 116 109 97 112 34 44 10 32 32 32 32 32 32 34 99 97 112 97 98 105 108 105 116 105 101 115 34 58 32 123 10 32 32 32 32 32 32 32 32 34 112 111 114 116 77 97 112 112 105 110 103 115 34 58 32 116 114 117 101 10 32 32 32 32 32 32 125 10 32 32 32 32 125 10 32 32 93 10 125 10]&#125;: [plugin flannel does not support config version &quot;&quot;]</span><br><span class="line">10月 16 11:46:26 k8s-master kubelet[11043]: W1016 11:46:26.201211   11043 cni.go:237] Unable to update cni config: no valid networks found in /etc/cni/net.d</span><br></pre></td></tr></table></figure>
+<p>修改<code>flannel</code>配置：</p>
+<figure class="highlight shell"><figcaption><span>script</span></figcaption><table><tr><td class="code"><pre><span class="line">vi /etc/cni/net.d/10-flannel.conflist</span><br></pre></td></tr></table></figure>
+<p>在<code>&quot;name&quot;: &quot;cbr0&quot;</code>前增加：</p>
+<figure class="highlight shell"><figcaption><span>script</span></figcaption><table><tr><td class="code"><pre><span class="line">&quot;cniVersion&quot;: &quot;0.3.1&quot;,</span><br></pre></td></tr></table></figure>
+<p>稍等片刻<code>node</code>自动恢复。</p>
+</li>
+</ol>
+]]></content>
+      <tags>
+        <tag>k8s</tag>
+        <tag>network</tag>
+        <tag>flannel</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>GitLab Pages在Kubernetes中进行Access Control</title>
+    <url>/pages-in-k8s.html</url>
+    <content><![CDATA[<p>最近在<code>Kubernetes</code>中部署了<code>GitLab</code>，<code>GitLab</code>使用<code>HTTP</code>，在<code>Kubernetes</code>通过<code>Ingress</code>进行<code>HTTPS</code>代理，对外使用<code>HTTPS</code>访问。</p>
+<p>当在部署<code>GitLab Pages</code>时，系统通过<code>Access Contrel</code>进行访问控制时，结果发现出现<code>503</code>错误。经过多次尝试，发现有两个解决方法：</p>
+<ol>
+<li>全部不使用<code>HTTPS</code>，使用<code>HTTP</code>。这个方法简单粗暴，但不安全。</li>
+<li>修改修改配置如下：</li>
+</ol>
+<figure class="highlight ruby"><table><tr><td class="code"><pre><span class="line"><span class="comment"># external_url设置为https，如果设置http，在通过Ingress代理成https，大部分功能没有问题，但发现Web IDE打开是因为在HTTPS请求中使用了HTTP大致失败，未来有可能GitLab会修改这个问题。但目前只能如此。</span></span><br><span class="line">external_url <span class="string">&#x27;https://gitlab.example.cn&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Pages的对外页面，这里使用HTTP，通过Ingress进行HTTPS代理</span></span><br><span class="line">pages_external_url <span class="string">&quot;http://example.cn/&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 如果使用容器部署，inplace_chroot需要打开</span></span><br><span class="line">gitlab_pages[<span class="string">&#x27;inplace_chroot&#x27;</span>] = <span class="literal">true</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 接入控制开关</span></span><br><span class="line">gitlab_pages[<span class="string">&#x27;access_control&#x27;</span>] = <span class="literal">true</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># auth_server是关键，缺省和external_url相同，因为external_url设置为https，导致pages无法通过证书验证，所有修改认证为http方式。</span></span><br><span class="line">gitlab_pages[<span class="string">&#x27;auth_server&#x27;</span>] = <span class="string">&#x27;http://gitlab.rd.example.cn&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<p>终于，<code>GitLab</code>中<code>Web IDE</code>和<code>Pages</code>都可以完美工作了。</p>
+<p>备注： <code>GitLab</code>使用版本 <code>V11</code>~`V12.2`</p>
+]]></content>
+      <tags>
+        <tag>k8s</tag>
+        <tag>gitlab</tag>
+        <tag>pages</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Kubernetes V1.18 ipvs故障</title>
+    <url>/upgrade-k8s1.18.html</url>
+    <content><![CDATA[<p>升级<code>Kubernetes</code>到<code>1.18</code>时发现1个严重的问题：</p>
+<p>首先是发现部分<code>Services</code>无法访问，经过各种检查最终发现当<code>Pod</code>重启后，就无法访问。</p>
+<p>搭建一个测试的<code>Deployment</code>和<code>Service</code>，进行问题排查：<code>Deployment</code>如下：</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">apps/v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Deployment</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">hostnames</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">selector:</span></span><br><span class="line">    <span class="attr">matchLabels:</span></span><br><span class="line">      <span class="attr">app:</span> <span class="string">hostnames</span></span><br><span class="line">  <span class="attr">replicas:</span> <span class="number">1</span></span><br><span class="line">  <span class="attr">template:</span></span><br><span class="line">    <span class="attr">metadata:</span></span><br><span class="line">      <span class="attr">labels:</span></span><br><span class="line">        <span class="attr">app:</span> <span class="string">hostnames</span></span><br><span class="line">    <span class="attr">spec:</span></span><br><span class="line">      <span class="attr">containers:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">hostnames</span></span><br><span class="line">        <span class="attr">image:</span> <span class="string">mirrorgooglecontainers/serve_hostname</span></span><br><span class="line">        <span class="attr">ports:</span></span><br><span class="line">        <span class="bullet">-</span> <span class="attr">containerPort:</span> <span class="number">9376</span></span><br><span class="line">          <span class="attr">protocol:</span> <span class="string">TCP</span></span><br></pre></td></tr></table></figure>
+
+<p><code>Service</code>如下：</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Service</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">hostnames</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">selector:</span></span><br><span class="line">    <span class="attr">app:</span> <span class="string">hostnames</span></span><br><span class="line">  <span class="attr">ports:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">default</span></span><br><span class="line">    <span class="attr">protocol:</span> <span class="string">TCP</span></span><br><span class="line">    <span class="attr">port:</span> <span class="number">80</span></span><br><span class="line">    <span class="attr">targetPort:</span> <span class="number">9376</span></span><br></pre></td></tr></table></figure>
+
+<p>再启动一个<code>curl</code>进行测试：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">kubectl run curl --image=radial/busyboxplus:curl -it</span><br></pre></td></tr></table></figure>
+
+<p>正确情况如下：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[ root@curl-69c656fd45-ztblt:/ ]$ curl hostnames</span><br><span class="line">hostnames-dd4cc9dd9-5k42b</span><br></pre></td></tr></table></figure>
+
+<p>可以通过<code>Service</code>正常访问到<code>Pod</code>。</p>
+<p>现在删除掉<code>hostnames</code>的<code>Pod</code>，等到<code>Pod</code>运行正常时，再次执行：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[ root@curl-69c656fd45-ztblt:/ ]$ curl hostnames</span><br><span class="line">connect to hostnames failed: No route to host</span><br></pre></td></tr></table></figure>
+
+<p>通过检查确定DNS没有问题，通过<code>Pod</code>的<code>IP</code>，可以正常访问，通过<code>Service</code>的<code>IP</code>就无法访问了。也就是说，升级<code>Kubernetes</code> <code>V1.18</code>(我的版本是<code>V1.18.2</code>)，就会导致<code>Pod</code>重新启动后，<code>Service</code>无法访问。</p>
+<p>那么现在重点是<code>Proxy</code>的检查，我使用的是模式是<code>ipvs</code>，检查<code>ipvs</code>列表。<br>在<code>master</code>或其他节点上执行:</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[root@node01 ~]<span class="comment"># ipvsadm -L |grep -A 5 10.103.122.243</span></span><br><span class="line">TCP  10.103.122.243:http rr</span><br><span class="line">  -&gt; 10.244.10.237:9376           Masq    1      0          0         </span><br><span class="line">TCP  10.103.123.173:webcache rr</span><br><span class="line">  -&gt; 10.244.9.26:webcache         Masq    1      0          0         </span><br><span class="line">TCP  10.103.143.242:6379 rr</span><br><span class="line">  -&gt; 10.244.9.229:6379            Masq    1      0          0</span><br></pre></td></tr></table></figure>
+
+<p><code>10.103.122.243</code>为<code>Service</code>的<code>IP</code>， 而转发地址<code>10.244.10.237:9376</code>是老的<code>Pod</code>的地址，不是新<code>Pod</code>的地址，这样肯定无法访问。再次验证一下这个原因，将转发修改正确:</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[root@node01 ~]<span class="comment"># ipvsadm -D -t 10.103.122.243:http </span></span><br><span class="line"></span><br><span class="line">[root@node01 ~]<span class="comment"># ipvsadm -a -t 10.103.122.243:http -r 10.244.10.238:9376 -m</span></span><br></pre></td></tr></table></figure>
+<p>第一句是删除老的转发，第二句是新增正确的转发。其中<code>10.244.10.238</code>是新的<code>Pod</code>的的地址</p>
+<p>进入<code>curl</code>容器执行：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[ root@curl-69c656fd45-ztblt:/ ]$ curl hostnames</span><br><span class="line">hostnames-dd4cc9dd9-5k42b</span><br></pre></td></tr></table></figure>
+
+<p>看到结果已经正常。这个确定了导致这个问题的原因是<code>ipvs</code>规则没有更新。经过确定，需要升级<code>Liunx</code>的内核到<code>V4</code>以上。</p>
+]]></content>
+      <tags>
+        <tag>k8s</tag>
+        <tag>ipvs</tag>
+        <tag>pod</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Kubernetes加入containerd运行时节点</title>
+    <url>/containerd-k8s.html</url>
+    <content><![CDATA[<p><code>Kubernetes</code>到<code>1.20</code>开始不建议使用<code>docker</code>作为运行时，作为容器运行时，其实还有其他一些：</p>
+<ul>
+<li>containerd</li>
+<li>CRI-O</li>
+</ul>
+<p>经过对比，我选择了<code>containerd</code>进行验证。这次我并没有升级整体<code>Kubernetes</code>集群，只是打算增加一个使用<code>containerd</code>的容器运行时的节点。</p>
+<h2 id="安装containerd"><a href="#安装containerd" class="headerlink" title="安装containerd"></a>安装<code>containerd</code></h2><p>我使用<code>CentOS 7</code>，首先需要设置内核参数，这个和之前<code>Docker</code>一样：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">cat &lt;&lt;EOF | sudo tee /etc/modules-load.d/containerd.conf</span><br><span class="line">overlay</span><br><span class="line">br_netfilter</span><br><span class="line">EOF</span><br><span class="line"></span><br><span class="line">sudo modprobe overlay</span><br><span class="line">sudo modprobe br_netfilter</span><br><span class="line"></span><br><span class="line"># 设置必需的 sysctl 参数，这些参数在重新启动后仍然存在。</span><br><span class="line">cat &lt;&lt;EOF | sudo tee /etc/sysctl.d/99-kubernetes-cri.conf</span><br><span class="line">net.bridge.bridge-nf-call-iptables  = 1</span><br><span class="line">net.ipv4.ip_forward                 = 1</span><br><span class="line">net.bridge.bridge-nf-call-ip6tables = 1</span><br><span class="line">EOF</span><br><span class="line"></span><br><span class="line"># Apply sysctl params without reboot</span><br><span class="line">sudo sysctl --system</span><br></pre></td></tr></table></figure>
+
+<p>然后开始安装，<code>containerd</code>使用<code>yum</code>源和<code>docker-ce</code>相同：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 安装 containerd</span><br><span class="line">## 设置仓库</span><br><span class="line">### 安装所需包</span><br><span class="line">sudo yum install -y yum-utils device-mapper-persistent-data lvm2</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">### 新增 Docker 仓库</span><br><span class="line">sudo yum-config-manager \</span><br><span class="line">    --add-repo \</span><br><span class="line">    https://download.docker.com/linux/centos/docker-ce.repo</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">## 安装 containerd</span><br><span class="line">sudo yum update -y &amp;&amp; sudo yum install -y containerd.io</span><br></pre></td></tr></table></figure>
+
+<h2 id="配置containerd"><a href="#配置containerd" class="headerlink" title="配置containerd"></a>配置<code>containerd</code></h2><p>首先获得缺省配置：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 配置 containerd</span><br><span class="line">sudo mkdir -p /etc/containerd</span><br><span class="line">sudo containerd config default &gt; /etc/containerd/config.toml</span><br></pre></td></tr></table></figure>
+
+<p>因为国内无法访问部分<code>image</code>源，同事<code>docker hub</code>比较慢，修改使用国内镜像：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">vi /etc/containerd/config.toml</span><br><span class="line"></span><br><span class="line"># 修改一下内容：</span><br><span class="line">...</span><br><span class="line">sandbox_image = &quot;registry.aliyuncs.com/google_containers/pause:3.2&quot;</span><br><span class="line">...</span><br><span class="line">    [plugins.&quot;io.containerd.grpc.v1.cri&quot;.registry]</span><br><span class="line">      [plugins.&quot;io.containerd.grpc.v1.cri&quot;.registry.mirrors]</span><br><span class="line">        [plugins.&quot;io.containerd.grpc.v1.cri&quot;.registry.mirrors.&quot;docker.io&quot;]</span><br><span class="line">          endpoint = [&quot;https://docker.mirrors.ustc.edu.cn&quot;]</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 重启 containerd</span><br><span class="line">sudo systemctl restart containerd</span><br></pre></td></tr></table></figure>
+
+<h2 id="加入k8s集群"><a href="#加入k8s集群" class="headerlink" title="加入k8s集群"></a>加入k8s集群</h2><p>首先安装<code>k8s</code>，包括<code>kubeadm</code>、<code>kubelet</code>、<code>kubectl</code></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">yum install -y kubeadm kubelet kubectl</span><br></pre></td></tr></table></figure>
+
+<p>然后加入到集群：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">kubeadm join master.k8s:8443 --token xxx     --discovery-token-ca-cert-hash sha256:xxxxxxx</span><br></pre></td></tr></table></figure>
+
+<p>现在已经使用<code>containerd</code>允许时的节点已经加入到集群，部署容器测试可以正常使用。</p>
+<h2 id="containerd管理"><a href="#containerd管理" class="headerlink" title="containerd管理"></a>containerd管理</h2><p>使用<code>containerd</code>已经不能使用熟悉的<code>docker</code>命令进行容器的管理了，<code>containerd</code>提供了2个工具可以使用:</p>
+<ul>
+<li>ctr</li>
+<li>crictl</li>
+</ul>
+<h3 id="ctr"><a href="#ctr" class="headerlink" title="ctr"></a>ctr</h3><p><code>ctr</code>是一个简单的命令工具，使用并不复杂，但需要注意：</p>
+<ul>
+<li><code>ctr</code>不会使用配置文件<code>/etc/containerd/config.toml</code>，也就是说配置的<code>mirror</code>并不能使用</li>
+<li><code>images</code>也有命名空间，<code>k8s</code>会使用一个名为<code>k8s.io</code>的命名空间</li>
+<li><code>ctr</code>的参数有顺序，如<code>ctr -n=k8s.io images list</code>正确，而<code>ctr images list -n=k8s.io</code>则不正确</li>
+</ul>
+<p>希望未来<code>ctr</code>会更完善一些。</p>
+<h3 id="crictl"><a href="#crictl" class="headerlink" title="crictl"></a>crictl</h3><p><code>crictl</code>使用和<code>docker</code>命令类似，比较方便。使用前需要增加配置文件：<code>/etc/crictl.yaml</code>。内容如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">runtime-endpoint: unix:///run/containerd/containerd.sock</span><br><span class="line">image-endpoint: unix:///run/containerd/containerd.sock</span><br><span class="line">timeout: 10</span><br><span class="line">debug: false</span><br></pre></td></tr></table></figure>
+
+
+]]></content>
+      <tags>
+        <tag>k8s</tag>
+        <tag>containerd</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>升级Kubernetes V1.20后，pvc无法创建问题解决</title>
+    <url>/nfs-k8sv1.20.html</url>
+    <content><![CDATA[<p>今天升级<code>Kubernetes</code>到<code>1.20</code>，发现<code>PVC</code>创建时一直处于<code>pending</code>状态，经过检查发现，<code>nfs-client-provisioner</code>日志有如下错误：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">provision &quot;test/test-sql&quot; class &quot;nfs-storage&quot;: unexpected error getting claim reference: selfLink was empty, can&#x27;t make reference</span><br></pre></td></tr></table></figure>
+
+<p>经过查找发现这个是<code>V1.10</code>之后的配置修改，具体参考： <a href="https://github.com/kubernetes/enhancements/issues/1164">https://github.com/kubernetes/enhancements/issues/1164</a></p>
+<p>找到原因，直接修改<code>/etc/kubernetes/manifests/kube-apiserver.yaml</code>，增加参数：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">- --feature-gates=RemoveSelfLink=false</span><br></pre></td></tr></table></figure>]]></content>
+      <tags>
+        <tag>k8s</tag>
+        <tag>pvc</tag>
+        <tag>nfs</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Kubernetes证书过期</title>
+    <url>/k8s-cert-expired.html</url>
+    <content><![CDATA[<p>今天访问<code>Kubernetes</code>时得到如下错误：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&gt; kubectl get node     </span><br><span class="line">error: You must be logged in to the server (Unauthorized)</span><br></pre></td></tr></table></figure>
+
+<p>昨天还正常今天无法访问，怀疑是证书到期了，可以直接看看<code>master</code>上的证书文件，文件位于<code>/etc/kubernetes/pki</code>中，执行命令：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&gt; for item in `find /etc/kubernetes/pki -maxdepth 2 -name &quot;*.crt&quot;`;do openssl x509 -in $item -text -noout| grep Not;echo ======================$item===============;done</span><br><span class="line"></span><br><span class="line">            Not Before: Dec 27 07:18:44 2019 GMT</span><br><span class="line">            Not After : Dec 24 07:18:44 2029 GMT</span><br><span class="line">======================/etc/kubernetes/pki/ca.crt===============</span><br><span class="line">            Not Before: Dec 27 07:18:44 2019 GMT</span><br><span class="line">            Not After : Dec 22 23:43:16 2021 GMT</span><br><span class="line">======================/etc/kubernetes/pki/apiserver.crt===============</span><br><span class="line">            Not Before: Dec 27 07:18:44 2019 GMT</span><br><span class="line">            Not After : Dec 22 23:43:17 2021 GMT</span><br><span class="line">======================/etc/kubernetes/pki/apiserver-kubelet-client.crt===============</span><br><span class="line">            Not Before: Dec 27 07:18:45 2019 GMT</span><br><span class="line">            Not After : Dec 24 07:18:45 2029 GMT</span><br><span class="line">======================/etc/kubernetes/pki/front-proxy-ca.crt===============</span><br><span class="line">            Not Before: Dec 27 07:18:45 2019 GMT</span><br><span class="line">            Not After : Dec 22 23:43:17 2021 GMT</span><br><span class="line">======================/etc/kubernetes/pki/front-proxy-client.crt===============</span><br><span class="line">            Not Before: Dec 27 07:18:45 2019 GMT</span><br><span class="line">            Not After : Dec 24 07:18:45 2029 GMT</span><br><span class="line">======================/etc/kubernetes/pki/etcd/ca.crt===============</span><br><span class="line">            Not Before: Dec 27 07:18:45 2019 GMT</span><br><span class="line">            Not After : Dec 22 23:42:44 2021 GMT</span><br><span class="line">======================/etc/kubernetes/pki/etcd/server.crt===============</span><br><span class="line">            Not Before: Dec 27 07:18:45 2019 GMT</span><br><span class="line">            Not After : Dec 22 23:42:44 2021 GMT</span><br><span class="line">======================/etc/kubernetes/pki/etcd/peer.crt===============</span><br><span class="line">            Not Before: Dec 27 07:18:45 2019 GMT</span><br><span class="line">            Not After : Dec 22 23:42:45 2021 GMT</span><br><span class="line">======================/etc/kubernetes/pki/etcd/healthcheck-client.crt===============</span><br><span class="line">            Not Before: Dec 27 07:18:45 2019 GMT</span><br><span class="line">            Not After : Dec 22 23:43:17 2021 GMT</span><br><span class="line">======================/etc/kubernetes/pki/apiserver-etcd-client.crt===============</span><br></pre></td></tr></table></figure>
+
+<p>查看后发现的确到期，那么我们<code>renew</code>证书即可：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&gt; kubeadm alpha certs renew all</span><br><span class="line">Command &quot;all&quot; is deprecated, please use the same command under &quot;kubeadm certs&quot;</span><br><span class="line">[renew] Reading configuration from the cluster...</span><br><span class="line">[renew] FYI: You can look at this config file with &#x27;kubectl -n kube-system get cm kubeadm-config -o yaml&#x27;</span><br><span class="line"></span><br><span class="line">certificate embedded in the kubeconfig file for the admin to use and for kubeadm itself renewed</span><br><span class="line">certificate for serving the Kubernetes API renewed</span><br><span class="line">certificate the apiserver uses to access etcd renewed</span><br><span class="line">certificate for the API server to connect to kubelet renewed</span><br><span class="line">certificate embedded in the kubeconfig file for the controller manager to use renewed</span><br><span class="line">certificate for liveness probes to healthcheck etcd renewed</span><br><span class="line">certificate for etcd nodes to communicate with each other renewed</span><br><span class="line">certificate for serving etcd renewed</span><br><span class="line">certificate for the front proxy client renewed</span><br><span class="line">certificate embedded in the kubeconfig file for the scheduler manager to use renewed</span><br><span class="line"></span><br><span class="line">Done renewing certificates. You must restart the kube-apiserver, kube-controller-manager, kube-scheduler and etcd, so that they can use the new certificates.</span><br></pre></td></tr></table></figure>
+
+<p>从提示来看这个命令已经不建议使用，未来会使用<code>kubeadm certs</code>，这次就先这样，下次可以试试这个命令。</p>
+<p>执行完成后，将<code>/etc/kubernetes/admin.conf</code>复制到<code>~/.kube/config</code>，就可以正常使用了。我没有重启<code>kube-apiserver, kube-controller-manager, kube-scheduler and etcd</code>前已经可以连接了，安全起见，还是重启一下。</p>
+<p>可以连接后，也可以通过<code>k8s</code>命令查看证书状态：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&gt; kubeadm certs check-expiration</span><br><span class="line">[check-expiration] Reading configuration from the cluster...</span><br><span class="line">[check-expiration] FYI: You can look at this config file with &#x27;kubectl -n kube-system get cm kubeadm-config -o yaml&#x27;</span><br><span class="line"></span><br><span class="line">CERTIFICATE                EXPIRES                  RESIDUAL TIME   CERTIFICATE AUTHORITY   EXTERNALLY MANAGED</span><br><span class="line">admin.conf                 Dec 28, 2021 00:06 UTC   364d                                    no      </span><br><span class="line">apiserver                  Dec 28, 2021 00:06 UTC   364d            ca                      no      </span><br><span class="line">apiserver-etcd-client      Dec 28, 2021 00:06 UTC   364d            etcd-ca                 no      </span><br><span class="line">apiserver-kubelet-client   Dec 28, 2021 00:06 UTC   364d            ca                      no      </span><br><span class="line">controller-manager.conf    Dec 28, 2021 00:06 UTC   364d                                    no      </span><br><span class="line">etcd-healthcheck-client    Dec 28, 2021 00:06 UTC   364d            etcd-ca                 no      </span><br><span class="line">etcd-peer                  Dec 28, 2021 00:06 UTC   364d            etcd-ca                 no      </span><br><span class="line">etcd-server                Dec 28, 2021 00:06 UTC   364d            etcd-ca                 no      </span><br><span class="line">front-proxy-client         Dec 28, 2021 00:06 UTC   364d            front-proxy-ca          no      </span><br><span class="line">scheduler.conf             Dec 28, 2021 00:06 UTC   364d                                    no      </span><br><span class="line"></span><br><span class="line">CERTIFICATE AUTHORITY   EXPIRES                  RESIDUAL TIME   EXTERNALLY MANAGED</span><br><span class="line">ca                      Dec 24, 2029 07:18 UTC   8y              no      </span><br><span class="line">etcd-ca                 Dec 24, 2029 07:18 UTC   8y              no      </span><br><span class="line">front-proxy-ca          Dec 24, 2029 07:18 UTC   8y              no      </span><br></pre></td></tr></table></figure>]]></content>
+      <tags>
+        <tag>k8s</tag>
+        <tag>cert</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>vCenter升级过程中因密码过期导致的问题处理</title>
+    <url>/vcsa-passwor-expired.html</url>
+    <content><![CDATA[<p>今天在升级<code>vCenter</code> <code>7.0</code>时，升级检查时提示错误，错误日志显示如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">2021-02-19T06:12:41.374Z - debug: initiateFileTransferFromGuest error: ServerFaultCode: Failed to authenticate with the guest operating system using the supplied credentials.</span><br><span class="line">2021-02-19T06:12:41.374Z - debug: Failed to get fileTransferInfo:ServerFaultCode: Failed to authenticate with the guest operating system using the supplied credentials.</span><br><span class="line">2021-02-19T06:12:41.374Z - debug: Failed to get url of file in guest vm:ServerFaultCode: Failed to authenticate with the guest operating system using the supplied credentials.</span><br></pre></td></tr></table></figure>
+
+<p>经过检查发现是<code>vCenter</code>的<code>root</code>密码过期导致，<code>ssh</code>登录<code>vCenter</code>，进入<code>shell</code>，执行：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">root@vcsa [ ~ ]# chage -l root</span><br><span class="line">You are required to change your password immediately (root enforced)</span><br><span class="line">chage: PAM: Authentication token is no longer valid; new one required</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>说明<code>root</code>的密码过期，修改密码即可：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">root@vcsa [ ~ ]# passwd</span><br><span class="line">New password: </span><br><span class="line">Retype new password: </span><br><span class="line">passwd: password updated successfully</span><br></pre></td></tr></table></figure>
+
+<p>然后重新执行升级程序检查，通过。</p>
+]]></content>
+      <tags>
+        <tag>VMware</tag>
+        <tag>vCenter</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Kubernetes升级1.21问题汇总</title>
+    <url>/k8s-upgrade1.21.html</url>
+    <content><![CDATA[<p>将<code>Kubernetes</code>从<code>1.20</code>升级到<code>1.21</code>时，遇到了两个问题。</p>
+<h3 id="Core-DNS-image下载失败"><a href="#Core-DNS-image下载失败" class="headerlink" title="Core DNS image下载失败"></a><code>Core DNS</code> <code>image</code>下载失败</h3><p>通过以下命令进行<code>image</code>下载：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&gt; kubeadm config images pull --image-repository registry.aliyuncs.com/google_containers     </span><br><span class="line">I0910 08:00:20.155181   16619 version.go:254] remote version is much newer: v1.22.1; falling back to: stable-1.21</span><br><span class="line">[config/images] Pulled registry.aliyuncs.com/google_containers/kube-apiserver:v1.21.4</span><br><span class="line">[config/images] Pulled registry.aliyuncs.com/google_containers/kube-controller-manager:v1.21.4</span><br><span class="line">[config/images] Pulled registry.aliyuncs.com/google_containers/kube-scheduler:v1.21.4</span><br><span class="line">[config/images] Pulled registry.aliyuncs.com/google_containers/kube-proxy:v1.21.4</span><br><span class="line">[config/images] Pulled registry.aliyuncs.com/google_containers/pause:3.4.1</span><br><span class="line">[config/images] Pulled registry.aliyuncs.com/google_containers/etcd:3.4.13-0</span><br><span class="line">failed to pull image &quot;registry.aliyuncs.com/google_containers/coredns:v1.8.0&quot;: output: Error response from daemon: manifest for registry.aliyuncs.com/google_containers/coredns:v1.8.0 not found: manifest unknown: manifest unknown</span><br><span class="line">, error: exit status 1</span><br><span class="line">To see the stack trace of this error execute with --v=5 or higher</span><br></pre></td></tr></table></figure>
+
+<p><code>registry.aliyuncs.com/google_containers/coredns:v1.8.0</code>一直下载不成功，经过检查发现，该镜像的<code>tag</code>为<code>1.8.0</code>不是<code>v1.8.0</code>，我们直接手工下载，重新设置tag即可：</p>
+<p>对于<code>docker</code>运行时方法如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">docker pull registry.aliyuncs.com/google_containers/coredns:1.8.0</span><br><span class="line">docker tag registry.aliyuncs.com/google_containers/coredns:1.8.0 registry.aliyuncs.com/google_containers/coredns:v1.8.0</span><br></pre></td></tr></table></figure>
+
+<p><code>containerd</code>方法如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">crictl pull registry.aliyuncs.com/google_containers/coredns:1.8.0</span><br><span class="line">ctr -n k8s.io i tag registry.aliyuncs.com/google_containers/coredns:1.8.0 registry.aliyuncs.com/google_containers/coredns:v1.8.0</span><br></pre></td></tr></table></figure>
+
+<p>然后在正常升级就可以了。</p>
+<h3 id="Failed-to-start-ContainerManager异常"><a href="#Failed-to-start-ContainerManager异常" class="headerlink" title="Failed to start ContainerManager异常"></a><code>Failed to start ContainerManager</code>异常</h3><p>升级完成后，发现工作节点上，<code>kubelet</code>启动异常，如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Failed to start ContainerManager failed to initialise top level QOS containers</span><br></pre></td></tr></table></figure>
+
+<p>解决办法：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">systemctl stop kubepods-burstable.slice</span><br><span class="line">systemctl restart kubelet</span><br></pre></td></tr></table></figure>
+
+<p>注意，这样会导致部署在该节点的所有<code>Pod</code>重启，重启后就正常了。</p>
+]]></content>
+      <tags>
+        <tag>k8s</tag>
+        <tag>upgrade</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>PowerShell安装MSOnline模块错误</title>
+    <url>/azure-nuget-https.html</url>
+    <content><![CDATA[<p>在<code>Windows Server 2016</code>上安装<code>MSOnline</code>模块时提示错误，具体错误如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">PS C:\&gt; Install-Module MSOnline</span><br><span class="line">需要使用 NuGet 提供程序来继续操作</span><br><span class="line">PowerShellGet 需要使用 NuGet 提供程序“2.8.5.201”或更高版本来与基于 NuGet 的存储库交互。必须在“C:\Program</span><br><span class="line">Files\PackageManagement\ProviderAssemblies”或“C:\Users\administrator.WAFERSYSTEMS1\AppData\Local\PackageManagement\ProviderAssemblies”中提供 NuGet 提供程序。也可以通过运行</span><br><span class="line">&#x27;Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Force&#x27; 安装 NuGet 提供程序。是否要让 PowerShellGet 立即安装并导入 NuGet 提供程序?</span><br><span class="line">[Y] 是(Y)  [N] 否(N)  [S] 暂停(S)  [?] 帮助 (默认值为“Y”): y</span><br><span class="line">警告: 无法从 URI“https://go.microsoft.com/fwlink/?LinkID=627338&amp;clcid=0x409”下载到“”。</span><br><span class="line">警告: 无法下载可用提供程序列表。请检查 Internet 连接。</span><br><span class="line">PackageManagement\Install-PackageProvider : 找不到提供程序“NuGet”的指定搜索条件的匹配项。程序包提供程序要求 &quot;PackageManagement&quot; 和 &quot;Provider&quot; 标记。请检查指定的程序包是否具有标记。</span><br><span class="line">所在位置 C:\Program Files\WindowsPowerShell\Modules\PowerShellGet\1.0.0.1\PSModule.psm1:7405 字符: 21</span><br><span class="line">+ ...     $null = PackageManagement\Install-PackageProvider -Name $script:N ...</span><br><span class="line">+                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span><br><span class="line">    + CategoryInfo          : InvalidArgument: (Microsoft.Power...PackageProvider:InstallPackageProvider) [Install-PackageProvider]，Exception</span><br><span class="line">    + FullyQualifiedErrorId : NoMatchFoundForProvider,Microsoft.PowerShell.PackageManagement.Cmdlets.InstallPackageProvider</span><br><span class="line"></span><br><span class="line">PackageManagement\Import-PackageProvider : 未找到与指定搜索条件和提供程序名称“NuGet”匹配的项目。请尝试运行 &#x27;Get-PackageProvider -ListAvailable&#x27; 以查看系统中是否存在该提供程序。</span><br><span class="line">所在位置 C:\Program Files\WindowsPowerShell\Modules\PowerShellGet\1.0.0.1\PSModule.psm1:7411 字符: 21</span><br><span class="line">+ ...     $null = PackageManagement\Import-PackageProvider -Name $script:Nu ...</span><br><span class="line">+                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span><br><span class="line">    + CategoryInfo          : InvalidData: (NuGet:String) [Import-PackageProvider]，Exception</span><br><span class="line">    + FullyQualifiedErrorId : NoMatchFoundForCriteria,Microsoft.PowerShell.PackageManagement.Cmdlets.ImportPackageProvider</span><br><span class="line"></span><br><span class="line">警告: 无法从 URI“https://go.microsoft.com/fwlink/?LinkID=627338&amp;clcid=0x409”下载到“”。</span><br><span class="line">警告: 无法下载可用提供程序列表。请检查 Internet 连接。</span><br><span class="line">PackageManagement\Get-PackageProvider : 找不到程序包提供程序“NuGet”。可能尚未导入该提供程序。请尝试使用 &#x27;Get-PackageProvider -ListAvailable&#x27;。</span><br><span class="line">所在位置 C:\Program Files\WindowsPowerShell\Modules\PowerShellGet\1.0.0.1\PSModule.psm1:7415 字符: 30</span><br><span class="line">+ ... tProvider = PackageManagement\Get-PackageProvider -Name $script:NuGet ...</span><br><span class="line">+                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span><br><span class="line">    + CategoryInfo          : ObjectNotFound: (Microsoft.Power...PackageProvider:GetPackageProvider) [Get-PackageProvider], Exception</span><br><span class="line">    + FullyQualifiedErrorId : UnknownProviderFromActivatedList,Microsoft.PowerShell.PackageManagement.Cmdlets.GetPackageProvider</span><br><span class="line"></span><br><span class="line">Install-Module : 需要使用 NuGet 提供程序来与基于 NuGet 的存储库交互。请确保已安装 NuGet 提供程序“2.8.5.201”或更高版本。</span><br><span class="line">所在位置 行:1 字符: 1</span><br><span class="line">+ Install-Module msonline</span><br><span class="line">+ ~~~~~~~~~~~~~~~~~~~~~~~</span><br><span class="line">    + CategoryInfo          : InvalidOperation: (:) [Install-Module]，InvalidOperationException</span><br><span class="line">    + FullyQualifiedErrorId : CouldNotInstallNuGetProvider,Install-Module</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<p>从提示来看，是由于<code>NuGet</code>安装时错误，经过查询，发现使用由于<code>PowerShell</code>默认没有使用<code>TLS1.2</code>导致，强制指定一下，然后很执行就可以了。指定方法：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">[System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <tags>
+        <tag>PowerShell</tag>
+        <tag>Azure</tag>
+        <tag>M365</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>删除AD用户重建后AAD Connect同步错误</title>
+    <url>/azure-aad-sync-error.html</url>
+    <content><![CDATA[<h1 id="问题背景"><a href="#问题背景" class="headerlink" title="问题背景"></a>问题背景</h1><p>我们订阅了<code>Micorsoft 365</code>，并通过<code>Azure AD Connect</code>将本地的<code>AD</code>的用户同步到<code>Azure AD</code>中。一次误操作将一个用户从<code>AD</code>删除，在同步为执行前，立刻重新创建了正用户。导致该用户无法同步了。</p>
+<h1 id="问题原因分析"><a href="#问题原因分析" class="headerlink" title="问题原因分析"></a>问题原因分析</h1><p><code>Azure AD</code>中的用户通过<code>Azure AD Connect</code>同步后，会将<code>AD</code>中用户的属性<code>sourceAnchor</code>标记到<code>Azure AD Connect</code>的属性<code>immutableId</code>，用来标识两方的用户。 </p>
+<p><code>sourceAnchor</code>有很多中选择，可以参考： <a href="https://docs.microsoft.com/zh-cn/azure/active-directory/hybrid/plan-connect-design-concepts">Azure AD Connect：设计概念</a></p>
+<p>在目前的版本中，系统将<code>ConsistencyGuid</code>作为<code>sourceAnchor</code>属性，老版本默认使用<code>ObjectGuid</code>。</p>
+<p>而<code>ConsistencyGuid</code>一般是和<code>ObjectGuid</code>相同，当重新创建一个用户时，<code>ObjectGuid</code>就会发生改变，最终导致在同步时，<code>AD</code>中的<code>ConsistencyGuid</code>和<code>Azure AD</code>的<code>immutableId</code>不同，但用户有相同的<code>UPN</code>（<code>userPrincipalName</code>），导致同步冲突。</p>
+<p>如果删除<code>Azure AD</code>的中用户，当然可以简单解决，但也会导致该用户的邮件等全部丢失。</p>
+<h1 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h1><p>了解了问题的原因，我们就容易解决。思路是将<code>AD</code>中的<code>ConsistencyGuid</code>和<code>Azure AD</code>的<code>immutableId</code>进行统一。</p>
+<ol>
+<li><p>查询<code>Azure AD</code>的<code>immutableId</code></p>
+ <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">PS C:\&gt;  Get-MsolUser -UserPrincipalName user1@abc.com | Select-Object UserprincipalName,ImmutableID</span><br><span class="line"></span><br><span class="line">UserPrincipalName         ImmutableId</span><br><span class="line">-----------------         -----------</span><br><span class="line">user1@abc.com             K0fuEdJZe0ulRQq3+WlZTA==</span><br></pre></td></tr></table></figure>
+
+<p> 可以看到该用户的<code>immutableId</code>值为<code>K0fuEdJZe0ulRQq3+WlZTA==</code></p>
+</li>
+<li><p>转换<code>immutableId</code>的值<br><code>immutableId</code>的值为<code>Base64</code>编码的十六进制，需要进行转换，可以用 <a href="https://the-x.cn/base64/">在线工具</a> 进行处理，输出结果需要选择十六进制。</p>
+<p>通过转换我们得到的值类似： <code>2B 47 EE 11 D2 59 7B 4B  A5 45 0A B7 F9 69 59 4C</code></p>
+</li>
+<li><p>修改<code>AD</code>中的<code>ConsistencyGuid</code><br>登录<code>AD</code>服务器，打开<code>ADSI编辑器</code>，找到该用户，点开属性，找到属性<code>ms-DS-ConsistencyGuid</code>修改值为上步转换的值。</p>
+</li>
+<li><p>同步<br>可以等待同步，也可以手工同步。同步后确定结果是否正确。</p>
+</li>
+</ol>
+<h1 id="后续补充"><a href="#后续补充" class="headerlink" title="后续补充"></a>后续补充</h1><p>在本次问题解决中，也尝试过，去修改<code>Azure AD</code>的<code>immutableId</code>，感觉这个更合理一些。但在修改过程中遇到2个问题：</p>
+<ol>
+<li>如果<code>Azure AD</code>中用户的状态是同步状态，这个值是无法修改的，必须等这个用户变成非同步用户或者关闭同步</li>
+<li>我从测试中修改过<code>Azure AD</code>的<code>immutableId</code>，然后通过手工同步发现依旧有错，后续没有再测试。理论上这个方法应该可以</li>
+</ol>
+<p>记录一下两个命令：</p>
+<ul>
+<li><p>修改<code>Azure AD</code>的<code>immutableId</code></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Get-MsolUser -UserPrincipalName user1@abc.com | Set-MsolUser -ImmutableId L0b1Dn3oIkGiFLPW9fhY+Q==</span><br></pre></td></tr></table></figure></li>
+<li><p>关闭同步</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Set-MsolDirSyncEnabled -EnableDirSync $false</span><br></pre></td></tr></table></figure>
+
+<p><em><strong>注意：</strong></em> 官方文档说明修改后如果要重新打开需要等待<code>72</code>小时。</p>
+</li>
+</ul>
+<p>另外，网上找到有人说可以将<code>Azure AD Connect</code>卸载后，重新安装来解决，其思路也是通过重新对应<code>AD</code>和<code>Azure AD</code>的用户，但这个方法我试过，问题没有解决。</p>
+<p>最后，本次误操作的最好解决办法是，打开<code>AD</code>的回收站功能，具体在<code>AD</code>的管理中心进行修改，这样就可以完全避免这种问题了。</p>
+]]></content>
+      <tags>
+        <tag>PowerShell</tag>
+        <tag>Azure</tag>
+        <tag>M365</tag>
+        <tag>AD</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Kubernetes证书过期(二)</title>
+    <url>/k8s-cert-expired-001.html</url>
+    <content><![CDATA[<p>今天在部署<code>Kubernetes</code>的<code>Deployment</code>时，删除<code>Deployment</code>，发现不会自动删除<code>Replica Set</code>和<code>Pod</code>，开始怀疑是某个工作<code>node</code>故障，重启或者迁移到其他<code>node</code>问题一样。后来重启了<code>master</code>节点，发现有2个<code>master</code>启动无法注册<code>node</code>。</p>
+<p>我的环境中有3个<code>master</code>节点，检查容器，发现<code>master01</code>启动正常，<code>master02</code>和<code>master03</code>的<code>etcd</code>容器都无法启动，查看日志发现提示如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Jan 14 22:29:29 master02.k8s kubelet[1998]: E0114 22:29:29.187573    1998 kubelet.go:2291] &quot;Error getting node&quot; err=&quot;node \&quot;master02.k8s\&quot; not found&quot;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>在<code>master01</code>上查看<code>etcd</code>的日志发现：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">2022-01-14 15:57:13.963722 I | embed: rejected connection from &quot;192.168.203.4:45008&quot; (error &quot;tls: failed to verify client&#x27;s certificate: x509: certificate has expired or is not yet valid&quot;, ServerName &quot;&quot;)</span><br></pre></td></tr></table></figure>
+
+<p>明确是证书过期导致的，根据<a href="/k8s-cert-expired.html">上次过期的经</a>验检查如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># kubeadm certs renew</span><br><span class="line">missing subcommand; &quot;renew&quot; is not meant to be run on its own</span><br><span class="line">To see the stack trace of this error execute with --v=5 or higher</span><br><span class="line">[root@master02 kubernetes]# kubeadm certs check-expiration</span><br><span class="line">[check-expiration] Reading configuration from the cluster...</span><br><span class="line">[check-expiration] FYI: You can look at this config file with &#x27;kubectl -n kube-system get cm kubeadm-config -o yaml&#x27;</span><br><span class="line">[check-expiration] Error reading configuration from the Cluster. Falling back to default configuration</span><br><span class="line"></span><br><span class="line">CERTIFICATE                EXPIRES                  RESIDUAL TIME   CERTIFICATE AUTHORITY   EXTERNALLY MANAGED</span><br><span class="line">admin.conf                 Sep 10, 2022 00:10 UTC   238d                                    no      </span><br><span class="line">apiserver                  Sep 10, 2022 00:20 UTC   238d            ca                      no      </span><br><span class="line">apiserver-etcd-client      Sep 10, 2022 00:20 UTC   238d            etcd-ca                 no      </span><br><span class="line">apiserver-kubelet-client   Sep 10, 2022 00:20 UTC   238d            ca                      no      </span><br><span class="line">controller-manager.conf    Sep 10, 2022 00:09 UTC   238d                                    no      </span><br><span class="line">etcd-healthcheck-client    Dec 22, 2021 23:53 UTC   &lt;invalid&gt;       etcd-ca                 no      </span><br><span class="line">etcd-peer                  Dec 22, 2021 23:53 UTC   &lt;invalid&gt;       etcd-ca                 no      </span><br><span class="line">etcd-server                Dec 22, 2021 23:53 UTC   &lt;invalid&gt;       etcd-ca                 no      </span><br><span class="line">front-proxy-client         Sep 10, 2022 00:20 UTC   238d            front-proxy-ca          no      </span><br><span class="line">scheduler.conf             Sep 10, 2022 00:09 UTC   238d                                    no      </span><br><span class="line"></span><br><span class="line">CERTIFICATE AUTHORITY   EXPIRES                  RESIDUAL TIME   EXTERNALLY MANAGED</span><br><span class="line">ca                      Dec 24, 2029 07:18 UTC   7y              no      </span><br><span class="line">etcd-ca                 Dec 24, 2029 07:18 UTC   7y              no      </span><br><span class="line">front-proxy-ca          Dec 24, 2029 07:18 UTC   7y              no      </span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>可以看出<code>etcd</code>的证书的确过期，<code>renew</code>证书：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># kubeadm certs renew healthcheck-client</span><br><span class="line"># kubeadm certs renew etcd-peer</span><br><span class="line"># kubeadm certs renew etcd-server</span><br></pre></td></tr></table></figure>
+
+<p>重新检查确定新的证书已经生效，重启容器和<code>kubelet</code>，检查发现问题件已经解决。</p>
+<p>产生这个问题的原因是，<code>master01</code>已经自动更新了证书，保证容器环境正常使用，但其他<code>master</code>节点的证书没有自动更新，需要手工处理一下，估计为了版本会解决这个问题。</p>
+]]></content>
+      <tags>
+        <tag>k8s</tag>
+        <tag>cert</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Azure Bicep开发环境搭建</title>
+    <url>/azure-bicep.html</url>
+    <content><![CDATA[<p>最近在<code>MacOS</code>搭建<code>Bicep</code>环境，发现<code>VS Code</code>始终无法成功识别<code>Bicep</code>，<code>Bicep</code>插件在启动时依赖<code>.net</code>环境，虽然手动安装了<code>.net</code>环境，但依然无法启动。</p>
+<p>参考：</p>
+<p><a href="https://github.com/dotnet/vscode-dotnet-runtime/blob/main/Documentation/troubleshooting-runtime.md#install-script-timeouts">https://github.com/dotnet/vscode-dotnet-runtime/blob/main/Documentation/troubleshooting-runtime.md#install-script-timeouts</a> </p>
+<p><a href="https://www.azuredeveloper.cn/article/azure-tutorial-auzre-bicep-introduction">https://www.azuredeveloper.cn/article/azure-tutorial-auzre-bicep-introduction</a> </p>
+<p>修改设置，增加以下内容：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&quot;dotnetAcquisitionExtension.existingDotnetPath&quot;: [</span><br><span class="line">    &#123;&quot;extensionId&quot;: &quot;ms-azuretools.vscode-bicep&quot;, &quot;path&quot;: &quot;/usr/local/share/dotnet/dotnet&quot;&#125;,</span><br><span class="line">    &#123;&quot;extensionId&quot;: &quot;msazurermtools.azurerm-vscode-tools&quot;, &quot;path&quot;: &quot;/usr/local/share/dotnet/dotnet&quot;&#125;</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+
+<p>这样就可以正常使用了。</p>
+]]></content>
+      <tags>
+        <tag>Azure</tag>
+        <tag>Bicep</tag>
+        <tag>ARM</tag>
+        <tag>VSCode</tag>
+      </tags>
+  </entry>
+</search>
