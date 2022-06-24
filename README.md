@@ -18,4 +18,6 @@ hexo server
 ```
 hexo generate
 hexo deploy
+
+hexo g -d
 ```
