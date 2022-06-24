@@ -290,6 +290,26 @@ d="M 50,50 m 0,47 a 47,47 0 1 1 0,-94
       </tags>
   </entry>
   <entry>
+    <title>GitLab Pages在Kubernetes中进行Access Control</title>
+    <url>/pages-in-k8s.html</url>
+    <content><![CDATA[<p>最近在<code>Kubernetes</code>中部署了<code>GitLab</code>，<code>GitLab</code>使用<code>HTTP</code>，在<code>Kubernetes</code>通过<code>Ingress</code>进行<code>HTTPS</code>代理，对外使用<code>HTTPS</code>访问。</p>
+<p>当在部署<code>GitLab Pages</code>时，系统通过<code>Access Contrel</code>进行访问控制时，结果发现出现<code>503</code>错误。经过多次尝试，发现有两个解决方法：</p>
+<ol>
+<li>全部不使用<code>HTTPS</code>，使用<code>HTTP</code>。这个方法简单粗暴，但不安全。</li>
+<li>修改修改配置如下：</li>
+</ol>
+<figure class="highlight ruby"><table><tr><td class="code"><pre><span class="line"><span class="comment"># external_url设置为https，如果设置http，在通过Ingress代理成https，大部分功能没有问题，但发现Web IDE打开是因为在HTTPS请求中使用了HTTP大致失败，未来有可能GitLab会修改这个问题。但目前只能如此。</span></span><br><span class="line">external_url <span class="string">&#x27;https://gitlab.example.cn&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Pages的对外页面，这里使用HTTP，通过Ingress进行HTTPS代理</span></span><br><span class="line">pages_external_url <span class="string">&quot;http://example.cn/&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 如果使用容器部署，inplace_chroot需要打开</span></span><br><span class="line">gitlab_pages[<span class="string">&#x27;inplace_chroot&#x27;</span>] = <span class="literal">true</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 接入控制开关</span></span><br><span class="line">gitlab_pages[<span class="string">&#x27;access_control&#x27;</span>] = <span class="literal">true</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># auth_server是关键，缺省和external_url相同，因为external_url设置为https，导致pages无法通过证书验证，所有修改认证为http方式。</span></span><br><span class="line">gitlab_pages[<span class="string">&#x27;auth_server&#x27;</span>] = <span class="string">&#x27;http://gitlab.rd.example.cn&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<p>终于，<code>GitLab</code>中<code>Web IDE</code>和<code>Pages</code>都可以完美工作了。</p>
+<p>备注： <code>GitLab</code>使用版本 <code>V11</code>~`V12.2`</p>
+]]></content>
+      <tags>
+        <tag>k8s</tag>
+        <tag>gitlab</tag>
+        <tag>pages</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Kubernetes中删除Calico</title>
     <url>/remove-calico.html</url>
     <content><![CDATA[<p>最近发现<code>Kubernetes</code>集群中，出现不稳定情况，怀疑是<code>Calico</code>导致，为了排除文件，打算将<code>Calico</code>更换为<code>Flannel</code>，本来以为很简单，结果还是遇到<code>Calico</code>无法删除干净的问题。所有将删除正确删除过程做一个记录。 顺便说一下，最终确定和<code>Calico</code>无关。</p>
@@ -335,26 +355,6 @@ d="M 50,50 m 0,47 a 47,47 0 1 1 0,-94
         <tag>k8s</tag>
         <tag>network</tag>
         <tag>flannel</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>GitLab Pages在Kubernetes中进行Access Control</title>
-    <url>/pages-in-k8s.html</url>
-    <content><![CDATA[<p>最近在<code>Kubernetes</code>中部署了<code>GitLab</code>，<code>GitLab</code>使用<code>HTTP</code>，在<code>Kubernetes</code>通过<code>Ingress</code>进行<code>HTTPS</code>代理，对外使用<code>HTTPS</code>访问。</p>
-<p>当在部署<code>GitLab Pages</code>时，系统通过<code>Access Contrel</code>进行访问控制时，结果发现出现<code>503</code>错误。经过多次尝试，发现有两个解决方法：</p>
-<ol>
-<li>全部不使用<code>HTTPS</code>，使用<code>HTTP</code>。这个方法简单粗暴，但不安全。</li>
-<li>修改修改配置如下：</li>
-</ol>
-<figure class="highlight ruby"><table><tr><td class="code"><pre><span class="line"><span class="comment"># external_url设置为https，如果设置http，在通过Ingress代理成https，大部分功能没有问题，但发现Web IDE打开是因为在HTTPS请求中使用了HTTP大致失败，未来有可能GitLab会修改这个问题。但目前只能如此。</span></span><br><span class="line">external_url <span class="string">&#x27;https://gitlab.example.cn&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Pages的对外页面，这里使用HTTP，通过Ingress进行HTTPS代理</span></span><br><span class="line">pages_external_url <span class="string">&quot;http://example.cn/&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 如果使用容器部署，inplace_chroot需要打开</span></span><br><span class="line">gitlab_pages[<span class="string">&#x27;inplace_chroot&#x27;</span>] = <span class="literal">true</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 接入控制开关</span></span><br><span class="line">gitlab_pages[<span class="string">&#x27;access_control&#x27;</span>] = <span class="literal">true</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># auth_server是关键，缺省和external_url相同，因为external_url设置为https，导致pages无法通过证书验证，所有修改认证为http方式。</span></span><br><span class="line">gitlab_pages[<span class="string">&#x27;auth_server&#x27;</span>] = <span class="string">&#x27;http://gitlab.rd.example.cn&#x27;</span></span><br></pre></td></tr></table></figure>
-
-<p>终于，<code>GitLab</code>中<code>Web IDE</code>和<code>Pages</code>都可以完美工作了。</p>
-<p>备注： <code>GitLab</code>使用版本 <code>V11</code>~`V12.2`</p>
-]]></content>
-      <tags>
-        <tag>k8s</tag>
-        <tag>gitlab</tag>
-        <tag>pages</tag>
       </tags>
   </entry>
   <entry>
@@ -536,22 +536,6 @@ d="M 50,50 m 0,47 a 47,47 0 1 1 0,-94
       </tags>
   </entry>
   <entry>
-    <title>PowerShell安装MSOnline模块错误</title>
-    <url>/azure-nuget-https.html</url>
-    <content><![CDATA[<p>在<code>Windows Server 2016</code>上安装<code>MSOnline</code>模块时提示错误，具体错误如下：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">PS C:\&gt; Install-Module MSOnline</span><br><span class="line">需要使用 NuGet 提供程序来继续操作</span><br><span class="line">PowerShellGet 需要使用 NuGet 提供程序“2.8.5.201”或更高版本来与基于 NuGet 的存储库交互。必须在“C:\Program</span><br><span class="line">Files\PackageManagement\ProviderAssemblies”或“C:\Users\administrator.WAFERSYSTEMS1\AppData\Local\PackageManagement\ProviderAssemblies”中提供 NuGet 提供程序。也可以通过运行</span><br><span class="line">&#x27;Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Force&#x27; 安装 NuGet 提供程序。是否要让 PowerShellGet 立即安装并导入 NuGet 提供程序?</span><br><span class="line">[Y] 是(Y)  [N] 否(N)  [S] 暂停(S)  [?] 帮助 (默认值为“Y”): y</span><br><span class="line">警告: 无法从 URI“https://go.microsoft.com/fwlink/?LinkID=627338&amp;clcid=0x409”下载到“”。</span><br><span class="line">警告: 无法下载可用提供程序列表。请检查 Internet 连接。</span><br><span class="line">PackageManagement\Install-PackageProvider : 找不到提供程序“NuGet”的指定搜索条件的匹配项。程序包提供程序要求 &quot;PackageManagement&quot; 和 &quot;Provider&quot; 标记。请检查指定的程序包是否具有标记。</span><br><span class="line">所在位置 C:\Program Files\WindowsPowerShell\Modules\PowerShellGet\1.0.0.1\PSModule.psm1:7405 字符: 21</span><br><span class="line">+ ...     $null = PackageManagement\Install-PackageProvider -Name $script:N ...</span><br><span class="line">+                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span><br><span class="line">    + CategoryInfo          : InvalidArgument: (Microsoft.Power...PackageProvider:InstallPackageProvider) [Install-PackageProvider]，Exception</span><br><span class="line">    + FullyQualifiedErrorId : NoMatchFoundForProvider,Microsoft.PowerShell.PackageManagement.Cmdlets.InstallPackageProvider</span><br><span class="line"></span><br><span class="line">PackageManagement\Import-PackageProvider : 未找到与指定搜索条件和提供程序名称“NuGet”匹配的项目。请尝试运行 &#x27;Get-PackageProvider -ListAvailable&#x27; 以查看系统中是否存在该提供程序。</span><br><span class="line">所在位置 C:\Program Files\WindowsPowerShell\Modules\PowerShellGet\1.0.0.1\PSModule.psm1:7411 字符: 21</span><br><span class="line">+ ...     $null = PackageManagement\Import-PackageProvider -Name $script:Nu ...</span><br><span class="line">+                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span><br><span class="line">    + CategoryInfo          : InvalidData: (NuGet:String) [Import-PackageProvider]，Exception</span><br><span class="line">    + FullyQualifiedErrorId : NoMatchFoundForCriteria,Microsoft.PowerShell.PackageManagement.Cmdlets.ImportPackageProvider</span><br><span class="line"></span><br><span class="line">警告: 无法从 URI“https://go.microsoft.com/fwlink/?LinkID=627338&amp;clcid=0x409”下载到“”。</span><br><span class="line">警告: 无法下载可用提供程序列表。请检查 Internet 连接。</span><br><span class="line">PackageManagement\Get-PackageProvider : 找不到程序包提供程序“NuGet”。可能尚未导入该提供程序。请尝试使用 &#x27;Get-PackageProvider -ListAvailable&#x27;。</span><br><span class="line">所在位置 C:\Program Files\WindowsPowerShell\Modules\PowerShellGet\1.0.0.1\PSModule.psm1:7415 字符: 30</span><br><span class="line">+ ... tProvider = PackageManagement\Get-PackageProvider -Name $script:NuGet ...</span><br><span class="line">+                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span><br><span class="line">    + CategoryInfo          : ObjectNotFound: (Microsoft.Power...PackageProvider:GetPackageProvider) [Get-PackageProvider], Exception</span><br><span class="line">    + FullyQualifiedErrorId : UnknownProviderFromActivatedList,Microsoft.PowerShell.PackageManagement.Cmdlets.GetPackageProvider</span><br><span class="line"></span><br><span class="line">Install-Module : 需要使用 NuGet 提供程序来与基于 NuGet 的存储库交互。请确保已安装 NuGet 提供程序“2.8.5.201”或更高版本。</span><br><span class="line">所在位置 行:1 字符: 1</span><br><span class="line">+ Install-Module msonline</span><br><span class="line">+ ~~~~~~~~~~~~~~~~~~~~~~~</span><br><span class="line">    + CategoryInfo          : InvalidOperation: (:) [Install-Module]，InvalidOperationException</span><br><span class="line">    + FullyQualifiedErrorId : CouldNotInstallNuGetProvider,Install-Module</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-<p>从提示来看，是由于<code>NuGet</code>安装时错误，经过查询，发现使用由于<code>PowerShell</code>默认没有使用<code>TLS1.2</code>导致，强制指定一下，然后很执行就可以了。指定方法：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">[System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12;</span><br></pre></td></tr></table></figure>
-]]></content>
-      <tags>
-        <tag>PowerShell</tag>
-        <tag>Azure</tag>
-        <tag>M365</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>删除AD用户重建后AAD Connect同步错误</title>
     <url>/azure-aad-sync-error.html</url>
     <content><![CDATA[<h1 id="问题背景"><a href="#问题背景" class="headerlink" title="问题背景"></a>问题背景</h1><p>我们订阅了<code>Micorsoft 365</code>，并通过<code>Azure AD Connect</code>将本地的<code>AD</code>的用户同步到<code>Azure AD</code>中。一次误操作将一个用户从<code>AD</code>删除，在同步为执行前，立刻重新创建了正用户。导致该用户无法同步了。</p>
@@ -598,6 +582,22 @@ d="M 50,50 m 0,47 a 47,47 0 1 1 0,-94
         <tag>Azure</tag>
         <tag>M365</tag>
         <tag>AD</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>PowerShell安装MSOnline模块错误</title>
+    <url>/azure-nuget-https.html</url>
+    <content><![CDATA[<p>在<code>Windows Server 2016</code>上安装<code>MSOnline</code>模块时提示错误，具体错误如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">PS C:\&gt; Install-Module MSOnline</span><br><span class="line">需要使用 NuGet 提供程序来继续操作</span><br><span class="line">PowerShellGet 需要使用 NuGet 提供程序“2.8.5.201”或更高版本来与基于 NuGet 的存储库交互。必须在“C:\Program</span><br><span class="line">Files\PackageManagement\ProviderAssemblies”或“C:\Users\administrator.WAFERSYSTEMS1\AppData\Local\PackageManagement\ProviderAssemblies”中提供 NuGet 提供程序。也可以通过运行</span><br><span class="line">&#x27;Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Force&#x27; 安装 NuGet 提供程序。是否要让 PowerShellGet 立即安装并导入 NuGet 提供程序?</span><br><span class="line">[Y] 是(Y)  [N] 否(N)  [S] 暂停(S)  [?] 帮助 (默认值为“Y”): y</span><br><span class="line">警告: 无法从 URI“https://go.microsoft.com/fwlink/?LinkID=627338&amp;clcid=0x409”下载到“”。</span><br><span class="line">警告: 无法下载可用提供程序列表。请检查 Internet 连接。</span><br><span class="line">PackageManagement\Install-PackageProvider : 找不到提供程序“NuGet”的指定搜索条件的匹配项。程序包提供程序要求 &quot;PackageManagement&quot; 和 &quot;Provider&quot; 标记。请检查指定的程序包是否具有标记。</span><br><span class="line">所在位置 C:\Program Files\WindowsPowerShell\Modules\PowerShellGet\1.0.0.1\PSModule.psm1:7405 字符: 21</span><br><span class="line">+ ...     $null = PackageManagement\Install-PackageProvider -Name $script:N ...</span><br><span class="line">+                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span><br><span class="line">    + CategoryInfo          : InvalidArgument: (Microsoft.Power...PackageProvider:InstallPackageProvider) [Install-PackageProvider]，Exception</span><br><span class="line">    + FullyQualifiedErrorId : NoMatchFoundForProvider,Microsoft.PowerShell.PackageManagement.Cmdlets.InstallPackageProvider</span><br><span class="line"></span><br><span class="line">PackageManagement\Import-PackageProvider : 未找到与指定搜索条件和提供程序名称“NuGet”匹配的项目。请尝试运行 &#x27;Get-PackageProvider -ListAvailable&#x27; 以查看系统中是否存在该提供程序。</span><br><span class="line">所在位置 C:\Program Files\WindowsPowerShell\Modules\PowerShellGet\1.0.0.1\PSModule.psm1:7411 字符: 21</span><br><span class="line">+ ...     $null = PackageManagement\Import-PackageProvider -Name $script:Nu ...</span><br><span class="line">+                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span><br><span class="line">    + CategoryInfo          : InvalidData: (NuGet:String) [Import-PackageProvider]，Exception</span><br><span class="line">    + FullyQualifiedErrorId : NoMatchFoundForCriteria,Microsoft.PowerShell.PackageManagement.Cmdlets.ImportPackageProvider</span><br><span class="line"></span><br><span class="line">警告: 无法从 URI“https://go.microsoft.com/fwlink/?LinkID=627338&amp;clcid=0x409”下载到“”。</span><br><span class="line">警告: 无法下载可用提供程序列表。请检查 Internet 连接。</span><br><span class="line">PackageManagement\Get-PackageProvider : 找不到程序包提供程序“NuGet”。可能尚未导入该提供程序。请尝试使用 &#x27;Get-PackageProvider -ListAvailable&#x27;。</span><br><span class="line">所在位置 C:\Program Files\WindowsPowerShell\Modules\PowerShellGet\1.0.0.1\PSModule.psm1:7415 字符: 30</span><br><span class="line">+ ... tProvider = PackageManagement\Get-PackageProvider -Name $script:NuGet ...</span><br><span class="line">+                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span><br><span class="line">    + CategoryInfo          : ObjectNotFound: (Microsoft.Power...PackageProvider:GetPackageProvider) [Get-PackageProvider], Exception</span><br><span class="line">    + FullyQualifiedErrorId : UnknownProviderFromActivatedList,Microsoft.PowerShell.PackageManagement.Cmdlets.GetPackageProvider</span><br><span class="line"></span><br><span class="line">Install-Module : 需要使用 NuGet 提供程序来与基于 NuGet 的存储库交互。请确保已安装 NuGet 提供程序“2.8.5.201”或更高版本。</span><br><span class="line">所在位置 行:1 字符: 1</span><br><span class="line">+ Install-Module msonline</span><br><span class="line">+ ~~~~~~~~~~~~~~~~~~~~~~~</span><br><span class="line">    + CategoryInfo          : InvalidOperation: (:) [Install-Module]，InvalidOperationException</span><br><span class="line">    + FullyQualifiedErrorId : CouldNotInstallNuGetProvider,Install-Module</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<p>从提示来看，是由于<code>NuGet</code>安装时错误，经过查询，发现使用由于<code>PowerShell</code>默认没有使用<code>TLS1.2</code>导致，强制指定一下，然后很执行就可以了。指定方法：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">[System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <tags>
+        <tag>PowerShell</tag>
+        <tag>Azure</tag>
+        <tag>M365</tag>
       </tags>
   </entry>
   <entry>
