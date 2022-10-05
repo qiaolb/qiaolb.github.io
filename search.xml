@@ -1,6 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Welcome to Joe Blog</title>
+    <url>/hello-2016.html</url>
+    <content><![CDATA[<blockquote>
+<p>“Yeah It’s on. ”</p>
+</blockquote>
+<p>我fork了 Hux 的 Blog，开通了自己在Github上的Blog。</p>
+<p>因为比较喜欢Github，也觉得Markdown更加简单，两个正好是我想要的，一拍即合。</p>
+<p>Go！</p>
+]]></content>
+      <tags>
+        <tag>生活</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>引人的ECMAScript</title>
     <url>/es2015-basic.html</url>
     <content><![CDATA[<blockquote>
@@ -29,17 +43,24 @@
       </tags>
   </entry>
   <entry>
-    <title>Welcome to Joe Blog</title>
-    <url>/hello-2016.html</url>
-    <content><![CDATA[<blockquote>
-<p>“Yeah It’s on. ”</p>
-</blockquote>
-<p>我fork了 Hux 的 Blog，开通了自己在Github上的Blog。</p>
-<p>因为比较喜欢Github，也觉得Markdown更加简单，两个正好是我想要的，一拍即合。</p>
-<p>Go！</p>
+    <title>React的Stateless Functional Components</title>
+    <url>/react-stateless.html</url>
+    <content><![CDATA[<p>最早在写React组件时，使用的以下方法：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> <span class="title class_">App</span> = <span class="title class_">React</span>.<span class="title function_">createClass</span>(&#123;</span><br><span class="line">  <span class="attr">handleClick</span>: <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">    ...</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="attr">render</span>: <span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="language-xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">onClick</span>=<span class="string">&#123;handleClick&#125;</span>&gt;</span>Click me!<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<span id="more"></span>
+
+<p>后来使用ES6的class，写法如下：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">App</span> <span class="keyword">extends</span> <span class="title class_ inherited__">React.Componnet</span> &#123;</span><br><span class="line">  <span class="title function_">handleClick</span>(<span class="params"></span>) &#123;</span><br><span class="line">    ...</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="title function_">render</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="language-xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">onClick</span>=<span class="string">&#123;this.handleClick.bind(this)&#125;</span>&gt;</span>Click me!<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>今天看到另外一种写法：Stateless Functional Components，写法如下：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">App</span>(<span class="params">props</span>) &#123;</span><br><span class="line">  <span class="keyword">function</span> <span class="title function_">handleClick</span>(<span class="params"></span>) &#123;</span><br><span class="line">    ...</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="language-xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">onClick</span>=<span class="string">&#123;handleClick&#125;</span>&gt;</span>Click me!<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Stateless Functional Components<strong>保持简洁和无状态</strong>。这是<strong>函数</strong>，不是 Object，没有 this 作用域，是 pure function。推荐尽量使用最后一种。似乎有回到了函数年代。</p>
 ]]></content>
       <tags>
-        <tag>生活</tag>
+        <tag>JavaScript</tag>
+        <tag>React</tag>
       </tags>
   </entry>
   <entry>
@@ -64,27 +85,6 @@
         <tag>Java</tag>
         <tag>FindBugs</tag>
         <tag>Maven</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>React的Stateless Functional Components</title>
-    <url>/react-stateless.html</url>
-    <content><![CDATA[<p>最早在写React组件时，使用的以下方法：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> <span class="title class_">App</span> = <span class="title class_">React</span>.<span class="title function_">createClass</span>(&#123;</span><br><span class="line">  <span class="attr">handleClick</span>: <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">    ...</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="attr">render</span>: <span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="language-xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">onClick</span>=<span class="string">&#123;handleClick&#125;</span>&gt;</span>Click me!<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-
-<span id="more"></span>
-
-<p>后来使用ES6的class，写法如下：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">App</span> <span class="keyword">extends</span> <span class="title class_ inherited__">React.Componnet</span> &#123;</span><br><span class="line">  <span class="title function_">handleClick</span>(<span class="params"></span>) &#123;</span><br><span class="line">    ...</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="title function_">render</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="language-xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">onClick</span>=<span class="string">&#123;this.handleClick.bind(this)&#125;</span>&gt;</span>Click me!<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>今天看到另外一种写法：Stateless Functional Components，写法如下：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">App</span>(<span class="params">props</span>) &#123;</span><br><span class="line">  <span class="keyword">function</span> <span class="title function_">handleClick</span>(<span class="params"></span>) &#123;</span><br><span class="line">    ...</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="language-xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">onClick</span>=<span class="string">&#123;handleClick&#125;</span>&gt;</span>Click me!<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>Stateless Functional Components<strong>保持简洁和无状态</strong>。这是<strong>函数</strong>，不是 Object，没有 this 作用域，是 pure function。推荐尽量使用最后一种。似乎有回到了函数年代。</p>
-]]></content>
-      <tags>
-        <tag>JavaScript</tag>
-        <tag>React</tag>
       </tags>
   </entry>
   <entry>
@@ -489,25 +489,6 @@ d="M 50,50 m 0,47 a 47,47 0 1 1 0,-94
       </tags>
   </entry>
   <entry>
-    <title>vCenter升级过程中因密码过期导致的问题处理</title>
-    <url>/vcsa-passwor-expired.html</url>
-    <content><![CDATA[<p>今天在升级<code>vCenter</code> <code>7.0</code>时，升级检查时提示错误，错误日志显示如下：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">2021-02-19T06:12:41.374Z - debug: initiateFileTransferFromGuest error: ServerFaultCode: Failed to authenticate with the guest operating system using the supplied credentials.</span><br><span class="line">2021-02-19T06:12:41.374Z - debug: Failed to get fileTransferInfo:ServerFaultCode: Failed to authenticate with the guest operating system using the supplied credentials.</span><br><span class="line">2021-02-19T06:12:41.374Z - debug: Failed to get url of file in guest vm:ServerFaultCode: Failed to authenticate with the guest operating system using the supplied credentials.</span><br></pre></td></tr></table></figure>
-
-<p>经过检查发现是<code>vCenter</code>的<code>root</code>密码过期导致，<code>ssh</code>登录<code>vCenter</code>，进入<code>shell</code>，执行：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">root@vcsa [ ~ ]# chage -l root</span><br><span class="line">You are required to change your password immediately (root enforced)</span><br><span class="line">chage: PAM: Authentication token is no longer valid; new one required</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>说明<code>root</code>的密码过期，修改密码即可：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">root@vcsa [ ~ ]# passwd</span><br><span class="line">New password: </span><br><span class="line">Retype new password: </span><br><span class="line">passwd: password updated successfully</span><br></pre></td></tr></table></figure>
-
-<p>然后重新执行升级程序检查，通过。</p>
-]]></content>
-      <tags>
-        <tag>VMware</tag>
-        <tag>vCenter</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Kubernetes升级1.21问题汇总</title>
     <url>/k8s-upgrade1.21.html</url>
     <content><![CDATA[<p>将<code>Kubernetes</code>从<code>1.20</code>升级到<code>1.21</code>时，遇到了两个问题。</p>
@@ -533,6 +514,84 @@ d="M 50,50 m 0,47 a 47,47 0 1 1 0,-94
       <tags>
         <tag>k8s</tag>
         <tag>upgrade</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>vCenter升级过程中因密码过期导致的问题处理</title>
+    <url>/vcsa-passwor-expired.html</url>
+    <content><![CDATA[<p>今天在升级<code>vCenter</code> <code>7.0</code>时，升级检查时提示错误，错误日志显示如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">2021-02-19T06:12:41.374Z - debug: initiateFileTransferFromGuest error: ServerFaultCode: Failed to authenticate with the guest operating system using the supplied credentials.</span><br><span class="line">2021-02-19T06:12:41.374Z - debug: Failed to get fileTransferInfo:ServerFaultCode: Failed to authenticate with the guest operating system using the supplied credentials.</span><br><span class="line">2021-02-19T06:12:41.374Z - debug: Failed to get url of file in guest vm:ServerFaultCode: Failed to authenticate with the guest operating system using the supplied credentials.</span><br></pre></td></tr></table></figure>
+
+<p>经过检查发现是<code>vCenter</code>的<code>root</code>密码过期导致，<code>ssh</code>登录<code>vCenter</code>，进入<code>shell</code>，执行：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">root@vcsa [ ~ ]# chage -l root</span><br><span class="line">You are required to change your password immediately (root enforced)</span><br><span class="line">chage: PAM: Authentication token is no longer valid; new one required</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>说明<code>root</code>的密码过期，修改密码即可：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">root@vcsa [ ~ ]# passwd</span><br><span class="line">New password: </span><br><span class="line">Retype new password: </span><br><span class="line">passwd: password updated successfully</span><br></pre></td></tr></table></figure>
+
+<p>然后重新执行升级程序检查，通过。</p>
+]]></content>
+      <tags>
+        <tag>VMware</tag>
+        <tag>vCenter</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>PowerShell安装MSOnline模块错误</title>
+    <url>/azure-nuget-https.html</url>
+    <content><![CDATA[<p>在<code>Windows Server 2016</code>上安装<code>MSOnline</code>模块时提示错误，具体错误如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">PS C:\&gt; Install-Module MSOnline</span><br><span class="line">需要使用 NuGet 提供程序来继续操作</span><br><span class="line">PowerShellGet 需要使用 NuGet 提供程序“2.8.5.201”或更高版本来与基于 NuGet 的存储库交互。必须在“C:\Program</span><br><span class="line">Files\PackageManagement\ProviderAssemblies”或“C:\Users\administrator.WAFERSYSTEMS1\AppData\Local\PackageManagement\ProviderAssemblies”中提供 NuGet 提供程序。也可以通过运行</span><br><span class="line">&#x27;Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Force&#x27; 安装 NuGet 提供程序。是否要让 PowerShellGet 立即安装并导入 NuGet 提供程序?</span><br><span class="line">[Y] 是(Y)  [N] 否(N)  [S] 暂停(S)  [?] 帮助 (默认值为“Y”): y</span><br><span class="line">警告: 无法从 URI“https://go.microsoft.com/fwlink/?LinkID=627338&amp;clcid=0x409”下载到“”。</span><br><span class="line">警告: 无法下载可用提供程序列表。请检查 Internet 连接。</span><br><span class="line">PackageManagement\Install-PackageProvider : 找不到提供程序“NuGet”的指定搜索条件的匹配项。程序包提供程序要求 &quot;PackageManagement&quot; 和 &quot;Provider&quot; 标记。请检查指定的程序包是否具有标记。</span><br><span class="line">所在位置 C:\Program Files\WindowsPowerShell\Modules\PowerShellGet\1.0.0.1\PSModule.psm1:7405 字符: 21</span><br><span class="line">+ ...     $null = PackageManagement\Install-PackageProvider -Name $script:N ...</span><br><span class="line">+                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span><br><span class="line">    + CategoryInfo          : InvalidArgument: (Microsoft.Power...PackageProvider:InstallPackageProvider) [Install-PackageProvider]，Exception</span><br><span class="line">    + FullyQualifiedErrorId : NoMatchFoundForProvider,Microsoft.PowerShell.PackageManagement.Cmdlets.InstallPackageProvider</span><br><span class="line"></span><br><span class="line">PackageManagement\Import-PackageProvider : 未找到与指定搜索条件和提供程序名称“NuGet”匹配的项目。请尝试运行 &#x27;Get-PackageProvider -ListAvailable&#x27; 以查看系统中是否存在该提供程序。</span><br><span class="line">所在位置 C:\Program Files\WindowsPowerShell\Modules\PowerShellGet\1.0.0.1\PSModule.psm1:7411 字符: 21</span><br><span class="line">+ ...     $null = PackageManagement\Import-PackageProvider -Name $script:Nu ...</span><br><span class="line">+                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span><br><span class="line">    + CategoryInfo          : InvalidData: (NuGet:String) [Import-PackageProvider]，Exception</span><br><span class="line">    + FullyQualifiedErrorId : NoMatchFoundForCriteria,Microsoft.PowerShell.PackageManagement.Cmdlets.ImportPackageProvider</span><br><span class="line"></span><br><span class="line">警告: 无法从 URI“https://go.microsoft.com/fwlink/?LinkID=627338&amp;clcid=0x409”下载到“”。</span><br><span class="line">警告: 无法下载可用提供程序列表。请检查 Internet 连接。</span><br><span class="line">PackageManagement\Get-PackageProvider : 找不到程序包提供程序“NuGet”。可能尚未导入该提供程序。请尝试使用 &#x27;Get-PackageProvider -ListAvailable&#x27;。</span><br><span class="line">所在位置 C:\Program Files\WindowsPowerShell\Modules\PowerShellGet\1.0.0.1\PSModule.psm1:7415 字符: 30</span><br><span class="line">+ ... tProvider = PackageManagement\Get-PackageProvider -Name $script:NuGet ...</span><br><span class="line">+                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span><br><span class="line">    + CategoryInfo          : ObjectNotFound: (Microsoft.Power...PackageProvider:GetPackageProvider) [Get-PackageProvider], Exception</span><br><span class="line">    + FullyQualifiedErrorId : UnknownProviderFromActivatedList,Microsoft.PowerShell.PackageManagement.Cmdlets.GetPackageProvider</span><br><span class="line"></span><br><span class="line">Install-Module : 需要使用 NuGet 提供程序来与基于 NuGet 的存储库交互。请确保已安装 NuGet 提供程序“2.8.5.201”或更高版本。</span><br><span class="line">所在位置 行:1 字符: 1</span><br><span class="line">+ Install-Module msonline</span><br><span class="line">+ ~~~~~~~~~~~~~~~~~~~~~~~</span><br><span class="line">    + CategoryInfo          : InvalidOperation: (:) [Install-Module]，InvalidOperationException</span><br><span class="line">    + FullyQualifiedErrorId : CouldNotInstallNuGetProvider,Install-Module</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<p>从提示来看，是由于<code>NuGet</code>安装时错误，经过查询，发现使用由于<code>PowerShell</code>默认没有使用<code>TLS1.2</code>导致，强制指定一下，然后很执行就可以了。指定方法：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">[System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <tags>
+        <tag>PowerShell</tag>
+        <tag>Azure</tag>
+        <tag>M365</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Azure Bicep开发环境搭建</title>
+    <url>/azure-bicep.html</url>
+    <content><![CDATA[<p>最近在<code>MacOS</code>搭建<code>Bicep</code>环境，发现<code>VS Code</code>始终无法成功识别<code>Bicep</code>，<code>Bicep</code>插件在启动时依赖<code>.net</code>环境，虽然手动安装了<code>.net</code>环境，但依然无法启动。</p>
+<p>参考：</p>
+<p><a href="https://github.com/dotnet/vscode-dotnet-runtime/blob/main/Documentation/troubleshooting-runtime.md#install-script-timeouts">https://github.com/dotnet/vscode-dotnet-runtime/blob/main/Documentation/troubleshooting-runtime.md#install-script-timeouts</a> </p>
+<p><a href="https://www.azuredeveloper.cn/article/azure-tutorial-auzre-bicep-introduction">https://www.azuredeveloper.cn/article/azure-tutorial-auzre-bicep-introduction</a> </p>
+<p>修改设置，增加以下内容：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&quot;dotnetAcquisitionExtension.existingDotnetPath&quot;: [</span><br><span class="line">    &#123;&quot;extensionId&quot;: &quot;ms-azuretools.vscode-bicep&quot;, &quot;path&quot;: &quot;/usr/local/share/dotnet/dotnet&quot;&#125;,</span><br><span class="line">    &#123;&quot;extensionId&quot;: &quot;msazurermtools.azurerm-vscode-tools&quot;, &quot;path&quot;: &quot;/usr/local/share/dotnet/dotnet&quot;&#125;</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+
+<p>这样就可以正常使用了。</p>
+]]></content>
+      <tags>
+        <tag>Azure</tag>
+        <tag>Bicep</tag>
+        <tag>ARM</tag>
+        <tag>VSCode</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Kubernetes证书过期(二)</title>
+    <url>/k8s-cert-expired-001.html</url>
+    <content><![CDATA[<p>今天在部署<code>Kubernetes</code>的<code>Deployment</code>时，删除<code>Deployment</code>，发现不会自动删除<code>Replica Set</code>和<code>Pod</code>，开始怀疑是某个工作<code>node</code>故障，重启或者迁移到其他<code>node</code>问题一样。后来重启了<code>master</code>节点，发现有2个<code>master</code>启动无法注册<code>node</code>。</p>
+<p>我的环境中有3个<code>master</code>节点，检查容器，发现<code>master01</code>启动正常，<code>master02</code>和<code>master03</code>的<code>etcd</code>容器都无法启动，查看日志发现提示如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Jan 14 22:29:29 master02.k8s kubelet[1998]: E0114 22:29:29.187573    1998 kubelet.go:2291] &quot;Error getting node&quot; err=&quot;node \&quot;master02.k8s\&quot; not found&quot;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>在<code>master01</code>上查看<code>etcd</code>的日志发现：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">2022-01-14 15:57:13.963722 I | embed: rejected connection from &quot;192.168.203.4:45008&quot; (error &quot;tls: failed to verify client&#x27;s certificate: x509: certificate has expired or is not yet valid&quot;, ServerName &quot;&quot;)</span><br></pre></td></tr></table></figure>
+
+<p>明确是证书过期导致的，根据<a href="/k8s-cert-expired.html">上次过期的经</a>验检查如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># kubeadm certs renew</span><br><span class="line">missing subcommand; &quot;renew&quot; is not meant to be run on its own</span><br><span class="line">To see the stack trace of this error execute with --v=5 or higher</span><br><span class="line">[root@master02 kubernetes]# kubeadm certs check-expiration</span><br><span class="line">[check-expiration] Reading configuration from the cluster...</span><br><span class="line">[check-expiration] FYI: You can look at this config file with &#x27;kubectl -n kube-system get cm kubeadm-config -o yaml&#x27;</span><br><span class="line">[check-expiration] Error reading configuration from the Cluster. Falling back to default configuration</span><br><span class="line"></span><br><span class="line">CERTIFICATE                EXPIRES                  RESIDUAL TIME   CERTIFICATE AUTHORITY   EXTERNALLY MANAGED</span><br><span class="line">admin.conf                 Sep 10, 2022 00:10 UTC   238d                                    no      </span><br><span class="line">apiserver                  Sep 10, 2022 00:20 UTC   238d            ca                      no      </span><br><span class="line">apiserver-etcd-client      Sep 10, 2022 00:20 UTC   238d            etcd-ca                 no      </span><br><span class="line">apiserver-kubelet-client   Sep 10, 2022 00:20 UTC   238d            ca                      no      </span><br><span class="line">controller-manager.conf    Sep 10, 2022 00:09 UTC   238d                                    no      </span><br><span class="line">etcd-healthcheck-client    Dec 22, 2021 23:53 UTC   &lt;invalid&gt;       etcd-ca                 no      </span><br><span class="line">etcd-peer                  Dec 22, 2021 23:53 UTC   &lt;invalid&gt;       etcd-ca                 no      </span><br><span class="line">etcd-server                Dec 22, 2021 23:53 UTC   &lt;invalid&gt;       etcd-ca                 no      </span><br><span class="line">front-proxy-client         Sep 10, 2022 00:20 UTC   238d            front-proxy-ca          no      </span><br><span class="line">scheduler.conf             Sep 10, 2022 00:09 UTC   238d                                    no      </span><br><span class="line"></span><br><span class="line">CERTIFICATE AUTHORITY   EXPIRES                  RESIDUAL TIME   EXTERNALLY MANAGED</span><br><span class="line">ca                      Dec 24, 2029 07:18 UTC   7y              no      </span><br><span class="line">etcd-ca                 Dec 24, 2029 07:18 UTC   7y              no      </span><br><span class="line">front-proxy-ca          Dec 24, 2029 07:18 UTC   7y              no      </span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>可以看出<code>etcd</code>的证书的确过期，<code>renew</code>证书：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># kubeadm certs renew healthcheck-client</span><br><span class="line"># kubeadm certs renew etcd-peer</span><br><span class="line"># kubeadm certs renew etcd-server</span><br></pre></td></tr></table></figure>
+
+<p>重新检查确定新的证书已经生效，重启容器和<code>kubelet</code>，检查发现问题件已经解决。</p>
+<p>产生这个问题的原因是，<code>master01</code>已经自动更新了证书，保证容器环境正常使用，但其他<code>master</code>节点的证书没有自动更新，需要手工处理一下，估计为了版本会解决这个问题。</p>
+]]></content>
+      <tags>
+        <tag>k8s</tag>
+        <tag>cert</tag>
       </tags>
   </entry>
   <entry>
@@ -585,73 +644,25 @@ d="M 50,50 m 0,47 a 47,47 0 1 1 0,-94
       </tags>
   </entry>
   <entry>
-    <title>PowerShell安装MSOnline模块错误</title>
-    <url>/azure-nuget-https.html</url>
-    <content><![CDATA[<p>在<code>Windows Server 2016</code>上安装<code>MSOnline</code>模块时提示错误，具体错误如下：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">PS C:\&gt; Install-Module MSOnline</span><br><span class="line">需要使用 NuGet 提供程序来继续操作</span><br><span class="line">PowerShellGet 需要使用 NuGet 提供程序“2.8.5.201”或更高版本来与基于 NuGet 的存储库交互。必须在“C:\Program</span><br><span class="line">Files\PackageManagement\ProviderAssemblies”或“C:\Users\administrator.WAFERSYSTEMS1\AppData\Local\PackageManagement\ProviderAssemblies”中提供 NuGet 提供程序。也可以通过运行</span><br><span class="line">&#x27;Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Force&#x27; 安装 NuGet 提供程序。是否要让 PowerShellGet 立即安装并导入 NuGet 提供程序?</span><br><span class="line">[Y] 是(Y)  [N] 否(N)  [S] 暂停(S)  [?] 帮助 (默认值为“Y”): y</span><br><span class="line">警告: 无法从 URI“https://go.microsoft.com/fwlink/?LinkID=627338&amp;clcid=0x409”下载到“”。</span><br><span class="line">警告: 无法下载可用提供程序列表。请检查 Internet 连接。</span><br><span class="line">PackageManagement\Install-PackageProvider : 找不到提供程序“NuGet”的指定搜索条件的匹配项。程序包提供程序要求 &quot;PackageManagement&quot; 和 &quot;Provider&quot; 标记。请检查指定的程序包是否具有标记。</span><br><span class="line">所在位置 C:\Program Files\WindowsPowerShell\Modules\PowerShellGet\1.0.0.1\PSModule.psm1:7405 字符: 21</span><br><span class="line">+ ...     $null = PackageManagement\Install-PackageProvider -Name $script:N ...</span><br><span class="line">+                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span><br><span class="line">    + CategoryInfo          : InvalidArgument: (Microsoft.Power...PackageProvider:InstallPackageProvider) [Install-PackageProvider]，Exception</span><br><span class="line">    + FullyQualifiedErrorId : NoMatchFoundForProvider,Microsoft.PowerShell.PackageManagement.Cmdlets.InstallPackageProvider</span><br><span class="line"></span><br><span class="line">PackageManagement\Import-PackageProvider : 未找到与指定搜索条件和提供程序名称“NuGet”匹配的项目。请尝试运行 &#x27;Get-PackageProvider -ListAvailable&#x27; 以查看系统中是否存在该提供程序。</span><br><span class="line">所在位置 C:\Program Files\WindowsPowerShell\Modules\PowerShellGet\1.0.0.1\PSModule.psm1:7411 字符: 21</span><br><span class="line">+ ...     $null = PackageManagement\Import-PackageProvider -Name $script:Nu ...</span><br><span class="line">+                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span><br><span class="line">    + CategoryInfo          : InvalidData: (NuGet:String) [Import-PackageProvider]，Exception</span><br><span class="line">    + FullyQualifiedErrorId : NoMatchFoundForCriteria,Microsoft.PowerShell.PackageManagement.Cmdlets.ImportPackageProvider</span><br><span class="line"></span><br><span class="line">警告: 无法从 URI“https://go.microsoft.com/fwlink/?LinkID=627338&amp;clcid=0x409”下载到“”。</span><br><span class="line">警告: 无法下载可用提供程序列表。请检查 Internet 连接。</span><br><span class="line">PackageManagement\Get-PackageProvider : 找不到程序包提供程序“NuGet”。可能尚未导入该提供程序。请尝试使用 &#x27;Get-PackageProvider -ListAvailable&#x27;。</span><br><span class="line">所在位置 C:\Program Files\WindowsPowerShell\Modules\PowerShellGet\1.0.0.1\PSModule.psm1:7415 字符: 30</span><br><span class="line">+ ... tProvider = PackageManagement\Get-PackageProvider -Name $script:NuGet ...</span><br><span class="line">+                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span><br><span class="line">    + CategoryInfo          : ObjectNotFound: (Microsoft.Power...PackageProvider:GetPackageProvider) [Get-PackageProvider], Exception</span><br><span class="line">    + FullyQualifiedErrorId : UnknownProviderFromActivatedList,Microsoft.PowerShell.PackageManagement.Cmdlets.GetPackageProvider</span><br><span class="line"></span><br><span class="line">Install-Module : 需要使用 NuGet 提供程序来与基于 NuGet 的存储库交互。请确保已安装 NuGet 提供程序“2.8.5.201”或更高版本。</span><br><span class="line">所在位置 行:1 字符: 1</span><br><span class="line">+ Install-Module msonline</span><br><span class="line">+ ~~~~~~~~~~~~~~~~~~~~~~~</span><br><span class="line">    + CategoryInfo          : InvalidOperation: (:) [Install-Module]，InvalidOperationException</span><br><span class="line">    + FullyQualifiedErrorId : CouldNotInstallNuGetProvider,Install-Module</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-<p>从提示来看，是由于<code>NuGet</code>安装时错误，经过查询，发现使用由于<code>PowerShell</code>默认没有使用<code>TLS1.2</code>导致，强制指定一下，然后很执行就可以了。指定方法：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">[System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12;</span><br></pre></td></tr></table></figure>
+    <title>NFS访问失败问题解决</title>
+    <url>/k8sv-nfs.html</url>
+    <content><![CDATA[<p>今天升级<code>Kubernetes</code>到<code>1.24</code>，发现<code>PVC</code>创建时一直处于<code>pending</code>状态，经过检查发现，和之前遇到的问题一样，参考：<a href="/nfs-k8sv1.20.html">升级Kubernetes V1.20后，pvc无法创建问题解决</a></p>
+<p>然后检查<code>/etc/kubernetes/manifests/kube-apiserver.yaml</code>文件，之前设置的<code>RemoveSelfLink=false</code>，在升级后的确没有了，按照之前的方法增加，等待<code>API Server</code>重启。</p>
+<p>然而，<code>kube-apiserver</code>启动不了了。</p>
+<p>检查<code>kube-apiserver</code>，发现<code>RemoveSelfLink=false</code>在新的版本中已经不允许使用了。经过检查和验证，解决办法是更换<code>nfs-client-provisioner</code>。</p>
+<p>需要将<code>nfs-client-provisioner</code>更换为<code>nfs-subdir-external-provisioner</code>，我使用的是<code>helm</code>部署，更换方法如下：</p>
+<ol>
+<li><p>先增加<code>helm</code>库</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">helm repo add nfs-subdir-external-provisioner https://kubernetes-sigs.github.io/nfs-subdir-external-provisioner</span><br><span class="line">helm repo update</span><br></pre></td></tr></table></figure></li>
+<li><p>删除原来的部署</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">helm uninstall nfs-prod</span><br></pre></td></tr></table></figure></li>
+<li><p>修改<code>value</code>文件，新的文件如下</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">image:</span><br><span class="line">  repository: registry.cn-shanghai.aliyuncs.com/c7n/nfs-subdir-external-provisioner</span><br><span class="line">storageClass:</span><br><span class="line">  name: &lt;name&gt;</span><br><span class="line">  archiveOnDelete: false</span><br><span class="line">  defaultClass: true</span><br><span class="line">nfs:</span><br><span class="line">  server: &lt;nfs-ip&gt;</span><br><span class="line">  path: &lt;nfs-path&gt;</span><br><span class="line">nodeSelector: &#123;&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>重新部署</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">helm install &lt;name&gt; nfs-subdir-external-provisioner/nfs-subdir-external-provisioner -f &lt;value file&gt;</span><br></pre></td></tr></table></figure></li>
+</ol>
+<p>测试正常。</p>
 ]]></content>
-      <tags>
-        <tag>PowerShell</tag>
-        <tag>Azure</tag>
-        <tag>M365</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Kubernetes证书过期(二)</title>
-    <url>/k8s-cert-expired-001.html</url>
-    <content><![CDATA[<p>今天在部署<code>Kubernetes</code>的<code>Deployment</code>时，删除<code>Deployment</code>，发现不会自动删除<code>Replica Set</code>和<code>Pod</code>，开始怀疑是某个工作<code>node</code>故障，重启或者迁移到其他<code>node</code>问题一样。后来重启了<code>master</code>节点，发现有2个<code>master</code>启动无法注册<code>node</code>。</p>
-<p>我的环境中有3个<code>master</code>节点，检查容器，发现<code>master01</code>启动正常，<code>master02</code>和<code>master03</code>的<code>etcd</code>容器都无法启动，查看日志发现提示如下：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Jan 14 22:29:29 master02.k8s kubelet[1998]: E0114 22:29:29.187573    1998 kubelet.go:2291] &quot;Error getting node&quot; err=&quot;node \&quot;master02.k8s\&quot; not found&quot;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>在<code>master01</code>上查看<code>etcd</code>的日志发现：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">2022-01-14 15:57:13.963722 I | embed: rejected connection from &quot;192.168.203.4:45008&quot; (error &quot;tls: failed to verify client&#x27;s certificate: x509: certificate has expired or is not yet valid&quot;, ServerName &quot;&quot;)</span><br></pre></td></tr></table></figure>
-
-<p>明确是证书过期导致的，根据<a href="/k8s-cert-expired.html">上次过期的经</a>验检查如下：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># kubeadm certs renew</span><br><span class="line">missing subcommand; &quot;renew&quot; is not meant to be run on its own</span><br><span class="line">To see the stack trace of this error execute with --v=5 or higher</span><br><span class="line">[root@master02 kubernetes]# kubeadm certs check-expiration</span><br><span class="line">[check-expiration] Reading configuration from the cluster...</span><br><span class="line">[check-expiration] FYI: You can look at this config file with &#x27;kubectl -n kube-system get cm kubeadm-config -o yaml&#x27;</span><br><span class="line">[check-expiration] Error reading configuration from the Cluster. Falling back to default configuration</span><br><span class="line"></span><br><span class="line">CERTIFICATE                EXPIRES                  RESIDUAL TIME   CERTIFICATE AUTHORITY   EXTERNALLY MANAGED</span><br><span class="line">admin.conf                 Sep 10, 2022 00:10 UTC   238d                                    no      </span><br><span class="line">apiserver                  Sep 10, 2022 00:20 UTC   238d            ca                      no      </span><br><span class="line">apiserver-etcd-client      Sep 10, 2022 00:20 UTC   238d            etcd-ca                 no      </span><br><span class="line">apiserver-kubelet-client   Sep 10, 2022 00:20 UTC   238d            ca                      no      </span><br><span class="line">controller-manager.conf    Sep 10, 2022 00:09 UTC   238d                                    no      </span><br><span class="line">etcd-healthcheck-client    Dec 22, 2021 23:53 UTC   &lt;invalid&gt;       etcd-ca                 no      </span><br><span class="line">etcd-peer                  Dec 22, 2021 23:53 UTC   &lt;invalid&gt;       etcd-ca                 no      </span><br><span class="line">etcd-server                Dec 22, 2021 23:53 UTC   &lt;invalid&gt;       etcd-ca                 no      </span><br><span class="line">front-proxy-client         Sep 10, 2022 00:20 UTC   238d            front-proxy-ca          no      </span><br><span class="line">scheduler.conf             Sep 10, 2022 00:09 UTC   238d                                    no      </span><br><span class="line"></span><br><span class="line">CERTIFICATE AUTHORITY   EXPIRES                  RESIDUAL TIME   EXTERNALLY MANAGED</span><br><span class="line">ca                      Dec 24, 2029 07:18 UTC   7y              no      </span><br><span class="line">etcd-ca                 Dec 24, 2029 07:18 UTC   7y              no      </span><br><span class="line">front-proxy-ca          Dec 24, 2029 07:18 UTC   7y              no      </span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>可以看出<code>etcd</code>的证书的确过期，<code>renew</code>证书：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># kubeadm certs renew healthcheck-client</span><br><span class="line"># kubeadm certs renew etcd-peer</span><br><span class="line"># kubeadm certs renew etcd-server</span><br></pre></td></tr></table></figure>
-
-<p>重新检查确定新的证书已经生效，重启容器和<code>kubelet</code>，检查发现问题件已经解决。</p>
-<p>产生这个问题的原因是，<code>master01</code>已经自动更新了证书，保证容器环境正常使用，但其他<code>master</code>节点的证书没有自动更新，需要手工处理一下，估计为了版本会解决这个问题。</p>
-]]></content>
-      <tags>
-        <tag>k8s</tag>
-        <tag>cert</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Azure Bicep开发环境搭建</title>
-    <url>/azure-bicep.html</url>
-    <content><![CDATA[<p>最近在<code>MacOS</code>搭建<code>Bicep</code>环境，发现<code>VS Code</code>始终无法成功识别<code>Bicep</code>，<code>Bicep</code>插件在启动时依赖<code>.net</code>环境，虽然手动安装了<code>.net</code>环境，但依然无法启动。</p>
-<p>参考：</p>
-<p><a href="https://github.com/dotnet/vscode-dotnet-runtime/blob/main/Documentation/troubleshooting-runtime.md#install-script-timeouts">https://github.com/dotnet/vscode-dotnet-runtime/blob/main/Documentation/troubleshooting-runtime.md#install-script-timeouts</a> </p>
-<p><a href="https://www.azuredeveloper.cn/article/azure-tutorial-auzre-bicep-introduction">https://www.azuredeveloper.cn/article/azure-tutorial-auzre-bicep-introduction</a> </p>
-<p>修改设置，增加以下内容：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&quot;dotnetAcquisitionExtension.existingDotnetPath&quot;: [</span><br><span class="line">    &#123;&quot;extensionId&quot;: &quot;ms-azuretools.vscode-bicep&quot;, &quot;path&quot;: &quot;/usr/local/share/dotnet/dotnet&quot;&#125;,</span><br><span class="line">    &#123;&quot;extensionId&quot;: &quot;msazurermtools.azurerm-vscode-tools&quot;, &quot;path&quot;: &quot;/usr/local/share/dotnet/dotnet&quot;&#125;</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
-
-<p>这样就可以正常使用了。</p>
-]]></content>
-      <tags>
-        <tag>Azure</tag>
-        <tag>Bicep</tag>
-        <tag>ARM</tag>
-        <tag>VSCode</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>升级Kubernetes V1.20后，pvc无法创建问题解决</title>
-    <url>/nfs-k8sv1.25.html</url>
-    <content><![CDATA[<p>今天升级<code>Kubernetes</code>到<code>1.20</code>，发现<code>PVC</code>创建时一直处于<code>pending</code>状态，经过检查发现，<code>nfs-client-provisioner</code>日志有如下错误：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">provision &quot;test/test-sql&quot; class &quot;nfs-storage&quot;: unexpected error getting claim reference: selfLink was empty, can&#x27;t make reference</span><br></pre></td></tr></table></figure>
-
-<p>经过查找发现这个是<code>V1.10</code>之后的配置修改，具体参考： <a href="https://github.com/kubernetes/enhancements/issues/1164">https://github.com/kubernetes/enhancements/issues/1164</a></p>
-<p>找到原因，直接修改<code>/etc/kubernetes/manifests/kube-apiserver.yaml</code>，增加参数：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">- --feature-gates=RemoveSelfLink=false</span><br></pre></td></tr></table></figure>]]></content>
       <tags>
         <tag>k8s</tag>
         <tag>pvc</tag>
