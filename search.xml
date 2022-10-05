@@ -643,4 +643,19 @@ d="M 50,50 m 0,47 a 47,47 0 1 1 0,-94
         <tag>VSCode</tag>
       </tags>
   </entry>
+  <entry>
+    <title>升级Kubernetes V1.20后，pvc无法创建问题解决</title>
+    <url>/nfs-k8sv1.25.html</url>
+    <content><![CDATA[<p>今天升级<code>Kubernetes</code>到<code>1.20</code>，发现<code>PVC</code>创建时一直处于<code>pending</code>状态，经过检查发现，<code>nfs-client-provisioner</code>日志有如下错误：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">provision &quot;test/test-sql&quot; class &quot;nfs-storage&quot;: unexpected error getting claim reference: selfLink was empty, can&#x27;t make reference</span><br></pre></td></tr></table></figure>
+
+<p>经过查找发现这个是<code>V1.10</code>之后的配置修改，具体参考： <a href="https://github.com/kubernetes/enhancements/issues/1164">https://github.com/kubernetes/enhancements/issues/1164</a></p>
+<p>找到原因，直接修改<code>/etc/kubernetes/manifests/kube-apiserver.yaml</code>，增加参数：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">- --feature-gates=RemoveSelfLink=false</span><br></pre></td></tr></table></figure>]]></content>
+      <tags>
+        <tag>k8s</tag>
+        <tag>pvc</tag>
+        <tag>nfs</tag>
+      </tags>
+  </entry>
 </search>
