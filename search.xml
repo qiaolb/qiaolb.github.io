@@ -669,4 +669,32 @@ d="M 50,50 m 0,47 a 47,47 0 1 1 0,-94
         <tag>nfs</tag>
       </tags>
   </entry>
+  <entry>
+    <title>在Kubernetes环境中搭建Cert-Manager</title>
+    <url>/k8sv-cert.html</url>
+    <content><![CDATA[<p>今天升级<code>Kubernetes</code>到<code>1.24</code>，发现<code>PVC</code>创建时一直处于<code>pending</code>状态，经过检查发现，和之前遇到的问题一样，参考：<a href="/nfs-k8sv1.20.html">升级Kubernetes V1.20后，pvc无法创建问题解决</a></p>
+<p>然后检查<code>/etc/kubernetes/manifests/kube-apiserver.yaml</code>文件，之前设置的<code>RemoveSelfLink=false</code>，在升级后的确没有了，按照之前的方法增加，等待<code>API Server</code>重启。</p>
+<p>然而，<code>kube-apiserver</code>启动不了了。</p>
+<p>检查<code>kube-apiserver</code>，发现<code>RemoveSelfLink=false</code>在新的版本中已经不允许使用了。经过检查和验证，解决办法是更换<code>nfs-client-provisioner</code>。</p>
+<p>需要将<code>nfs-client-provisioner</code>更换为<code>nfs-subdir-external-provisioner</code>，我使用的是<code>helm</code>部署，更换方法如下：</p>
+<ol>
+<li><p>先增加<code>helm</code>库</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">helm repo add nfs-subdir-external-provisioner https://kubernetes-sigs.github.io/nfs-subdir-external-provisioner</span><br><span class="line">helm repo update</span><br></pre></td></tr></table></figure></li>
+<li><p>删除原来的部署</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">helm uninstall nfs-prod</span><br></pre></td></tr></table></figure></li>
+<li><p>修改<code>value</code>文件，新的文件如下</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">image:</span><br><span class="line">  repository: registry.cn-shanghai.aliyuncs.com/c7n/nfs-subdir-external-provisioner</span><br><span class="line">storageClass:</span><br><span class="line">  name: &lt;name&gt;</span><br><span class="line">  archiveOnDelete: false</span><br><span class="line">  defaultClass: true</span><br><span class="line">nfs:</span><br><span class="line">  server: &lt;nfs-ip&gt;</span><br><span class="line">  path: &lt;nfs-path&gt;</span><br><span class="line">nodeSelector: &#123;&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>重新部署</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">helm install &lt;name&gt; nfs-subdir-external-provisioner/nfs-subdir-external-provisioner -f &lt;value file&gt;</span><br></pre></td></tr></table></figure></li>
+</ol>
+<p>测试正常。</p>
+]]></content>
+      <categories>
+        <category>k8s</category>
+      </categories>
+      <tags>
+        <tag>k8s</tag>
+        <tag>cert-manager</tag>
+      </tags>
+  </entry>
 </search>
