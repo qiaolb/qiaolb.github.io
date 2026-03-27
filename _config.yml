@@ -100,6 +100,131 @@ ignore:
 ## Themes: https://hexo.io/themes/
 theme: next
 
+# Theme Configuration (NexT 8.x)
+# See: https://theme-next.js.org/docs/getting-started/
+cache:
+  enable: true
+
+minify: false
+
+scheme: Pisces
+darkmode: false
+
+menu:
+  home: / || fa fa-home
+  tags: /tags/ || fa fa-tags
+  archives: /archives/ || fa fa-archive
+
+menu_settings:
+  icons: true
+  badges: false
+
+sidebar:
+  position: left
+  display: post
+  padding: 18
+  offset: 12
+
+avatar:
+  url: /images/avatar.png
+  rounded: false
+  rotated: false
+
+site_state: true
+
+social:
+  GitHub: https://github.com/qiaolb || fab fa-github
+  Weibo: http://weibo.com/qiaolibo || fab fa-weibo
+  Twitter: https://twitter.com/qiaolibo || fab fa-twitter
+
+social_icons:
+  enable: true
+  icons_only: false
+  transition: false
+
+toc:
+  enable: true
+  number: true
+  wrap: false
+  expand_all: false
+  max_depth: 6
+
+footer:
+  since: 2016
+  icon:
+    name: user
+    animated: false
+    color: "#808080"
+  powered: true
+  beian:
+    enable: false
+
+creative_commons:
+  license: by-nc-sa
+  size: small
+  sidebar: false
+  post: false
+
+post_meta:
+  item_text: true
+  created_at: true
+  updated_at:
+    enable: false
+    another_day: true
+  categories: true
+
+reward_settings:
+  enable: true
+  animation: false
+  comment: 坚持原创技术分享，您的支持将鼓励我继续创作！
+
+reward:
+  alipay: /images/alipay.png
+
+back2top:
+  enable: true
+  sidebar: false
+  scrollpercent: false
+
+reading_progress:
+  enable: false
+
+motion:
+  enable: true
+  async: false
+  transition:
+    post_block: fadeIn
+    post_header: slideDownIn
+    post_body: slideDownIn
+    coll_header: slideLeftIn
+    sidebar: slideUpIn
+
+fancybox: true
+
+local_search:
+  enable: true
+  trigger: auto
+  top_n_per_article: 1
+  unescape: false
+  preload: false
+
+baidu_analytics: 5e9cccd25fa530ec8126bd05056818ae
+baidu_site_verification: code-3CvDMuQpdf
+baidu_push: true
+
+font:
+  enable: true
+  host: https://fonts.loli.net
+  global:
+    external: true
+    family: Monda
+  headings:
+    external: true
+    family: Roboto Slab
+  codes:
+    external: true
+    family: PT Mono
+
 # Deployment
 ## Docs: https://hexo.io/docs/one-command-deployment
 deploy:
