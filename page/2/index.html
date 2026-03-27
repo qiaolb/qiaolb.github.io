@@ -27,7 +27,7 @@
 <meta property="og:description" content="生活不只是代码，还有诗和远方！">
 <meta property="og:locale">
 <meta property="article:author" content="Qiao Libo">
-<meta property="article:tag" content="技术, JavaScript, Web, 程序">
+<meta property="article:tag" content="Kubernetes, Azure, 云原生，DevOps, JavaScript, 容器技术，CI&#x2F;CD, Docker, 微软云，云存储">
 <meta name="twitter:card" content="summary">
 
 <link rel="canonical" href="https://qiaolb.github.io/page/2/">
@@ -186,399 +186,6 @@
 
           <div class="content index posts-expand">
             
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="https://qiaolb.github.io/nfs-k8sv1.20.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="Qiao Libo">
-      <meta itemprop="description" content="生活不只是代码，还有诗和远方！">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="This is JOE">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/nfs-k8sv1.20.html" class="post-title-link" itemprop="url">升级Kubernetes V1.20后，pvc无法创建问题解决</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2020-12-23 10:00:00" itemprop="dateCreated datePublished" datetime="2020-12-23T10:00:00+08:00">2020-12-23</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>今天升级<code>Kubernetes</code>到<code>1.20</code>，发现<code>PVC</code>创建时一直处于<code>pending</code>状态，经过检查发现，<code>nfs-client-provisioner</code>日志有如下错误：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">provision &quot;test/test-sql&quot; class &quot;nfs-storage&quot;: unexpected error getting claim reference: selfLink was empty, can&#x27;t make reference</span><br></pre></td></tr></table></figure>
-
-<p>经过查找发现这个是<code>V1.10</code>之后的配置修改，具体参考： <a target="_blank" rel="noopener" href="https://github.com/kubernetes/enhancements/issues/1164">https://github.com/kubernetes/enhancements/issues/1164</a></p>
-<p>找到原因，直接修改<code>/etc/kubernetes/manifests/kube-apiserver.yaml</code>，增加参数：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">- --feature-gates=RemoveSelfLink=false</span><br></pre></td></tr></table></figure>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="https://qiaolb.github.io/containerd-k8s.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="Qiao Libo">
-      <meta itemprop="description" content="生活不只是代码，还有诗和远方！">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="This is JOE">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/containerd-k8s.html" class="post-title-link" itemprop="url">Kubernetes加入containerd运行时节点</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2020-12-22 10:00:00" itemprop="dateCreated datePublished" datetime="2020-12-22T10:00:00+08:00">2020-12-22</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p><code>Kubernetes</code>到<code>1.20</code>开始不建议使用<code>docker</code>作为运行时，作为容器运行时，其实还有其他一些：</p>
-<ul>
-<li>containerd</li>
-<li>CRI-O</li>
-</ul>
-<p>经过对比，我选择了<code>containerd</code>进行验证。这次我并没有升级整体<code>Kubernetes</code>集群，只是打算增加一个使用<code>containerd</code>的容器运行时的节点。</p>
-<h2 id="安装containerd"><a href="#安装containerd" class="headerlink" title="安装containerd"></a>安装<code>containerd</code></h2><p>我使用<code>CentOS 7</code>，首先需要设置内核参数，这个和之前<code>Docker</code>一样：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">cat &lt;&lt;EOF | sudo tee /etc/modules-load.d/containerd.conf</span><br><span class="line">overlay</span><br><span class="line">br_netfilter</span><br><span class="line">EOF</span><br><span class="line"></span><br><span class="line">sudo modprobe overlay</span><br><span class="line">sudo modprobe br_netfilter</span><br><span class="line"></span><br><span class="line"># 设置必需的 sysctl 参数，这些参数在重新启动后仍然存在。</span><br><span class="line">cat &lt;&lt;EOF | sudo tee /etc/sysctl.d/99-kubernetes-cri.conf</span><br><span class="line">net.bridge.bridge-nf-call-iptables  = 1</span><br><span class="line">net.ipv4.ip_forward                 = 1</span><br><span class="line">net.bridge.bridge-nf-call-ip6tables = 1</span><br><span class="line">EOF</span><br><span class="line"></span><br><span class="line"># Apply sysctl params without reboot</span><br><span class="line">sudo sysctl --system</span><br></pre></td></tr></table></figure>
-
-<p>然后开始安装，<code>containerd</code>使用<code>yum</code>源和<code>docker-ce</code>相同：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># 安装 containerd</span><br><span class="line">## 设置仓库</span><br><span class="line">### 安装所需包</span><br><span class="line">sudo yum install -y yum-utils device-mapper-persistent-data lvm2</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">### 新增 Docker 仓库</span><br><span class="line">sudo yum-config-manager \</span><br><span class="line">    --add-repo \</span><br><span class="line">    https://download.docker.com/linux/centos/docker-ce.repo</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">## 安装 containerd</span><br><span class="line">sudo yum update -y &amp;&amp; sudo yum install -y containerd.io</span><br></pre></td></tr></table></figure>
-
-<h2 id="配置containerd"><a href="#配置containerd" class="headerlink" title="配置containerd"></a>配置<code>containerd</code></h2><p>首先获得缺省配置：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># 配置 containerd</span><br><span class="line">sudo mkdir -p /etc/containerd</span><br><span class="line">sudo containerd config default &gt; /etc/containerd/config.toml</span><br></pre></td></tr></table></figure>
-
-<p>因为国内无法访问部分<code>image</code>源，同事<code>docker hub</code>比较慢，修改使用国内镜像：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">vi /etc/containerd/config.toml</span><br><span class="line"></span><br><span class="line"># 修改一下内容：</span><br><span class="line">...</span><br><span class="line">sandbox_image = &quot;registry.aliyuncs.com/google_containers/pause:3.2&quot;</span><br><span class="line">...</span><br><span class="line">    [plugins.&quot;io.containerd.grpc.v1.cri&quot;.registry]</span><br><span class="line">      [plugins.&quot;io.containerd.grpc.v1.cri&quot;.registry.mirrors]</span><br><span class="line">        [plugins.&quot;io.containerd.grpc.v1.cri&quot;.registry.mirrors.&quot;docker.io&quot;]</span><br><span class="line">          endpoint = [&quot;https://docker.mirrors.ustc.edu.cn&quot;]</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 重启 containerd</span><br><span class="line">sudo systemctl restart containerd</span><br></pre></td></tr></table></figure>
-
-<h2 id="加入k8s集群"><a href="#加入k8s集群" class="headerlink" title="加入k8s集群"></a>加入k8s集群</h2><p>首先安装<code>k8s</code>，包括<code>kubeadm</code>、<code>kubelet</code>、<code>kubectl</code></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install -y kubeadm kubelet kubectl</span><br></pre></td></tr></table></figure>
-
-<p>然后加入到集群：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubeadm join master.k8s:8443 --token xxx     --discovery-token-ca-cert-hash sha256:xxxxxxx</span><br></pre></td></tr></table></figure>
-
-<p>现在已经使用<code>containerd</code>允许时的节点已经加入到集群，部署容器测试可以正常使用。</p>
-<h2 id="containerd管理"><a href="#containerd管理" class="headerlink" title="containerd管理"></a>containerd管理</h2><p>使用<code>containerd</code>已经不能使用熟悉的<code>docker</code>命令进行容器的管理了，<code>containerd</code>提供了2个工具可以使用:</p>
-<ul>
-<li>ctr</li>
-<li>crictl</li>
-</ul>
-<h3 id="ctr"><a href="#ctr" class="headerlink" title="ctr"></a>ctr</h3><p><code>ctr</code>是一个简单的命令工具，使用并不复杂，但需要注意：</p>
-<ul>
-<li><code>ctr</code>不会使用配置文件<code>/etc/containerd/config.toml</code>，也就是说配置的<code>mirror</code>并不能使用</li>
-<li><code>images</code>也有命名空间，<code>k8s</code>会使用一个名为<code>k8s.io</code>的命名空间</li>
-<li><code>ctr</code>的参数有顺序，如<code>ctr -n=k8s.io images list</code>正确，而<code>ctr images list -n=k8s.io</code>则不正确</li>
-</ul>
-<p>希望未来<code>ctr</code>会更完善一些。</p>
-<h3 id="crictl"><a href="#crictl" class="headerlink" title="crictl"></a>crictl</h3><p><code>crictl</code>使用和<code>docker</code>命令类似，比较方便。使用前需要增加配置文件：<code>/etc/crictl.yaml</code>。内容如下：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">runtime-endpoint: unix:///run/containerd/containerd.sock</span><br><span class="line">image-endpoint: unix:///run/containerd/containerd.sock</span><br><span class="line">timeout: 10</span><br><span class="line">debug: false</span><br></pre></td></tr></table></figure>
-
-
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="https://qiaolb.github.io/upgrade-k8s1.18.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="Qiao Libo">
-      <meta itemprop="description" content="生活不只是代码，还有诗和远方！">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="This is JOE">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/upgrade-k8s1.18.html" class="post-title-link" itemprop="url">Kubernetes V1.18 ipvs故障</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2020-04-27 10:00:00" itemprop="dateCreated datePublished" datetime="2020-04-27T10:00:00+08:00">2020-04-27</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>升级<code>Kubernetes</code>到<code>1.18</code>时发现1个严重的问题：</p>
-<p>首先是发现部分<code>Services</code>无法访问，经过各种检查最终发现当<code>Pod</code>重启后，就无法访问。</p>
-<p>搭建一个测试的<code>Deployment</code>和<code>Service</code>，进行问题排查：<code>Deployment</code>如下：</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">apps/v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Deployment</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">hostnames</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">selector:</span></span><br><span class="line">    <span class="attr">matchLabels:</span></span><br><span class="line">      <span class="attr">app:</span> <span class="string">hostnames</span></span><br><span class="line">  <span class="attr">replicas:</span> <span class="number">1</span></span><br><span class="line">  <span class="attr">template:</span></span><br><span class="line">    <span class="attr">metadata:</span></span><br><span class="line">      <span class="attr">labels:</span></span><br><span class="line">        <span class="attr">app:</span> <span class="string">hostnames</span></span><br><span class="line">    <span class="attr">spec:</span></span><br><span class="line">      <span class="attr">containers:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">hostnames</span></span><br><span class="line">        <span class="attr">image:</span> <span class="string">mirrorgooglecontainers/serve_hostname</span></span><br><span class="line">        <span class="attr">ports:</span></span><br><span class="line">        <span class="bullet">-</span> <span class="attr">containerPort:</span> <span class="number">9376</span></span><br><span class="line">          <span class="attr">protocol:</span> <span class="string">TCP</span></span><br></pre></td></tr></table></figure>
-
-<p><code>Service</code>如下：</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Service</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">hostnames</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">selector:</span></span><br><span class="line">    <span class="attr">app:</span> <span class="string">hostnames</span></span><br><span class="line">  <span class="attr">ports:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">default</span></span><br><span class="line">    <span class="attr">protocol:</span> <span class="string">TCP</span></span><br><span class="line">    <span class="attr">port:</span> <span class="number">80</span></span><br><span class="line">    <span class="attr">targetPort:</span> <span class="number">9376</span></span><br></pre></td></tr></table></figure>
-
-<p>再启动一个<code>curl</code>进行测试：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl run curl --image=radial/busyboxplus:curl -it</span><br></pre></td></tr></table></figure>
-
-<p>正确情况如下：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[ root@curl-69c656fd45-ztblt:/ ]$ curl hostnames</span><br><span class="line">hostnames-dd4cc9dd9-5k42b</span><br></pre></td></tr></table></figure>
-
-<p>可以通过<code>Service</code>正常访问到<code>Pod</code>。</p>
-<p>现在删除掉<code>hostnames</code>的<code>Pod</code>，等到<code>Pod</code>运行正常时，再次执行：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[ root@curl-69c656fd45-ztblt:/ ]$ curl hostnames</span><br><span class="line">connect to hostnames failed: No route to host</span><br></pre></td></tr></table></figure>
-
-<p>通过检查确定DNS没有问题，通过<code>Pod</code>的<code>IP</code>，可以正常访问，通过<code>Service</code>的<code>IP</code>就无法访问了。也就是说，升级<code>Kubernetes</code> <code>V1.18</code>(我的版本是<code>V1.18.2</code>)，就会导致<code>Pod</code>重新启动后，<code>Service</code>无法访问。</p>
-<p>那么现在重点是<code>Proxy</code>的检查，我使用的是模式是<code>ipvs</code>，检查<code>ipvs</code>列表。<br>在<code>master</code>或其他节点上执行:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[root@node01 ~]<span class="comment"># ipvsadm -L |grep -A 5 10.103.122.243</span></span><br><span class="line">TCP  10.103.122.243:http rr</span><br><span class="line">  -&gt; 10.244.10.237:9376           Masq    1      0          0         </span><br><span class="line">TCP  10.103.123.173:webcache rr</span><br><span class="line">  -&gt; 10.244.9.26:webcache         Masq    1      0          0         </span><br><span class="line">TCP  10.103.143.242:6379 rr</span><br><span class="line">  -&gt; 10.244.9.229:6379            Masq    1      0          0</span><br></pre></td></tr></table></figure>
-
-<p><code>10.103.122.243</code>为<code>Service</code>的<code>IP</code>， 而转发地址<code>10.244.10.237:9376</code>是老的<code>Pod</code>的地址，不是新<code>Pod</code>的地址，这样肯定无法访问。再次验证一下这个原因，将转发修改正确:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@node01 ~]<span class="comment"># ipvsadm -D -t 10.103.122.243:http </span></span><br><span class="line"></span><br><span class="line">[root@node01 ~]<span class="comment"># ipvsadm -a -t 10.103.122.243:http -r 10.244.10.238:9376 -m</span></span><br></pre></td></tr></table></figure>
-<p>第一句是删除老的转发，第二句是新增正确的转发。其中<code>10.244.10.238</code>是新的<code>Pod</code>的的地址</p>
-<p>进入<code>curl</code>容器执行：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[ root@curl-69c656fd45-ztblt:/ ]$ curl hostnames</span><br><span class="line">hostnames-dd4cc9dd9-5k42b</span><br></pre></td></tr></table></figure>
-
-<p>看到结果已经正常。这个确定了导致这个问题的原因是<code>ipvs</code>规则没有更新。经过确定，需要升级<code>Liunx</code>的内核到<code>V4</code>以上。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="https://qiaolb.github.io/upgrade-k8s1.16.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="Qiao Libo">
-      <meta itemprop="description" content="生活不只是代码，还有诗和远方！">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="This is JOE">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/upgrade-k8s1.16.html" class="post-title-link" itemprop="url">升级Kubernetes到1.16</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2019-10-16 10:00:00" itemprop="dateCreated datePublished" datetime="2019-10-16T10:00:00+08:00">2019-10-16</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>升级<code>Kubernetes</code>到<code>1.16</code>时发现2个问题：</p>
-<ol>
-<li><p>执行<code>kubeadm upgrade plan</code> 提示<code>CoreDNS</code>插件失败，解决办法：<br>修改<code>CoreDNS</code>配置文件：</p>
-<figure class="highlight shell"><figcaption><span>script</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl edit -n kube-system configmaps coredns</span><br></pre></td></tr></table></figure>
-<p>删除：<code>proxy . /etc/resolv.conf</code><br>然后执行就可以成功。</p>
-</li>
-<li><p>升级后<code>Node</code>节点状态为<code>Not Ready</code><br>检查日志： </p>
-<figure class="highlight shell"><figcaption><span>script</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">journalctl -f -u kubelet.service</span><br></pre></td></tr></table></figure>
-<p>结果：</p>
-<figure class="highlight shell"><figcaption><span>script</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">10月 16 11:46:21 k8s-master kubelet[11043]: E1016 11:46:21.515027   11043 kubelet.go:2187] Container runtime network not ready: NetworkReady=false reason:NetworkPluginNotReady message:docker: network plugin is not ready: cni config uninitialized</span><br><span class="line">10月 16 11:46:26 k8s-master kubelet[11043]: W1016 11:46:26.201162   11043 cni.go:202] Error validating CNI config &amp;&#123;cbr0  false [0xc0004a08a0 0xc0004a0940] [123 10 32 32 34 110 97 109 101 34 58 32 34 99 98 114 48 34 44 10 32 32 34 112 108 117 103 105 110 115 34 58 32 91 10 32 32 32 32 123 10 32 32 32 32 32 32 34 116 121 112 101 34 58 32 34 102 108 97 110 110 101 108 34 44 10 32 32 32 32 32 32 34 100 101 108 101 103 97 116 101 34 58 32 123 10 32 32 32 32 32 32 32 32 34 104 97 105 114 112 105 110 77 111 100 101 34 58 32 116 114 117 101 44 10 32 32 32 32 32 32 32 32 34 105 115 68 101 102 97 117 108 116 71 97 116 101 119 97 121 34 58 32 116 114 117 101 10 32 32 32 32 32 32 125 10 32 32 32 32 125 44 10 32 32 32 32 123 10 32 32 32 32 32 32 34 116 121 112 101 34 58 32 34 112 111 114 116 109 97 112 34 44 10 32 32 32 32 32 32 34 99 97 112 97 98 105 108 105 116 105 101 115 34 58 32 123 10 32 32 32 32 32 32 32 32 34 112 111 114 116 77 97 112 112 105 110 103 115 34 58 32 116 114 117 101 10 32 32 32 32 32 32 125 10 32 32 32 32 125 10 32 32 93 10 125 10]&#125;: [plugin flannel does not support config version &quot;&quot;]</span><br><span class="line">10月 16 11:46:26 k8s-master kubelet[11043]: W1016 11:46:26.201211   11043 cni.go:237] Unable to update cni config: no valid networks found in /etc/cni/net.d</span><br></pre></td></tr></table></figure>
-<p>修改<code>flannel</code>配置：</p>
-<figure class="highlight shell"><figcaption><span>script</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi /etc/cni/net.d/10-flannel.conflist</span><br></pre></td></tr></table></figure>
-<p>在<code>&quot;name&quot;: &quot;cbr0&quot;</code>前增加：</p>
-<figure class="highlight shell"><figcaption><span>script</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&quot;cniVersion&quot;: &quot;0.3.1&quot;,</span><br></pre></td></tr></table></figure>
-<p>稍等片刻<code>node</code>自动恢复。</p>
-</li>
-</ol>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="https://qiaolb.github.io/pages-in-k8s.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="Qiao Libo">
-      <meta itemprop="description" content="生活不只是代码，还有诗和远方！">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="This is JOE">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/pages-in-k8s.html" class="post-title-link" itemprop="url">GitLab Pages在Kubernetes中进行Access Control</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2019-09-03 11:00:00" itemprop="dateCreated datePublished" datetime="2019-09-03T11:00:00+08:00">2019-09-03</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>最近在<code>Kubernetes</code>中部署了<code>GitLab</code>，<code>GitLab</code>使用<code>HTTP</code>，在<code>Kubernetes</code>通过<code>Ingress</code>进行<code>HTTPS</code>代理，对外使用<code>HTTPS</code>访问。</p>
-<p>当在部署<code>GitLab Pages</code>时，系统通过<code>Access Contrel</code>进行访问控制时，结果发现出现<code>503</code>错误。经过多次尝试，发现有两个解决方法：</p>
-<ol>
-<li>全部不使用<code>HTTPS</code>，使用<code>HTTP</code>。这个方法简单粗暴，但不安全。</li>
-<li>修改修改配置如下：</li>
-</ol>
-<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># external_url设置为https，如果设置http，在通过Ingress代理成https，大部分功能没有问题，但发现Web IDE打开是因为在HTTPS请求中使用了HTTP大致失败，未来有可能GitLab会修改这个问题。但目前只能如此。</span></span><br><span class="line">external_url <span class="string">&#x27;https://gitlab.example.cn&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Pages的对外页面，这里使用HTTP，通过Ingress进行HTTPS代理</span></span><br><span class="line">pages_external_url <span class="string">&quot;http://example.cn/&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 如果使用容器部署，inplace_chroot需要打开</span></span><br><span class="line">gitlab_pages[<span class="string">&#x27;inplace_chroot&#x27;</span>] = <span class="literal">true</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 接入控制开关</span></span><br><span class="line">gitlab_pages[<span class="string">&#x27;access_control&#x27;</span>] = <span class="literal">true</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># auth_server是关键，缺省和external_url相同，因为external_url设置为https，导致pages无法通过证书验证，所有修改认证为http方式。</span></span><br><span class="line">gitlab_pages[<span class="string">&#x27;auth_server&#x27;</span>] = <span class="string">&#x27;http://gitlab.rd.example.cn&#x27;</span></span><br></pre></td></tr></table></figure>
-
-<p>终于，<code>GitLab</code>中<code>Web IDE</code>和<code>Pages</code>都可以完美工作了。</p>
-<p>备注： <code>GitLab</code>使用版本 <code>V11</code>~`V12.2`</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
       
   
   
@@ -912,10 +519,274 @@
   
   
 
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="https://qiaolb.github.io/react-stateless.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Qiao Libo">
+      <meta itemprop="description" content="生活不只是代码，还有诗和远方！">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="This is JOE">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/react-stateless.html" class="post-title-link" itemprop="url">React的Stateless Functional Components</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2017-02-19 00:00:00" itemprop="dateCreated datePublished" datetime="2017-02-19T00:00:00+08:00">2017-02-19</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>最早在写React组件时，使用的以下方法：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> <span class="title class_">App</span> = <span class="title class_">React</span>.<span class="title function_">createClass</span>(&#123;</span><br><span class="line">  <span class="attr">handleClick</span>: <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">    ...</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="attr">render</span>: <span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="language-xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">onClick</span>=<span class="string">&#123;handleClick&#125;</span>&gt;</span>Click me!<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/react-stateless.html#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="https://qiaolb.github.io/findbugs-filter.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Qiao Libo">
+      <meta itemprop="description" content="生活不只是代码，还有诗和远方！">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="This is JOE">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/findbugs-filter.html" class="post-title-link" itemprop="url">FindBugs中的过滤</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2017-01-25 00:00:00" itemprop="dateCreated datePublished" datetime="2017-01-25T00:00:00+08:00">2017-01-25</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>在开发项目中我们使用了findbugs进行代码检查，使用findbugs-maven-plugin进行maven配置，在一个项目中发现Findbugs检查有以下错误：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Type MS_SHOULD_BE_FINAL</span><br><span class="line"></span><br><span class="line">This static field public but not final, and could be changed by malicious code or by accident from another package. The field could be made final to avoid this vulnerability.</span><br></pre></td></tr></table></figure>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/findbugs-filter.html#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="https://qiaolb.github.io/hello-2016.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Qiao Libo">
+      <meta itemprop="description" content="生活不只是代码，还有诗和远方！">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="This is JOE">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/hello-2016.html" class="post-title-link" itemprop="url">Welcome to Joe Blog</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2016-10-24 12:00:00" itemprop="dateCreated datePublished" datetime="2016-10-24T12:00:00+08:00">2016-10-24</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>“Yeah It’s on. ”</p>
+</blockquote>
+<p>我fork了 Hux 的 Blog，开通了自己在Github上的Blog。</p>
+<p>因为比较喜欢Github，也觉得Markdown更加简单，两个正好是我想要的，一拍即合。</p>
+<p>Go！</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="https://qiaolb.github.io/es2015-basic.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Qiao Libo">
+      <meta itemprop="description" content="生活不只是代码，还有诗和远方！">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="This is JOE">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/es2015-basic.html" class="post-title-link" itemprop="url">引人的ECMAScript</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2016-10-20 00:00:00" itemprop="dateCreated datePublished" datetime="2016-10-20T00:00:00+08:00">2016-10-20</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>下滑这里查看更多内容</p>
+</blockquote>
+<p>10月20日，我在公司内部的「威发大讲坛」进行了名为「引人的ECMAScript」分享，希望能对大家有帮助。</p>
+<p>现在，我决定将它重新发到我的博客上。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/es2015-basic.html#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
   </nav>
 
 
@@ -988,8 +859,9 @@
         </a>
       </div>
       <div class="site-state-item site-state-categories">
+            <a href="/categories/">
         <span class="site-state-item-count">2</span>
-        <span class="site-state-item-name">categories</span>
+        <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
