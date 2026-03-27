@@ -4,8 +4,8 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 6.2.0">
-  <link rel="icon" type="image/png" sizes="16x16" href="/function%20()%20%7B%0A%20%20%20%20%20%20for%20(var%20_len2%20=%20arguments.length,%20args%20=%20new%20Array(_len2),%20_key2%20=%200;%20_key2%20%3C%20_len2;%20_key2++)%20%7B%0A%20%20%20%20%20%20%20%20args%5B_key2%5D%20=%20arguments%5B_key2%5D;%0A%20%20%20%20%20%20%7D%0A%0A%20%20%20%20%20%20return%20obj%5Bval%5D.apply(obj,%20args);%0A%20%20%20%20%7D">
+<meta name="generator" content="Hexo 8.1.1">
+  <link rel="icon" type="image/png" sizes="16x16" href="/function%20()%20%7B%0A%20%20%20%20%20%20for%20(var%20_len2%20=%20arguments.length,%20args%20=%20new%20Array(_len2),%20_key2%20=%200;%20_key2%20%3C%20_len2;%20_key2++)%20%7B%0A%20%20%20%20%20%20%20%20args%5B_key2%5D%20=%20arguments%5B_key2%5D;%0A%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20return%20obj%5Bval%5D.apply(obj,%20args);%0A%20%20%20%20%7D">
   <meta name="baidu-site-verification" content="code-3CvDMuQpdf">
 
 <link rel="stylesheet" href="/css/main.css">
@@ -16,7 +16,7 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"qiaolb.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+    var CONFIG = {"hostname":"qiaolb.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
   </script>
 
   <meta name="description" content="由于需要在网页中展示一个如下的效果：">
@@ -430,7 +430,7 @@ d="M 50,50 m 0,47 a 47,47 0 1 1 0,-94
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E9%A6%96%E5%85%88%E7%94%BB%E4%B8%A4%E4%B8%AA%E5%9C%86%EF%BC%8C%E4%B8%80%E4%B8%AA%E4%B8%BA%E5%BA%95%E5%9B%BE%EF%BC%8C%E4%B8%80%E4%B8%AA%E4%B8%BA%E8%BF%9B%E5%BA%A6%E5%9B%BE%E3%80%82%E7%94%BB%E6%B3%95%E6%98%AF%E5%88%86%E5%88%AB%E5%B7%A6%E5%8F%B3%E7%94%BB%E4%B8%80%E4%B8%AA%E5%8D%8A%E5%9C%86%E3%80%82"><span class="nav-number">1.</span> <span class="nav-text">首先画两个圆，一个为底图，一个为进度图。画法是分别左右画一个半圆。</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E7%84%B6%E5%90%8E%E5%B0%86%E5%BA%95%E5%9B%BE%E7%9A%84%E5%9C%86%E5%8F%98%E6%88%90%E8%99%9A%E7%BA%BF%EF%BC%8C%E8%99%9A%E7%BA%BF%E4%B8%AD%E4%B8%8D%E6%98%BE%E7%A4%BA%E7%9A%84%E9%83%A8%E5%88%86%E6%88%91%E5%BC%80%E5%8F%A3%E7%9A%84%E9%83%A8%E5%88%86"><span class="nav-number">2.</span> <span class="nav-text">然后将底图的圆变成虚线，虚线中不显示的部分我开口的部分</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E5%90%8C%E6%A0%B7%E7%9A%84%E6%96%B9%E6%B3%95%EF%BC%8C%E5%B0%86%E8%BF%9B%E5%BA%A6%E5%9C%86%E4%B9%9F%E4%BF%AE%E6%94%B9%E4%B8%BA%E8%99%9A%E7%BA%BF"><span class="nav-number">3.</span> <span class="nav-text">同样的方法，将进度圆也修改为虚线</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9%E5%AE%8C%E6%88%90%E5%90%8E%E6%95%88%E6%9E%9C%E5%A6%82%E4%B8%8B%EF%BC%9A"><span class="nav-number">4.</span> <span class="nav-text">修改完成后效果如下：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%90%8E%E8%AE%B0%EF%BC%8C%E7%9B%B8%E5%85%B3%E7%9A%84SVG%E7%9F%A5%E8%AF%86"><span class="nav-number"></span> <span class="nav-text">后记，相关的SVG知识</span></a></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E9%A6%96%E5%85%88%E7%94%BB%E4%B8%A4%E4%B8%AA%E5%9C%86%EF%BC%8C%E4%B8%80%E4%B8%AA%E4%B8%BA%E5%BA%95%E5%9B%BE%EF%BC%8C%E4%B8%80%E4%B8%AA%E4%B8%BA%E8%BF%9B%E5%BA%A6%E5%9B%BE%E3%80%82%E7%94%BB%E6%B3%95%E6%98%AF%E5%88%86%E5%88%AB%E5%B7%A6%E5%8F%B3%E7%94%BB%E4%B8%80%E4%B8%AA%E5%8D%8A%E5%9C%86%E3%80%82"><span class="nav-number">1.</span> <span class="nav-text">首先画两个圆，一个为底图，一个为进度图。画法是分别左右画一个半圆。</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E7%84%B6%E5%90%8E%E5%B0%86%E5%BA%95%E5%9B%BE%E7%9A%84%E5%9C%86%E5%8F%98%E6%88%90%E8%99%9A%E7%BA%BF%EF%BC%8C%E8%99%9A%E7%BA%BF%E4%B8%AD%E4%B8%8D%E6%98%BE%E7%A4%BA%E7%9A%84%E9%83%A8%E5%88%86%E6%88%91%E5%BC%80%E5%8F%A3%E7%9A%84%E9%83%A8%E5%88%86"><span class="nav-number">2.</span> <span class="nav-text">然后将底图的圆变成虚线，虚线中不显示的部分我开口的部分</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E5%90%8C%E6%A0%B7%E7%9A%84%E6%96%B9%E6%B3%95%EF%BC%8C%E5%B0%86%E8%BF%9B%E5%BA%A6%E5%9C%86%E4%B9%9F%E4%BF%AE%E6%94%B9%E4%B8%BA%E8%99%9A%E7%BA%BF"><span class="nav-number">3.</span> <span class="nav-text">同样的方法，将进度圆也修改为虚线</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9%E5%AE%8C%E6%88%90%E5%90%8E%E6%95%88%E6%9E%9C%E5%A6%82%E4%B8%8B%EF%BC%9A"><span class="nav-number">4.</span> <span class="nav-text">修改完成后效果如下：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%90%8E%E8%AE%B0%EF%BC%8C%E7%9B%B8%E5%85%B3%E7%9A%84SVG%E7%9F%A5%E8%AF%86"><span class="nav-number">5.</span> <span class="nav-text">后记，相关的SVG知识</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -446,18 +446,18 @@ d="M 50,50 m 0,47 a 47,47 0 1 1 0,-94
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">23</span>
+          <span class="site-state-item-count">24</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
-        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-count">2</span>
         <span class="site-state-item-name">categories</span>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">37</span>
+        <span class="site-state-item-count">40</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -495,7 +495,7 @@ d="M 50,50 m 0,47 a 47,47 0 1 1 0,-94
 <div class="copyright">
   
   &copy; 2016 – 
-  <span itemprop="copyrightYear">2024</span>
+  <span itemprop="copyrightYear">2026</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>

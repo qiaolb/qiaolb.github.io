@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 8.1.1">
+  <link rel="icon" type="image/png" sizes="16x16" href="/function%20()%20%7B%0A%20%20%20%20%20%20for%20(var%20_len2%20=%20arguments.length,%20args%20=%20new%20Array(_len2),%20_key2%20=%200;%20_key2%20%3C%20_len2;%20_key2++)%20%7B%0A%20%20%20%20%20%20%20%20args%5B_key2%5D%20=%20arguments%5B_key2%5D;%0A%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20return%20obj%5Bval%5D.apply(obj,%20args);%0A%20%20%20%20%7D">
+  <meta name="baidu-site-verification" content="code-3CvDMuQpdf">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.loli.net/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"qiaolb.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+  </script>
+
+  <meta name="description" content="概述今天做了一件很酷的事情 —— 使用 Claude Code 辅助升级了我的博客。 先说说背景：我的博客已经运行了很多年，但 Hexo 框架和 NexT 主题的版本一直停留在好几年前：  Hexo: 6.2.0 → 8.1.1 NexT 主题: 7.8.0 → 8.27.0  这可不是个小工程，涉及到依赖升级、配置迁移、兼容性测试等等。但有了 Claude Code 的帮忙，整个过程出奇地顺利。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用 Claude Code 升级 Hexo 和 NexT 主题">
+<meta property="og:url" content="https://qiaolb.github.io/%E4%BD%BF%E7%94%A8-Claude-Code-%E5%8D%87%E7%BA%A7-Hexo-%E5%92%8C-NexT-%E4%B8%BB%E9%A2%98.html">
+<meta property="og:site_name" content="This is JOE">
+<meta property="og:description" content="概述今天做了一件很酷的事情 —— 使用 Claude Code 辅助升级了我的博客。 先说说背景：我的博客已经运行了很多年，但 Hexo 框架和 NexT 主题的版本一直停留在好几年前：  Hexo: 6.2.0 → 8.1.1 NexT 主题: 7.8.0 → 8.27.0  这可不是个小工程，涉及到依赖升级、配置迁移、兼容性测试等等。但有了 Claude Code 的帮忙，整个过程出奇地顺利。">
+<meta property="og:locale">
+<meta property="article:published_time" content="2026-03-27T01:40:18.000Z">
+<meta property="article:modified_time" content="2026-03-27T01:41:14.134Z">
+<meta property="article:author" content="Qiao Libo">
+<meta property="article:tag" content="Claude Code">
+<meta property="article:tag" content="Hexo">
+<meta property="article:tag" content="NexT">
+<meta property="article:tag" content="博客">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://qiaolb.github.io/%E4%BD%BF%E7%94%A8-Claude-Code-%E5%8D%87%E7%BA%A7-Hexo-%E5%92%8C-NexT-%E4%B8%BB%E9%A2%98.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-Hans'
+  };
+</script>
+
+  <title>使用 Claude Code 升级 Hexo 和 NexT 主题 | This is JOE</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?5e9cccd25fa530ec8126bd05056818ae";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">This is JOE</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Hello World！</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="https://qiaolb.github.io/%E4%BD%BF%E7%94%A8-Claude-Code-%E5%8D%87%E7%BA%A7-Hexo-%E5%92%8C-NexT-%E4%B8%BB%E9%A2%98.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Qiao Libo">
+      <meta itemprop="description" content="生活不只是代码，还有诗和远方！">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="This is JOE">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          使用 Claude Code 升级 Hexo 和 NexT 主题
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2026-03-27 09:40:18" itemprop="dateCreated datePublished" datetime="2026-03-27T09:40:18+08:00">2026-03-27</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%B7%A5%E5%85%B7/" itemprop="url" rel="index"><span itemprop="name">工具</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><p>今天做了一件很酷的事情 —— 使用 <strong>Claude Code</strong> 辅助升级了我的博客。</p>
+<p>先说说背景：我的博客已经运行了很多年，但 Hexo 框架和 NexT 主题的版本一直停留在好几年前：</p>
+<ul>
+<li><strong>Hexo</strong>: 6.2.0 → 8.1.1</li>
+<li><strong>NexT 主题</strong>: 7.8.0 → 8.27.0</li>
+</ul>
+<p>这可不是个小工程，涉及到依赖升级、配置迁移、兼容性测试等等。但有了 Claude Code 的帮忙，整个过程出奇地顺利。</p>
+<hr>
+<h1 id="什么是-Claude-Code？"><a href="#什么是-Claude-Code？" class="headerlink" title="什么是 Claude Code？"></a>什么是 Claude Code？</h1><p>Claude Code 是 Anthropic 推出的命令行 AI 助手，专门用于帮助开发者完成编程任务。它可以：</p>
+<ul>
+<li>理解并执行复杂的开发任务</li>
+<li>自动执行 shell 命令</li>
+<li>读写和修改代码文件</li>
+<li>执行 git 操作</li>
+<li>进行代码审查</li>
+</ul>
+<p>简单说，就是一个懂编程的 AI 助手，可以直接在你的项目里工作。</p>
+<hr>
+<h1 id="升级过程"><a href="#升级过程" class="headerlink" title="升级过程"></a>升级过程</h1><h2 id="1-项目分析"><a href="#1-项目分析" class="headerlink" title="1. 项目分析"></a>1. 项目分析</h2><p>首先，我让 Claude Code 分析了当前项目：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Claude Code 自动执行的分析命令</span></span><br><span class="line"><span class="built_in">ls</span> -la</span><br><span class="line"><span class="built_in">cat</span> package.json</span><br><span class="line"><span class="built_in">cat</span> themes/next/package.json</span><br><span class="line">git <span class="built_in">log</span> --oneline -5</span><br></pre></td></tr></table></figure>
+
+<p>通过分析，AI 快速了解了项目结构和技术栈。</p>
+<h2 id="2-版本调研"><a href="#2-版本调研" class="headerlink" title="2. 版本调研"></a>2. 版本调研</h2><p>接下来，让 AI 查询最新版本的依赖：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm show hexo version</span><br><span class="line">npm show hexo-theme-next version</span><br></pre></td></tr></table></figure>
+
+<p>查询结果：</p>
+<ul>
+<li>Hexo 最新版：<strong>8.1.1</strong></li>
+<li>NexT 主题最新版：<strong>8.27.0</strong></li>
+</ul>
+<h2 id="3-执行升级"><a href="#3-执行升级" class="headerlink" title="3. 执行升级"></a>3. 执行升级</h2><p>这是最复杂的部分，涉及到多个步骤：</p>
+<h3 id="3-1-更新-package-json"><a href="#3-1-更新-package-json" class="headerlink" title="3.1 更新 package.json"></a>3.1 更新 package.json</h3><p>AI 帮我修改了 <code>package.json</code> 中的所有依赖版本：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;dependencies&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;hexo&quot;</span><span class="punctuation">:</span> <span class="string">&quot;^8.1.1&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;hexo-deployer-git&quot;</span><span class="punctuation">:</span> <span class="string">&quot;^4.0.0&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;hexo-generator-archive&quot;</span><span class="punctuation">:</span> <span class="string">&quot;^2.0.0&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;hexo-generator-category&quot;</span><span class="punctuation">:</span> <span class="string">&quot;^2.0.0&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;hexo-generator-index&quot;</span><span class="punctuation">:</span> <span class="string">&quot;^3.0.0&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;hexo-generator-searchdb&quot;</span><span class="punctuation">:</span> <span class="string">&quot;^1.4.1&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;hexo-generator-tag&quot;</span><span class="punctuation">:</span> <span class="string">&quot;^2.0.0&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;hexo-renderer-marked&quot;</span><span class="punctuation">:</span> <span class="string">&quot;^6.0.0&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;hexo-renderer-stylus&quot;</span><span class="punctuation">:</span> <span class="string">&quot;^3.0.0&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;hexo-theme-next&quot;</span><span class="punctuation">:</span> <span class="string">&quot;^8.27.0&quot;</span></span><br><span class="line">  <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="3-2-安装依赖"><a href="#3-2-安装依赖" class="headerlink" title="3.2 安装依赖"></a>3.2 安装依赖</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-3-配置迁移"><a href="#3-3-配置迁移" class="headerlink" title="3.3 配置迁移"></a>3.3 配置迁移</h3><p>这是最繁琐的部分。NexT 8.x 的配置方式有所变化，需要将我原来的配置迁移到新的格式。</p>
+<p>AI 帮我：</p>
+<ol>
+<li>读取了旧的 <code>themes/next/_config.yml</code> 配置</li>
+<li>读取了新版本的默认配置</li>
+<li>对比差异并生成兼容配置</li>
+<li>将配置写入 <code>_config.yml</code> 的 <code>theme_config</code> 部分</li>
+</ol>
+<p>保留的配置包括：</p>
+<ul>
+<li>社交链接（GitHub、Weibo、Twitter）</li>
+<li>打赏功能</li>
+<li>百度统计和推送</li>
+<li>字体自定义</li>
+<li>动画效果</li>
+<li>本地搜索</li>
+</ul>
+<h3 id="3-4-测试构建"><a href="#3-4-测试构建" class="headerlink" title="3.4 测试构建"></a>3.4 测试构建</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm run build</span><br></pre></td></tr></table></figure>
+
+<p>构建成功，生成了 94 个文件！</p>
+<h3 id="3-5-本地预览"><a href="#3-5-本地预览" class="headerlink" title="3.5 本地预览"></a>3.5 本地预览</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm run server</span><br></pre></td></tr></table></figure>
+
+<p>访问 <code>http://localhost:4000</code> 查看效果，一切正常！</p>
+<h2 id="4-提交和推送"><a href="#4-提交和推送" class="headerlink" title="4. 提交和推送"></a>4. 提交和推送</h2><p>最后一步，让 AI 帮我完成 git 操作：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git add package.json package-lock.json yarn.lock _config.yml</span><br><span class="line">git commit -m <span class="string">&quot;升级：Hexo 8.1.1 和 NexT 主题 8.27.0&quot;</span></span><br><span class="line">git push origin master</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h1 id="使用体验"><a href="#使用体验" class="headerlink" title="使用体验"></a>使用体验</h1><h2 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h2><ol>
+<li><p><strong>效率高</strong>：整个升级过程只用了不到半小时，如果手动操作可能需要几个小时甚至更久。</p>
+</li>
+<li><p><strong>自动化</strong>：不需要我一条条执行命令，AI 会自动分析、决策、执行。</p>
+</li>
+<li><p><strong>减少错误</strong>：配置文件的手动修改很容易出错，AI 可以仔细对比和迁移配置。</p>
+</li>
+<li><p><strong>上下文理解</strong>：AI 能理解项目的整体结构，做出的决策更加合理。</p>
+</li>
+<li><p><strong>交互式协作</strong>：我可以随时提问、调整方向，AI 会即时响应。</p>
+</li>
+</ol>
+<h2 id="不足"><a href="#不足" class="headerlink" title="不足"></a>不足</h2><ol>
+<li><p><strong>需要人工确认</strong>：关键操作（如 git push）还是需要人工确认，不能完全放手。</p>
+</li>
+<li><p><strong>复杂决策仍需人工</strong>：对于一些架构层面的决策（比如要不要迁移到 Next.js），AI 只能给出建议，最终决定权在人。</p>
+</li>
+</ol>
+<hr>
+<h1 id="升级结果"><a href="#升级结果" class="headerlink" title="升级结果"></a>升级结果</h1><table>
+<thead>
+<tr>
+<th>项目</th>
+<th>原版本</th>
+<th>新版本</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Hexo</td>
+<td>6.2.0</td>
+<td>8.1.1</td>
+</tr>
+<tr>
+<td>NexT</td>
+<td>7.8.0</td>
+<td>8.27.0</td>
+</tr>
+<tr>
+<td>依赖包</td>
+<td>多个旧版本</td>
+<td>全部最新</td>
+</tr>
+</tbody></table>
+<p>升级后变化：</p>
+<ul>
+<li>FontAwesome 图标升级到 v6（<code>fa</code> → <code>fab/fa/fa-solid</code>）</li>
+<li>新增 Light-Dark 模式支持（可选）</li>
+<li>改进的移动端适配</li>
+<li>更好的性能</li>
+</ul>
+<hr>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>这次升级体验让我印象深刻。Claude Code 这样的 AI 助手正在改变我们写代码的方式 —— 它不是替代我们，而是成为得力的助手。</p>
+<p>对于一些重复性、繁琐的任务（比如依赖升级、配置迁移），AI 可以高效完成；而我们则可以把精力集中在更有价值的事情上，比如内容创作、架构设计等。</p>
+<p><strong>推荐尝试</strong>：如果你也有老旧项目需要升级，不妨试试用 AI 助手来帮忙。</p>
+<hr>
+<h1 id="相关链接"><a href="#相关链接" class="headerlink" title="相关链接"></a>相关链接</h1><ul>
+<li><a target="_blank" rel="noopener" href="https://hexo.io/">Hexo 官网</a></li>
+<li><a target="_blank" rel="noopener" href="https://theme-next.js.org/">NexT 主题文档</a></li>
+<li><a target="_blank" rel="noopener" href="https://claude.ai/code">Claude Code 官网</a></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+        <div class="reward-container">
+  <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    Donate
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay.png" alt="Qiao Libo Alipay">
+        <p>Alipay</p>
+      </div>
+
+  </div>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Hexo/" rel="tag"># Hexo</a>
+              <a href="/tags/NexT/" rel="tag"># NexT</a>
+              <a href="/tags/Claude-Code/" rel="tag"># Claude Code</a>
+              <a href="/tags/%E5%8D%9A%E5%AE%A2/" rel="tag"># 博客</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/k8sv-cert.html" rel="prev" title="在Kubernetes使用Cert-Manager签发免费证书">
+      <i class="fa fa-chevron-left"></i> 在Kubernetes使用Cert-Manager签发免费证书
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%A6%82%E8%BF%B0"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF-Claude-Code%EF%BC%9F"><span class="nav-number">2.</span> <span class="nav-text">什么是 Claude Code？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8D%87%E7%BA%A7%E8%BF%87%E7%A8%8B"><span class="nav-number">3.</span> <span class="nav-text">升级过程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E9%A1%B9%E7%9B%AE%E5%88%86%E6%9E%90"><span class="nav-number">3.1.</span> <span class="nav-text">1. 项目分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E7%89%88%E6%9C%AC%E8%B0%83%E7%A0%94"><span class="nav-number">3.2.</span> <span class="nav-text">2. 版本调研</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E6%89%A7%E8%A1%8C%E5%8D%87%E7%BA%A7"><span class="nav-number">3.3.</span> <span class="nav-text">3. 执行升级</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-%E6%9B%B4%E6%96%B0-package-json"><span class="nav-number">3.3.1.</span> <span class="nav-text">3.1 更新 package.json</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-%E5%AE%89%E8%A3%85%E4%BE%9D%E8%B5%96"><span class="nav-number">3.3.2.</span> <span class="nav-text">3.2 安装依赖</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-%E9%85%8D%E7%BD%AE%E8%BF%81%E7%A7%BB"><span class="nav-number">3.3.3.</span> <span class="nav-text">3.3 配置迁移</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-4-%E6%B5%8B%E8%AF%95%E6%9E%84%E5%BB%BA"><span class="nav-number">3.3.4.</span> <span class="nav-text">3.4 测试构建</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-5-%E6%9C%AC%E5%9C%B0%E9%A2%84%E8%A7%88"><span class="nav-number">3.3.5.</span> <span class="nav-text">3.5 本地预览</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-%E6%8F%90%E4%BA%A4%E5%92%8C%E6%8E%A8%E9%80%81"><span class="nav-number">3.4.</span> <span class="nav-text">4. 提交和推送</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E4%BD%93%E9%AA%8C"><span class="nav-number">4.</span> <span class="nav-text">使用体验</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BC%98%E7%82%B9"><span class="nav-number">4.1.</span> <span class="nav-text">优点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%8D%E8%B6%B3"><span class="nav-number">4.2.</span> <span class="nav-text">不足</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8D%87%E7%BA%A7%E7%BB%93%E6%9E%9C"><span class="nav-number">5.</span> <span class="nav-text">升级结果</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">6.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%9B%B8%E5%85%B3%E9%93%BE%E6%8E%A5"><span class="nav-number">7.</span> <span class="nav-text">相关链接</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Qiao Libo"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">Qiao Libo</p>
+  <div class="site-description" itemprop="description">生活不只是代码，还有诗和远方！</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">24</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">categories</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">40</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/qiaolb" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;qiaolb" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="http://weibo.com/qiaolibo" title="Weibo → http:&#x2F;&#x2F;weibo.com&#x2F;qiaolibo" rel="noopener" target="_blank"><i class="fa fa-fw fa-weibo"></i>Weibo</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/qiaolibo" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;qiaolibo" rel="noopener" target="_blank"><i class="fa fa-fw fa-twitter"></i>Twitter</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2016 – 
+  <span itemprop="copyrightYear">2026</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Qiao Libo</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
