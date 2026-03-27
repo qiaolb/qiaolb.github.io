@@ -216,6 +216,15 @@
 
               <time title="Created: 2019-09-03 10:00:00" itemprop="dateCreated datePublished" datetime="2019-09-03T10:00:00+08:00">2019-09-03</time>
             </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/k8s/" itemprop="url" rel="index"><span itemprop="name">k8s</span></a>
+                </span>
+            </span>
 
           
 
@@ -232,11 +241,11 @@
 <p>环境：<br><code>Kubernetes： V1.15</code><br><code>Calico： V3.5</code></p>
 <p>删除步骤：</p>
 <ol>
-<li>删除<code>K8s</code>对象<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl delete -f calico.yaml</span><br></pre></td></tr></table></figure></li>
-<li>检查所有节点上的网络，看看是否存在<code>Tunl0</code><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ip addr show</span><br></pre></td></tr></table></figure></li>
-<li>如果有<code>Tunl0</code>，将其删除<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">modprobe -r ipip</span><br></pre></td></tr></table></figure></li>
-<li>移除<code>Calico</code>配置文件<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ls /etc/cni/net.d/</span><br></pre></td></tr></table></figure>
-看看是否存在<code>Calico</code>相关的文件和目录，如：<code>10-calico.conflist</code>，  <code>calico-kubeconfig</code>，  <code>calico-tls</code>，如果有将其移除。</li>
+<li>删除<code>K8s</code>对象  <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl delete -f calico.yaml</span><br></pre></td></tr></table></figure></li>
+<li>检查所有节点上的网络，看看是否存在<code>Tunl0</code>  <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ip addr show</span><br></pre></td></tr></table></figure></li>
+<li>如果有<code>Tunl0</code>，将其删除  <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">modprobe -r ipip</span><br></pre></td></tr></table></figure></li>
+<li>移除<code>Calico</code>配置文件  <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ls /etc/cni/net.d/</span><br></pre></td></tr></table></figure>
+  看看是否存在<code>Calico</code>相关的文件和目录，如：<code>10-calico.conflist</code>，  <code>calico-kubeconfig</code>，  <code>calico-tls</code>，如果有将其移除。</li>
 </ol>
 <p>这时候整个<code>Calico</code>移除成功。</p>
 

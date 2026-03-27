@@ -27,7 +27,7 @@
 <meta property="og:description" content="今天升级Kubernetes到1.24，发现PVC创建时一直处于pending状态，经过检查发现，和之前遇到的问题一样，参考：升级Kubernetes V1.20后，pvc无法创建问题解决 然后检查&#x2F;etc&#x2F;kubernetes&#x2F;manifests&#x2F;kube-apiserver.yaml文件，之前设置的RemoveSelfLink&#x3D;false，在升级后的确没有了，按照之前的方法增加，等待API S">
 <meta property="og:locale">
 <meta property="article:published_time" content="2022-10-05T03:00:00.000Z">
-<meta property="article:modified_time" content="2022-10-05T03:53:44.005Z">
+<meta property="article:modified_time" content="2026-03-27T02:52:50.682Z">
 <meta property="article:author" content="Qiao Libo">
 <meta property="article:tag" content="k8s">
 <meta property="article:tag" content="nfs">
@@ -220,6 +220,15 @@
 
               <time title="Created: 2022-10-05 11:00:00" itemprop="dateCreated datePublished" datetime="2022-10-05T11:00:00+08:00">2022-10-05</time>
             </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/k8s/" itemprop="url" rel="index"><span itemprop="name">k8s</span></a>
+                </span>
+            </span>
 
           
 
@@ -241,9 +250,11 @@
 <li><p>先增加<code>helm</code>库</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">helm repo add nfs-subdir-external-provisioner https://kubernetes-sigs.github.io/nfs-subdir-external-provisioner</span><br><span class="line">helm repo update</span><br></pre></td></tr></table></figure></li>
 <li><p>删除原来的部署</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">helm uninstall nfs-prod</span><br></pre></td></tr></table></figure></li>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">helm uninstall nfs-prod</span><br></pre></td></tr></table></figure>
+</li>
 <li><p>修改<code>value</code>文件，新的文件如下</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">image:</span><br><span class="line">  repository: registry.cn-shanghai.aliyuncs.com/c7n/nfs-subdir-external-provisioner</span><br><span class="line">storageClass:</span><br><span class="line">  name: &lt;name&gt;</span><br><span class="line">  archiveOnDelete: false</span><br><span class="line">  defaultClass: true</span><br><span class="line">nfs:</span><br><span class="line">  server: &lt;nfs-ip&gt;</span><br><span class="line">  path: &lt;nfs-path&gt;</span><br><span class="line">nodeSelector: &#123;&#125;</span><br></pre></td></tr></table></figure></li>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">image:</span><br><span class="line">  repository: registry.cn-shanghai.aliyuncs.com/c7n/nfs-subdir-external-provisioner</span><br><span class="line">storageClass:</span><br><span class="line">  name: &lt;name&gt;</span><br><span class="line">  archiveOnDelete: false</span><br><span class="line">  defaultClass: true</span><br><span class="line">nfs:</span><br><span class="line">  server: &lt;nfs-ip&gt;</span><br><span class="line">  path: &lt;nfs-path&gt;</span><br><span class="line">nodeSelector: &#123;&#125;</span><br></pre></td></tr></table></figure>
+</li>
 <li><p>重新部署</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">helm install &lt;name&gt; nfs-subdir-external-provisioner/nfs-subdir-external-provisioner -f &lt;value file&gt;</span><br></pre></td></tr></table></figure></li>
 </ol>

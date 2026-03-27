@@ -27,7 +27,7 @@
 <meta property="og:description" content="最近在Kubernetes中部署了GitLab，GitLab使用HTTP，在Kubernetes通过Ingress进行HTTPS代理，对外使用HTTPS访问。 当在部署GitLab Pages时，系统通过Access Contrel进行访问控制时，结果发现出现503错误。经过多次尝试，发现有两个解决方法：  全部不使用HTTPS，使用HTTP。这个方法简单粗暴，但不安全。 修改修改配置如下：  1">
 <meta property="og:locale">
 <meta property="article:published_time" content="2019-09-03T03:00:00.000Z">
-<meta property="article:modified_time" content="2022-10-05T03:02:20.212Z">
+<meta property="article:modified_time" content="2026-03-27T02:52:50.660Z">
 <meta property="article:author" content="Qiao Libo">
 <meta property="article:tag" content="gitlab">
 <meta property="article:tag" content="k8s">
@@ -220,6 +220,15 @@
 
               <time title="Created: 2019-09-03 11:00:00" itemprop="dateCreated datePublished" datetime="2019-09-03T11:00:00+08:00">2019-09-03</time>
             </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/k8s/" itemprop="url" rel="index"><span itemprop="name">k8s</span></a>
+                </span>
+            </span>
 
           
 
@@ -241,7 +250,7 @@
 <figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># external_url设置为https，如果设置http，在通过Ingress代理成https，大部分功能没有问题，但发现Web IDE打开是因为在HTTPS请求中使用了HTTP大致失败，未来有可能GitLab会修改这个问题。但目前只能如此。</span></span><br><span class="line">external_url <span class="string">&#x27;https://gitlab.example.cn&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Pages的对外页面，这里使用HTTP，通过Ingress进行HTTPS代理</span></span><br><span class="line">pages_external_url <span class="string">&quot;http://example.cn/&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 如果使用容器部署，inplace_chroot需要打开</span></span><br><span class="line">gitlab_pages[<span class="string">&#x27;inplace_chroot&#x27;</span>] = <span class="literal">true</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 接入控制开关</span></span><br><span class="line">gitlab_pages[<span class="string">&#x27;access_control&#x27;</span>] = <span class="literal">true</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># auth_server是关键，缺省和external_url相同，因为external_url设置为https，导致pages无法通过证书验证，所有修改认证为http方式。</span></span><br><span class="line">gitlab_pages[<span class="string">&#x27;auth_server&#x27;</span>] = <span class="string">&#x27;http://gitlab.rd.example.cn&#x27;</span></span><br></pre></td></tr></table></figure>
 
 <p>终于，<code>GitLab</code>中<code>Web IDE</code>和<code>Pages</code>都可以完美工作了。</p>
-<p>备注： <code>GitLab</code>使用版本 <code>V11</code>~`V12.2`</p>
+<p>备注： <code>GitLab</code>使用版本 <code>V11</code>~&#96;V12.2&#96;</p>
 
     </div>
 
