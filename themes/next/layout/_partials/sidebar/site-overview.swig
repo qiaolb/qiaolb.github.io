@@ -3,7 +3,11 @@
     <img class="site-author-image" itemprop="image" alt="{{ author }}"
       src="{{ url_for(theme.avatar.url) }}">
   {%- endif %}
-  <p class="site-author-name" itemprop="name">{{ author }}</p>
+  <p class="site-author-name" itemprop="name">
+    <a href="/about/" style="color: inherit; text-decoration: none; border-bottom: 1px dashed #999;">
+      {{ author }}
+    </a>
+  </p>
   <div class="site-description" itemprop="description">{{ description }}</div>
 </div>
 

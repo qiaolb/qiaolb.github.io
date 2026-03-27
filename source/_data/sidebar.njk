@@ -1,0 +1,12 @@
+<div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  {%- if theme.avatar.url %}
+    <img class="site-author-image" itemprop="image" alt="{{ config.author }}"
+      src="{{ url_for(theme.avatar.url) }}">
+  {%- endif %}
+  <p class="site-author-name" itemprop="name">
+    <a href="/about/" style="color: inherit; text-decoration: none; border-bottom: 1px dashed #999;">
+      {{ config.author }}
+    </a>
+  </p>
+  <div class="site-description" itemprop="description">{{ config.description }}</div>
+</div>
