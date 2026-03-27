@@ -2,6 +2,7 @@
 layout: blog
 title: Kubernetes证书过期
 date: 2020-12-28 08:00:00
+categories: [k8s]
 tags:
     - k8s
     - cert

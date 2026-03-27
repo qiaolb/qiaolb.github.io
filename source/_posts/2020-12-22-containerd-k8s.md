@@ -2,6 +2,7 @@
 layout: blog
 title: Kubernetes加入containerd运行时节点
 date: 2020-12-22 10:00:00
+categories: [k8s]
 tags:
     - k8s
     - containerd

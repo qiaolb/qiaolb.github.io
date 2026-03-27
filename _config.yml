@@ -8,6 +8,7 @@ subtitle: Hello World！
 description: 生活不只是代码，还有诗和远方！
 keywords: "Kubernetes, Azure, 云原生，DevOps, JavaScript, 容器技术，CI/CD, Docker, 微软云，云存储"
 author: Qiao Libo
+author_link: https://qiaolb.github.io/about/
 language: zh-Hans
 timezone: Asia/Shanghai
 
